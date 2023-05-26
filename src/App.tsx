@@ -22,7 +22,7 @@ export const App = () => {
                     <a href={''}>News</a>
                 </div>
                 <div>
-                    <a href={''}>Musik</a>
+                    <a href={''}>Music</a>
                 </div>
                 <div>
                     <a href={''}>Settings</a>
