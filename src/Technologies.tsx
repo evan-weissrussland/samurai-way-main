@@ -1,4 +1,5 @@
 import React from "react";
+/*
 
 export const Technologies = () => {
     return (
@@ -11,4 +12,4 @@ export const Technologies = () => {
             </ul>
         </div>
     );
-}
+}*/

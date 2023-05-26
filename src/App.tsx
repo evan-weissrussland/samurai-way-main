@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import {Technologies} from "./Technologies";
-import {Header} from "./Header";
+// import {Technologies} from "./Technologies";
+// import {Header} from "./Header";
 
 export const App = () => {
     return (
         <div>
-            <Header />
-            <Technologies/>
+            {/*<Header />*/}
+            {/*<Technologies/>*/}
         </div>
     );
 }
