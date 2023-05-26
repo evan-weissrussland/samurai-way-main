@@ -13,7 +13,7 @@ export const App = () => {
             </header>
             <nav className={'nav'}>
                 <div>
-                    <a href={''}>Profile</a>
+                    <a href={'#'}>Profile</a>
                 </div>
                 <div>
                     <a href={''}>Messages</a>
