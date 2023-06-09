@@ -12,6 +12,11 @@ export const MyPosts = () => {
             </div>
             <div className={s.posts}>
                 <Post/>
+                <Post/>
+                <Post/>
+                <Post/>
+                <Post/>
+                <Post/>
             </div>
         </div>
     );
