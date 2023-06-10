@@ -1,8 +1,4 @@
-.content {
-    grid-area: c;
-    background: rgba(0, 90, 128, 0.75);
-}
-.content img {
+img[alt='image2'] {
     width: 714px;
     height: 285px;
 }

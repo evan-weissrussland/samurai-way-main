@@ -9,3 +9,8 @@
     grid-template-columns: 2fr 10fr;
     grid-gap: 10px;
 }
+
+.app-wripper-content {
+    grid-area: c;
+    background: rgba(0, 90, 128, 0.75);
+}
