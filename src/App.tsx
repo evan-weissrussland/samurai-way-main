@@ -10,10 +10,10 @@ export const App = () => {
         <div className={'app-wripper'}>
             <Header/>
             <Navbar/>
-           <div className={'app-wripper-content'}>
-            <Dialogs/>
-           </div>
-            {/*<Profile/>*/}
+            <div className={'app-wripper-content'}>
+                <Dialogs/>
+                {/*   <Profile/>*/}
+            </div>
         </div>
     );
 }
