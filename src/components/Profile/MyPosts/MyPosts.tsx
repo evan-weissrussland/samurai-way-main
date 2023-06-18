@@ -2,18 +2,30 @@ import React from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 
+type Posts = {
+    id: number
+    message: string
+    likesCount: number
+}
 
-export const MyPosts = () => {
-    const posts = [
-        {id: 1, message: "Hi, how are you?", likesCount: 6},
-        {id: 2, message: "It's my first post", likesCount: 3}
-    ]
+type MyPosts = {
+    dataForMyPosts: Posts[]
+}
 
-    const postsElements = posts.map(p => {
+//------------компонента MyPosts--------------
+
+export const MyPosts: React.FC<MyPosts> = (props) => {
+    const {dataForMyPosts, ...restProps} = props
+
+    //------------метод map--------------
+
+    const postsElements = dataForMyPosts.map(p => {
         return (
             <Post message={p.message} likesCount={p.likesCount}/>
         )
     })
+
+    // -----------конец метода map----------------
 
     return (
         <div className={s.postsBlock}>

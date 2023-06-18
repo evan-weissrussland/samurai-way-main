@@ -8,11 +8,13 @@ type DialogItem = {
     children?: React.ReactNode
 }
 export const DialogItem: React.FC<DialogItem> = (props) => {
+
     const {id, name, ...restProps} = props
     const path = `/dialogs/${id}`
+
     return (
         <div className={`${s.dialog} ${s.active}`}>
-            <NavLink to={path}>{name}</NavLink>
+            <NavLink className={s.default} to={path} activeClassName={s.active}>{name}</NavLink>
         </div>
     )
 }

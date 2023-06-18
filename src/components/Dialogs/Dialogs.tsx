@@ -5,7 +5,7 @@ import {Message} from "./Message/Message";
 
 //------Исходные Данные-------------
 
-const dialigs = [
+const dialogs = [
     {id: 1, name: 'Dimych'},
     {id: 2, name: 'Vitoldas'},
     {id: 3, name: 'Elon Musk'},
@@ -21,7 +21,9 @@ const messages = [
 
 //------метод map-------------
 
-const dialogsElements = dialigs.map(d => {
+
+
+const dialogsElements = dialogs.map((d, index) => {
     return (
         <DialogItem id={d.id} name={d.name}/>
     )

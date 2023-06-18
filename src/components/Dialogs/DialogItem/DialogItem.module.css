@@ -1,3 +1,17 @@
 .dialog {
 
 }
+
+.dialog.active {
+    color: gold;
+}
+
+.default {
+    text-decoration: none;
+    color: white;
+}
+
+.dialog .active {
+    color: gold;
+    font-weight: bold;
+}
