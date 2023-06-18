@@ -10,6 +10,7 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 
 export const App = () => {
+
     return (
         <BrowserRouter>
             <div className={'app-wripper'}>
