@@ -8,8 +8,8 @@ type DialogItem = {
     children?: React.ReactNode
 }
 export const DialogItem: React.FC<DialogItem> = (props) => {
-
     const {id, name, ...restProps} = props
+
     const path = `/dialogs/${id}`
 
     return (

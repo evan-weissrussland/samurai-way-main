@@ -1,6 +1,7 @@
 import React from "react";
 import s from './Post.module.css'
 import ava from "../../../../images/ava.png";
+
 type PropsType = {
     message:string
     likesCount:number
