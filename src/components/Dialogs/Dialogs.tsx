@@ -28,7 +28,7 @@ const Message: React.FC<Message> = (props) => {
     )
 }
 
-const dialigsData = [
+const dialigs = [
     {id: 1, name: 'Dimych'},
     {id: 2, name: 'Vitoldas'},
     {id: 3, name: 'Elon Musk'},
@@ -36,40 +36,32 @@ const dialigsData = [
     {id: 5, name: 'Instasamka'},
     {id: 6, name: 'Igor'}
 ]
-const messagesData = [
+const messages = [
     {id: 1, message: 'Hi, Guys'},
     {id: 2, message: 'How are you?'},
     {id: 3, message: 'Go прокидывать props'}
 ]
 
+const dialogsElements = dialigs.map(d => {
+    return (
+        <DialogItem id={d.id} name={d.name}/>
+    )
+})
+
+const mesagesElements = messages.map(m => {
+    return (
+        <Message message={m.message}/>
+    )
+})
+
 export const Dialogs = () => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-
-                {dialigsData.map(el => {
-                    return (
-                        <DialogItem id={el.id} name={el.name}/>
-                    )
-                })}
-
-                {/*<DialogItem id={dialigsData[0].id} name={dialigsData[0].name}/>*/}
-                {/*<DialogItem id={dialigsData[1].id} name={dialigsData[1].name}/>*/}
-                {/*<DialogItem id={dialigsData[2].id} name={dialigsData[2].name}/>*/}
-                {/*<DialogItem id={dialigsData[3].id} name={dialigsData[3].name}/>*/}
-                {/*<DialogItem id={dialigsData[4].id} name={dialigsData[4].name}/>*/}
-                {/*<DialogItem id={dialigsData[5].id} name={dialigsData[5].name}/>*/}
+                {dialogsElements}
             </div>
             <div className={s.messages}>
-                {messagesData.map(el=>{
-                    return (
-                        <Message message={el.message}/>
-                    )
-                })}
-
-                {/*<Message message={messagesData[0].message}/>*/}
-                {/*<Message message={messagesData[1].message}/>*/}
-                {/*<Message message={messagesData[2].message}/>*/}
+                {mesagesElements}
             </div>
 
         </div>
