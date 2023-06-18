@@ -2,6 +2,8 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 
+//------компонента DialogItem-------------
+
 type DialogItem = {
     id: number
     name: string
@@ -17,6 +19,8 @@ const DialogItem: React.FC<DialogItem> = (props) => {
     )
 }
 
+//------компонента Message-------------
+
 type Message = {
     message: string
     children?: React.ReactNode
@@ -27,6 +31,8 @@ const Message: React.FC<Message> = (props) => {
         <div className={s.message}>{message}</div>
     )
 }
+
+//------Исходные Данные-------------
 
 const dialigs = [
     {id: 1, name: 'Dimych'},
@@ -42,6 +48,8 @@ const messages = [
     {id: 3, message: 'Go прокидывать props'}
 ]
 
+//------метод map-------------
+
 const dialogsElements = dialigs.map(d => {
     return (
         <DialogItem id={d.id} name={d.name}/>
@@ -53,6 +61,8 @@ const mesagesElements = messages.map(m => {
         <Message message={m.message}/>
     )
 })
+
+//------компонента Dialogs-------------
 
 export const Dialogs = () => {
     return (
