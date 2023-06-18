@@ -46,17 +46,30 @@ export const Dialogs = () => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                <DialogItem id={dialigsData[0].id} name={dialigsData[0].name}/>
-                <DialogItem id={dialigsData[1].id} name={dialigsData[1].name}/>
-                <DialogItem id={dialigsData[2].id} name={dialigsData[2].name}/>
-                <DialogItem id={dialigsData[3].id} name={dialigsData[3].name}/>
-                <DialogItem id={dialigsData[4].id} name={dialigsData[4].name}/>
-                <DialogItem id={dialigsData[5].id} name={dialigsData[5].name}/>
+
+                {dialigsData.map(el => {
+                    return (
+                        <DialogItem id={el.id} name={el.name}/>
+                    )
+                })}
+
+                {/*<DialogItem id={dialigsData[0].id} name={dialigsData[0].name}/>*/}
+                {/*<DialogItem id={dialigsData[1].id} name={dialigsData[1].name}/>*/}
+                {/*<DialogItem id={dialigsData[2].id} name={dialigsData[2].name}/>*/}
+                {/*<DialogItem id={dialigsData[3].id} name={dialigsData[3].name}/>*/}
+                {/*<DialogItem id={dialigsData[4].id} name={dialigsData[4].name}/>*/}
+                {/*<DialogItem id={dialigsData[5].id} name={dialigsData[5].name}/>*/}
             </div>
             <div className={s.messages}>
-                <Message message={messagesData[0].message}/>
-                <Message message={messagesData[1].message}/>
-                <Message message={messagesData[2].message}/>
+                {messagesData.map(el=>{
+                    return (
+                        <Message message={el.message}/>
+                    )
+                })}
+
+                {/*<Message message={messagesData[0].message}/>*/}
+                {/*<Message message={messagesData[1].message}/>*/}
+                {/*<Message message={messagesData[2].message}/>*/}
             </div>
 
         </div>
