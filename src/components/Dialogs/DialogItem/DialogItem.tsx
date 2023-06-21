@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './DialogItem.module.css'
 import {NavLink} from "react-router-dom";
+import ava1 from "../../../images/ava1.png";
 
 type DialogItem = {
     id: number
@@ -14,7 +15,8 @@ export const DialogItem: React.FC<DialogItem> = (props) => {
 
     return (
         <div className={`${s.dialog} ${s.active}`}>
-            <NavLink className={s.default} to={path} activeClassName={s.active}>{name}</NavLink>
+            {/*<img src={ava1} alt=""/>*/}
+            <NavLink className={s.default} to={path} activeClassName={s.active}><img src={ava1} alt=""/> {name}</NavLink>
         </div>
     )
 }

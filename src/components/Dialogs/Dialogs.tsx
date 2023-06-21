@@ -2,21 +2,22 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
+import ava from "../../images/ava.png";
 
 //типизация пропса dataForDialogItem
-type DialogItem = {
+type DialogItemType = {
     id: number
     name: string
 }
 //типизация пропса dataForMessage
-type Message = {
+type MessageType = {
     id: number
     message: string
 }
 //общая типизация компоненты
 type Dialogs = {
-    dataForDialogItem: DialogItem[]
-    dataForMessage: Message[]
+    dataForDialogItem: DialogItemType[]
+    dataForMessage: MessageType[]
 }
 
 //------компонента Dialogs-------------
@@ -25,12 +26,12 @@ export const Dialogs:React.FC<Dialogs> = (props) => {
     //------методы map-------------
     const dialogsElements = props.dataForDialogItem.map((d, index) => {
         return (
-            <DialogItem id={d.id} name={d.name}/>
+            <DialogItem key={d.id} id={d.id} name={d.name}/>
         )
     })
     const mesagesElements = props.dataForMessage.map(m => {
         return (
-            <Message message={m.message}/>
+            <Message key={m.id} message={m.message} id={m.id}/>
         )
     })
     //------отрисовка JSX------
