@@ -20,6 +20,21 @@ export const Navbar = () => {
             <div className={s.item}>
                 <NavLink to={'/settings'} activeClassName={s.active}>Settings</NavLink>
             </div>
+            <div className={s.friendsWr}>
+                <h1>Friends</h1>
+                <div className={s.friends}>
+                    <div className={s.friendsItem}>
+                        <span className={s.friendsAva}></span>
+                        <span className={s.friendsAva}></span>
+                        <span className={s.friendsAva}></span>
+                    </div>
+                    <div className={s.friendsItem}>
+                        <span className={s.friendsName}>Dimych</span>
+                        <span className={s.friendsName}>Igor</span>
+                        <span className={s.friendsName}>Instasamka</span>
+                    </div>
+                </div>
+            </div>
         </nav>
     );
 }

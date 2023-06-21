@@ -3,10 +3,50 @@
     background: rgba(128, 64, 0, 0.75);
     padding: 20px;
 }
+
 .item a {
     color: white;
     text-decoration: none;
 }
-.item a.active{
+
+.item a.active {
     color: gold;
+}
+
+.friendsWr {
+    color: white;
+}
+
+.friendsWr h1 {
+    padding-bottom: 0;
+    margin-bottom: 7px;
+}
+
+.friends {
+    /*display: flex;*/
+    /*border: 3px solid red;*/
+}
+
+.friendsItem {
+    /*border: 5px solid red;*/
+}
+
+.friendsItem:last-child {
+    margin-bottom: 0;
+}
+
+.friendsAva {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(34, 255, 0, 0.59);
+    margin-right: 8px;
+}
+
+
+.friendsName {
+    font-size: 10px;
+    margin-right: 18px;
+    margin-left: -5px;
 }
