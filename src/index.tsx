@@ -9,7 +9,7 @@ const posts = [
     {id: 2, message: "It's my first post", likesCount: 3}
 ]
 
-//------Данные для компоненты DialogItem-------------
+//------Данные для компоненты DialogItem в папке Dialogs-------------
 
 const dialogs = [
     {id: 1, name: 'Dimych'},
@@ -20,7 +20,7 @@ const dialogs = [
     {id: 6, name: 'Igor'}
 ]
 
-//------Данные для компоненты Message-------------
+//------Данные для компоненты Message  в папке Dialogs-------------
 
 const messages = [
     {id: 1, message: 'Hi, Guys'},
