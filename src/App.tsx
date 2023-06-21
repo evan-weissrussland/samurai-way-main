@@ -12,9 +12,9 @@ import {state} from './redux/state'
 
 export const App = () => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
-    const DialogsComponent = () => <Dialogs dataForDialogItem={state.dialogs}   dataForMessage={state.messages}/>
+    const DialogsComponent = () => <Dialogs dataForDialogItem={state.dialogsPage.dialogs}   dataForMessage={state.dialogsPage.messages}/>
     //внешняя функция для передачи пропсов в компоненту Profile
-    const ProfileComponent = () => <Profile dataForMyPosts={state.posts}/>
+    const ProfileComponent = () => <Profile dataForMyPosts={state.profilePage.posts}/>
 
     return (
         <BrowserRouter>
