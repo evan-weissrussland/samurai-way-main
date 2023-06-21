@@ -8,35 +8,13 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
+import {state} from './redux/state'
 
-//типизация пропса dataForMyPosts
-type Posts = {
-    id: number
-    message: string
-    likesCount: number
-}
-//типизация пропса dataForDialogItem
-type DialogItem = {
-    id: number
-    name: string
-}
-//типизация пропса dataForMessage
-type Message = {
-    id: number
-    message: string
-}
-//общая типизация компоненты
-type App = {
-    dataForMyPosts: Posts[]
-    dataForDialogItem: DialogItem[]
-    dataForMessage: Message[]
-}
-
-export const App: React.FC<App> = (props) => {
+export const App = () => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
-    const DialogsComponent = () => <Dialogs dataForDialogItem={props.dataForDialogItem}   dataForMessage={props.dataForMessage}/>
+    const DialogsComponent = () => <Dialogs dataForDialogItem={state.dialogs}   dataForMessage={state.messages}/>
     //внешняя функция для передачи пропсов в компоненту Profile
-    const ProfileComponent = () => <Profile dataForMyPosts={props.dataForMyPosts}/>
+    const ProfileComponent = () => <Profile dataForMyPosts={state.posts}/>
 
     return (
         <BrowserRouter>

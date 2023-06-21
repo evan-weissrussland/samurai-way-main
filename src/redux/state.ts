@@ -11,7 +11,7 @@ type MessagesType = {
     id:number
     message:string
 }
-type GlobalState = {
+export type GlobalState = {
     posts: MyPostsType[]
     dialogs: DialogsItemType[]
     messages: MessagesType[]
