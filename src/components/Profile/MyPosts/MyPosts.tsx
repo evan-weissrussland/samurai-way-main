@@ -10,6 +10,7 @@ type Posts = {
 
 type MyPosts = {
     dataForMyPosts: Posts[]
+    addPost:(postMessage:string) => void
 }
 
 //------------компонента MyPosts--------------
@@ -29,7 +30,7 @@ export const MyPosts: React.FC<MyPosts> = (props) => {
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
         const el = newPostElement.current as HTMLTextAreaElement
-        alert(el.value)
+        props.addPost(el.value)
     }
 
     return (

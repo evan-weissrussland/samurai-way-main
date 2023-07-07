@@ -1,5 +1,3 @@
-import {useState} from "react";
-
 type MyPostsType = {
     id: number
     message: string
@@ -51,4 +49,13 @@ export const state: GlobalState = {
             {id: 3, message: 'Go прокидывать props'}
         ],
     },
+}
+
+export const addPost = (postMessage:string) => {
+    const newPost:MyPostsType = {
+        id: 3,
+        message: postMessage,
+        likesCount: 0
+    }
+    state.profilePage.posts.push(newPost)
 }

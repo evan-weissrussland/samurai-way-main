@@ -9,13 +9,14 @@ type Posts = {
 }
 type Profile = {
     dataForMyPosts: Posts[]
+    addPost:(postMessage:string) => void
 }
 
 export const Profile: React.FC<Profile> = (props) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts dataForMyPosts={props.dataForMyPosts}/>
+            <MyPosts addPost={props.addPost} dataForMyPosts={props.dataForMyPosts}/>
         </div>
     );
 }
