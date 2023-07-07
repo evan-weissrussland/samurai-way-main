@@ -24,9 +24,7 @@ export const App: FC<PropsAppType> = (props) => {
     const DialogsComponent = () => <Dialogs
         dialogsPage={props.state.dialogsPage}
         addMessage={addMessage}
-        updateNewMessageText={updateNewMessageText}
-
-    />
+        updateNewMessageText={updateNewMessageText} />
     //внешняя функция для передачи пропсов в компоненту Profile
     const ProfileComponent = () => <Profile
         addPost={props.addPost}

@@ -56,7 +56,10 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
             <div className={s.messagesWrapper}>
                 <div className={s.messages}>{mesagesElements}</div>
                 <div className={s.textAreaAndButton}>
-                    <div><textarea ref={newMyMessage} value={props.dialogsPage.newMessageText}/></div>
+                    <div><textarea
+                        onChange={onMessageChange}
+                        ref={newMyMessage}
+                        value={props.dialogsPage.newMessageText}/></div>
                     <div>
                         <button onClick={addMessage}>addMessage</button>
                     </div>
