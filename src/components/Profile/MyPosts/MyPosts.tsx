@@ -10,20 +10,19 @@ import {ProfilePageType} from "../../../redux/state";
 }*/
 
 type MyPosts = {
-    dataForMyPosts: ProfilePageType
+    profilePage: ProfilePageType
     addPost: (postMessage: string) => void
-    newPostText:string
-    changePostText: (postText:string) => void
+    updateNewPostText: (postText: string) => void
 }
 
 //------------компонента MyPosts--------------
 
 export const MyPosts: React.FC<MyPosts> = (props) => {
-    const {dataForMyPosts, ...restProps} = props
+    const {profilePage, ...restProps} = props
 
     //------------метод map--------------
 
-    const postsElements = dataForMyPosts.posts.map(p => {
+    const postsElements = profilePage.posts.map(p => {
         return (
             <Post message={p.message} likesCount={p.likesCount}/>
         )
@@ -32,12 +31,13 @@ export const MyPosts: React.FC<MyPosts> = (props) => {
     // -----------конец метода map----------------
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
-        const el = newPostElement.current as HTMLTextAreaElement
-        props.addPost(el.value)
-        el.value = ''
+        const text = newPostElement.current as HTMLTextAreaElement
+        props.addPost(text.value)
+        text.value = ''
     }
-    const onPostChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
-props.changePostText(e.currentTarget.value)
+    const onPostChange = () => {
+        const text = newPostElement.current as HTMLTextAreaElement
+        props.updateNewPostText(text.value)
     }
     return (
         <div className={s.postsBlock}>
@@ -47,7 +47,7 @@ props.changePostText(e.currentTarget.value)
                     <textarea
                         onChange={onPostChange}
                         ref={newPostElement}
-                        value={props.newPostText}
+                        value={props.profilePage.newPostText}
                     />
                 </div>
                 <div>

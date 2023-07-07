@@ -8,13 +8,13 @@ import {Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
-import {GlobalState} from "./redux/state";
+import {GlobalState, updateNewPostText} from "./redux/state";
 
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
     state: GlobalState
     addPost: (postMessage: string) => void
-    changePostText: (postText: string) => void
+    updateNewPostText: (postText: string) => void
 }
 
 export const App: FC<PropsAppType> = (props) => {
@@ -24,8 +24,9 @@ export const App: FC<PropsAppType> = (props) => {
             dataForMessage={props.state.dialogsPage.messages}/>
     //внешняя функция для передачи пропсов в компоненту Profile
     const ProfileComponent = () => <Profile
-        addPost={props.addPost} dataForMyPosts={props.state.profilePage}
-        changePostText={props.changePostText}/>
+        addPost={props.addPost}
+        profilePage={props.state.profilePage}
+        updateNewPostText={props.updateNewPostText}/>
 
     return (
         <div className={'app-wripper'}>

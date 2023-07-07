@@ -1,7 +1,7 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ProfilePageType} from "../../redux/state";
+import {ProfilePageType, updateNewPostText} from "../../redux/state";
 
 /*type Posts = {
     id: number
@@ -9,9 +9,9 @@ import {ProfilePageType} from "../../redux/state";
     likesCount: number
 }*/
 type Profile = {
-    dataForMyPosts: ProfilePageType
+    profilePage: ProfilePageType
     addPost:(postMessage:string) => void
-    changePostText: (postText:string) => void
+    updateNewPostText: (postText:string) => void
 }
 
 export const Profile: React.FC<Profile> = (props) => {
@@ -19,10 +19,9 @@ export const Profile: React.FC<Profile> = (props) => {
         <div>
             <ProfileInfo/>
             <MyPosts
-                newPostText={props.dataForMyPosts.newPostText}
                 addPost={props.addPost}
-                dataForMyPosts={props.dataForMyPosts}
-                changePostText={props.changePostText}/>
+                profilePage={props.profilePage}
+                updateNewPostText={props.updateNewPostText}/>
         </div>
     );
 }
