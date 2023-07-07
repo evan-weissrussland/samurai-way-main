@@ -12,13 +12,30 @@
 /*}*/
 
 
+.messagesWrapper {
+    border: 5px solid rgba(255, 0, 0, 0.32);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    /*padding: 10px;*/
+}
 
 .messages {
     padding: 10px;
-    border: 5px solid rgba(255, 0, 0, 0.32);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background: rgba(173, 255, 47, 0.16);
     border-radius: 20px;
+    flex: 1 0 auto;
+}
+.textAreaAndButton {
+    background: rgba(255, 206, 47, 0.16);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

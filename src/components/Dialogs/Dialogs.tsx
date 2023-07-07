@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
@@ -22,7 +22,7 @@ type Dialogs = {
 
 //------компонента Dialogs-------------
 
-export const Dialogs:React.FC<Dialogs> = (props) => {
+export const Dialogs: React.FC<Dialogs> = (props) => {
     //------методы map-------------
     const dialogsElements = props.dataForDialogItem.map((d, index) => {
         return (
@@ -34,14 +34,25 @@ export const Dialogs:React.FC<Dialogs> = (props) => {
             <Message key={m.id} message={m.message} id={m.id}/>
         )
     })
+    const newMyMessage = useRef<HTMLTextAreaElement>(null)
+    const addMessage = () => {
+        const el = newMyMessage.current as HTMLTextAreaElement
+        alert(el.value)
+    }
     //------отрисовка JSX------
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>
-            <div className={s.messages}>
-                {mesagesElements}
+            <div className={s.messagesWrapper}>
+                <div className={s.messages}>{mesagesElements}</div>
+                <div className={s.textAreaAndButton}>
+                    <div><textarea ref={newMyMessage}></textarea></div>
+                    <div>
+                        <button onClick={addMessage}>addMessage</button>
+                    </div>
+                </div>
             </div>
 
         </div>

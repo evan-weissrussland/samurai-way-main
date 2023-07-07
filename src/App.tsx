@@ -10,6 +10,7 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {GlobalState} from "./redux/state";
 
+//импортируем из стэйта типизацию объекта state
 type PropsAppType = {
     state: GlobalState
 }

@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 type MyPostsType = {
     id: number
     message: string
@@ -24,7 +26,7 @@ export type GlobalState = {
 
 }
 
-export let state: GlobalState = {
+export const state: GlobalState = {
     profilePage: {
         //------данные для MyPosts в папке Profile----------
         posts: [
@@ -50,3 +52,5 @@ export let state: GlobalState = {
         ],
     },
 }
+
+const [newState, SetNewState] = useState(state)
