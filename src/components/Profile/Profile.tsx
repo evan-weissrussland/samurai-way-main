@@ -10,7 +10,7 @@ import {ProfilePageType, updateNewPostText} from "../../redux/state";
 }*/
 type Profile = {
     profilePage: ProfilePageType
-    addPost:(postMessage:string) => void
+    addPost:() => void
     updateNewPostText: (postText:string) => void
 }
 

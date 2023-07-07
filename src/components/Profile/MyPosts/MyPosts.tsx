@@ -11,7 +11,7 @@ import {ProfilePageType} from "../../../redux/state";
 
 type MyPosts = {
     profilePage: ProfilePageType
-    addPost: (postMessage: string) => void
+    addPost: () => void
     updateNewPostText: (postText: string) => void
 }
 
@@ -24,16 +24,14 @@ export const MyPosts: React.FC<MyPosts> = (props) => {
 
     const postsElements = profilePage.posts.map(p => {
         return (
-            <Post message={p.message} likesCount={p.likesCount}/>
+            <Post key={p.id} message={p.message} likesCount={p.likesCount}/>
         )
     })
 
     // -----------конец метода map----------------
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
-        const text = newPostElement.current as HTMLTextAreaElement
-        props.addPost(text.value)
-        text.value = ''
+        props.addPost()
     }
     const onPostChange = () => {
         const text = newPostElement.current as HTMLTextAreaElement
@@ -47,7 +45,7 @@ export const MyPosts: React.FC<MyPosts> = (props) => {
                     <textarea
                         onChange={onPostChange}
                         ref={newPostElement}
-                        value={props.profilePage.newPostText}
+                        value={profilePage.newPostText}
                     />
                 </div>
                 <div>

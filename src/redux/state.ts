@@ -17,17 +17,18 @@ export type ProfilePageType = {
     posts: MyPostsType[]
     newPostText:string
 }
-type DialogsPageType = {
+export type DialogsPageType = {
     dialogs: DialogsItemType[]
     messages: MessagesType[]
+    newMessageText:string
 }
-export type GlobalState = {
+export type GlobalStateType = {
     profilePage:ProfilePageType
     dialogsPage:DialogsPageType
 
 }
 
-export const state: GlobalState = {
+export const state: GlobalStateType = {
     profilePage: {
         //------данные для MyPosts в папке Profile----------
         posts: [
@@ -52,20 +53,40 @@ export const state: GlobalState = {
             {id: 2, message: 'How are you?'},
             {id: 3, message: 'Go прокидывать props'}
         ],
+        newMessageText: "ffffffffffffffff",
     },
 }
 
-export const addPost = (postMessage:string) => {
+// добавляем новый пост
+export const addPost = () => {
     const newPost:MyPostsType = {
         id: 3,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 0
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state)
+}
+// добавляем посимволтно текст в textarea постов
+export const updateNewPostText = (newPostText:string) => {
+    state.profilePage.newPostText = newPostText
     rerenderEntireTree(state)
 }
 
-export const updateNewPostText = (newPostText:string) => {
-    state.profilePage.newPostText = newPostText
+// добавляем новое сообщение
+export const addMessage = () => {
+    const newMessage:MessagesType = {
+        id: 4,
+        message: state.dialogsPage.newMessageText
+    }
+    state.dialogsPage.messages.push(newMessage)
+    state.dialogsPage.newMessageText = ''
+    rerenderEntireTree(state)
+}
+
+// добавляем посимволтно текст в textarea сообщений
+export const updateNewMessageText = (newMessageText:string) => {
+    state.dialogsPage.newMessageText  = newMessageText
     rerenderEntireTree(state)
 }
