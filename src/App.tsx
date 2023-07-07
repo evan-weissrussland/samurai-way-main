@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
@@ -8,14 +8,18 @@ import {Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
-import {state} from './redux/state'
+import {GlobalState} from "./redux/state";
 
-export const App = () => {
+type PropsAppType = {
+    state: GlobalState
+}
+
+export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
-    const DialogsComponent = () => <Dialogs dataForDialogItem={state.dialogsPage.dialogs}
-                                            dataForMessage={state.dialogsPage.messages}/>
+    const DialogsComponent = () => <Dialogs dataForDialogItem={props.state.dialogsPage.dialogs}
+                                            dataForMessage={props.state.dialogsPage.messages}/>
     //внешняя функция для передачи пропсов в компоненту Profile
-    const ProfileComponent = () => <Profile dataForMyPosts={state.profilePage.posts}/>
+    const ProfileComponent = () => <Profile dataForMyPosts={props.state.profilePage.posts}/>
 
     return (
         <div className={'app-wripper'}>
