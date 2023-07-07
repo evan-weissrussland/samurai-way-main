@@ -13,15 +13,19 @@ import {GlobalState} from "./redux/state";
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
     state: GlobalState
-    addPost:(postMessage:string) => void
+    addPost: (postMessage: string) => void
+    changePostText: (postText: string) => void
 }
 
 export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
-    const DialogsComponent = () => <Dialogs dataForDialogItem={props.state.dialogsPage.dialogs}
-                                            dataForMessage={props.state.dialogsPage.messages}/>
+    const DialogsComponent = () => <Dialogs
+            dataForDialogItem={props.state.dialogsPage.dialogs}
+            dataForMessage={props.state.dialogsPage.messages}/>
     //внешняя функция для передачи пропсов в компоненту Profile
-    const ProfileComponent = () => <Profile addPost={props.addPost} dataForMyPosts={props.state.profilePage.posts}/>
+    const ProfileComponent = () => <Profile
+        addPost={props.addPost} dataForMyPosts={props.state.profilePage}
+        changePostText={props.changePostText}/>
 
     return (
         <div className={'app-wripper'}>

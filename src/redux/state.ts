@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../render";
+
 type MyPostsType = {
     id: number
     message: string
@@ -11,8 +13,9 @@ type MessagesType = {
     id: number
     message: string
 }
-type ProfilePageType = {
+export type ProfilePageType = {
     posts: MyPostsType[]
+    newPostText:string
 }
 type DialogsPageType = {
     dialogs: DialogsItemType[]
@@ -31,6 +34,7 @@ export const state: GlobalState = {
             {id: 1, message: "Hi, how are you?", likesCount: 6},
             {id: 2, message: "It's my first post", likesCount: 3}
         ],
+        newPostText: "ffffffffffffffff",
     },
     dialogsPage: {
         //------Данные для компоненты DialogItem в папке Dialogs-------------
@@ -58,4 +62,10 @@ export const addPost = (postMessage:string) => {
         likesCount: 0
     }
     state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state)
+}
+
+export const changePostText = (postText:string) => {
+    state.profilePage.newPostText = postText
+    rerenderEntireTree(state)
 }
