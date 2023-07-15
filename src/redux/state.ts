@@ -123,10 +123,10 @@ export type GlobalStateType = {
 
 }
 
-type StoreType = {
-    state:GlobalStateType
+export type StoreType = {
+    _state:GlobalStateType
     getState: ()=>GlobalStateType
-    rerenderEntireTree: () => void
+    rerender: () => void
     subscribe: (observer:()=>void) => void
     addPost: () => void
     updateNewPostText:(newPostText:string) => void
@@ -136,7 +136,7 @@ type StoreType = {
 
 
 export const store:StoreType = {
-    state:{
+    _state:{
         profilePage: {
             //------данные для MyPosts в папке Profile----------
             posts: [
@@ -165,40 +165,40 @@ export const store:StoreType = {
         },
     },
     getState() {
-        return this.state
+        return this._state
     },
-    rerenderEntireTree(){
+    rerender(){
         alert('no subscribers')
     },
     subscribe(observer:()=>void){
-        this.rerenderEntireTree = observer
+        this.rerender = observer
     },
     addPost() {
         const newPost:MyPostsType = {
             id: 3,
-            message: this.state.profilePage.newPostText,
+            message: this._state.profilePage.newPostText,
             likesCount: 0
         }
-       this.state.profilePage.posts.push(newPost)
-        this.state.profilePage.newPostText = ''
-        this.rerenderEntireTree()
+       this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostText = ''
+        this.rerender()
     },
     updateNewPostText(newPostText:string) {
-        this.state.profilePage.newPostText = newPostText
-        this.rerenderEntireTree()
+        this._state.profilePage.newPostText = newPostText
+        this.rerender()
     },
     addMessage() {
         const newMessage:MessagesType = {
-            id: this.state.dialogsPage.messages.length+1,
-            message: this.state.dialogsPage.newMessageText
+            id: this._state.dialogsPage.messages.length+1,
+            message: this._state.dialogsPage.newMessageText
         }
-        this.state.dialogsPage.messages.push(newMessage)
-        this.state.dialogsPage.newMessageText = ''
-        this.rerenderEntireTree()
+        this._state.dialogsPage.messages.push(newMessage)
+        this._state.dialogsPage.newMessageText = ''
+        this.rerender()
     },
     updateNewMessageText(newMessageText:string){
-        this.state.dialogsPage.newMessageText  = newMessageText
-        this.rerenderEntireTree()
+        this._state.dialogsPage.newMessageText  = newMessageText
+        this.rerender()
     }
 
 }

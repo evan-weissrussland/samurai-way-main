@@ -8,28 +8,37 @@ import {Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
-import {GlobalStateType} from "./redux/state";
+// import {GlobalStateType} from "./redux/state";
+import {StoreType} from "./redux/state";
 
 //импортируем из стэйта типизацию объекта state
-type PropsAppType = {
+/*type PropsAppType = {
     state: GlobalStateType
     addPost: () => void
     addMessage: () => void
     updateNewPostText: (postText: string) => void
     updateNewMessageText: (newMessageText: string) => void
+}*/
+type PropsAppType = {
+    store:StoreType
 }
-
 export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
     const DialogsComponent = () => <Dialogs
-        dialogsPage={props.state.dialogsPage}
-        addMessage={props.addMessage}
-        updateNewMessageText={props.updateNewMessageText} />
+        // dialogsPage={props.state.dialogsPage}
+        dialogsPage={props.store.getState().dialogsPage}
+        // addMessage={props.addMessage}
+        addMessage={props.store.addMessage}
+        // updateNewMessageText={props.updateNewMessageText} />
+        updateNewMessageText={props.store.updateNewMessageText} />
     //внешняя функция для передачи пропсов в компоненту Profile
     const ProfileComponent = () => <Profile
-        addPost={props.addPost}
-        profilePage={props.state.profilePage}
-        updateNewPostText={props.updateNewPostText}/>
+        // addPost={props.addPost}
+        addPost={props.store.addPost}
+        // profilePage={props.state.profilePage}
+        profilePage={props.store.getState().profilePage}
+        // updateNewPostText={props.updateNewPostText}/>
+        updateNewPostText={props.store.updateNewPostText}/>
 
     return (
         <div className={'app-wripper'}>
