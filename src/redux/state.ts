@@ -126,7 +126,7 @@ export type GlobalStateType = {
 export type StoreType = {
     _state:GlobalStateType
     getState: ()=>GlobalStateType
-    rerender: () => void
+    _callSubscriber: () => void
     subscribe: (observer:()=>void) => void
     addPost: () => void
     updateNewPostText:(newPostText:string) => void
@@ -167,11 +167,11 @@ export const store:StoreType = {
     getState() {
         return this._state
     },
-    rerender(){
+    _callSubscriber(){
         alert('no subscribers')
     },
     subscribe(observer:()=>void){
-        this.rerender = observer
+        this._callSubscriber = observer
     },
     addPost() {
         const newPost:MyPostsType = {
@@ -181,11 +181,11 @@ export const store:StoreType = {
         }
        this._state.profilePage.posts.push(newPost)
         this._state.profilePage.newPostText = ''
-        this.rerender()
+        this._callSubscriber()
     },
     updateNewPostText(newPostText:string) {
         this._state.profilePage.newPostText = newPostText
-        this.rerender()
+        this._callSubscriber()
     },
     addMessage() {
         const newMessage:MessagesType = {
@@ -194,11 +194,11 @@ export const store:StoreType = {
         }
         this._state.dialogsPage.messages.push(newMessage)
         this._state.dialogsPage.newMessageText = ''
-        this.rerender()
+        this._callSubscriber()
     },
     updateNewMessageText(newMessageText:string){
         this._state.dialogsPage.newMessageText  = newMessageText
-        this.rerender()
+        this._callSubscriber()
     }
 
 }
