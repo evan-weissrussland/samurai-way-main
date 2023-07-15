@@ -4,7 +4,6 @@ import './index.css';
 import {
     state,
     addPost,
-    GlobalStateType,
     updateNewPostText,
     addMessage,
     updateNewMessageText,
@@ -29,5 +28,4 @@ let rerenderEntireTree = () => {
     );
 }
 rerenderEntireTree()
-
 subscribe(rerenderEntireTree)
