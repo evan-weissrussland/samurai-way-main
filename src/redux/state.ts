@@ -170,7 +170,7 @@ export const store:StoreType = {
     _callSubscriber(){
         alert('no subscribers')
     },
-    subscribe(observer:()=>void){
+    subscribe(observer){
         this._callSubscriber = observer
     },
     addPost() {
