@@ -8,20 +8,21 @@ import {Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
-import {GlobalStateType} from "./redux/state";
+import {GeneralActionType, GlobalStateType, store} from "./redux/state";
 
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
     state: GlobalStateType
-    addPost: () => void
-    addMessage: () => void
-    updateNewPostText: (postText: string) => void
-    updateNewMessageText: (newMessageText: string) => void
+    dispatch:(action:GeneralActionType)=>void
+    // addPost: () => void
+    // addMessage: () => void
+    // updateNewPostText: (postText: string) => void
+    // updateNewMessageText: (newMessageText: string) => void
 }
 
 export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
-    const DialogsComponent = () => <Dialogs
+    /*const DialogsComponent = () => <Dialogs
         // dialogsPage={props.state.dialogsPage}
         dialogsPage={props.state.dialogsPage}
         // addMessage={props.addMessage}
@@ -35,8 +36,18 @@ export const App: FC<PropsAppType> = (props) => {
         // profilePage={props.state.profilePage}
         profilePage={props.state.profilePage}
         // updateNewPostText={props.updateNewPostText}/>
-        updateNewPostText={props.updateNewPostText}/>
+        updateNewPostText={props.updateNewPostText}/>*/
 
+    const DialogsComponent = () => <Dialogs
+        dialogsPage={props.state.dialogsPage}
+        dispatch={props.dispatch}
+    />
+
+    //внешняя функция для передачи пропсов в компоненту Profile
+    const ProfileComponent = () => <Profile
+        profilePage={props.state.profilePage}
+        dispatch={props.dispatch}
+    />
     return (
         <div className={'app-wripper'}>
             <Header/>

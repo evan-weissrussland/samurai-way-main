@@ -110,33 +110,44 @@ type MessagesType = {
 }
 export type ProfilePageType = {
     posts: MyPostsType[]
-    newPostText:string
+    newPostText: string
 }
 export type DialogsPageType = {
     dialogs: DialogsItemType[]
     messages: MessagesType[]
-    newMessageText:string
+    newMessageText: string
 }
 export type GlobalStateType = {
-    profilePage:ProfilePageType
-    dialogsPage:DialogsPageType
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
 
 }
 
 export type StoreType = {
-    _state:GlobalStateType
-    getState: ()=>GlobalStateType
+    _state: GlobalStateType
+    getState: () => GlobalStateType
     _callSubscriber: () => void
-    subscribe: (observer:()=>void) => void
-    addPost: () => void
-    updateNewPostText:(newPostText:string) => void
-    addMessage:() => void
-    updateNewMessageText:(newMessageText:string) => void
+    subscribe: (observer: () => void) => void
+    dispatch: (action: GeneralActionType) => void
+    // addPost: () => void
+    // updateNewPostText:(newPostText:string) => void
+    // addMessage:() => void
+    // updateNewMessageText:(newMessageText:string) => void
 }
-
-
-export const store:StoreType = {
-    _state:{
+type ActionAddPostOrAddMessageType = {
+    type: 'ADD-MESSAGE' | 'ADD-POST'
+}
+type ActionAddTextPostType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newPostText: string
+}
+type ActionAddTextMessageType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newMessageText: string
+}
+export type GeneralActionType = ActionAddPostOrAddMessageType | ActionAddTextPostType | ActionAddTextMessageType
+export const store: StoreType = {
+    _state: {
         profilePage: {
             //------данные для MyPosts в папке Profile----------
             posts: [
@@ -167,38 +178,66 @@ export const store:StoreType = {
     getState() {
         return this._state
     },
-    _callSubscriber(){
+    _callSubscriber() {
         alert('no subscribers')
     },
-    subscribe(observer){
+    subscribe(observer) {
         this._callSubscriber = observer
     },
-    addPost() {
-        const newPost:MyPostsType = {
-            id: 3,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPost: MyPostsType = {
+                id: 3,
+                message: this._state.profilePage.newPostText,
+                likesCount: 0
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newPostText
+            this._callSubscriber()
+        } else if (action.type === 'ADD-MESSAGE') {
+            const newMessage: MessagesType = {
+                id: this._state.dialogsPage.messages.length + 1,
+                message: this._state.dialogsPage.newMessageText
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+            this._state.dialogsPage.newMessageText = action.newMessageText
+            this._callSubscriber()
         }
-       this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
+
     },
-    updateNewPostText(newPostText:string) {
-        this._state.profilePage.newPostText = newPostText
-        this._callSubscriber()
-    },
-    addMessage() {
-        const newMessage:MessagesType = {
-            id: this._state.dialogsPage.messages.length+1,
-            message: this._state.dialogsPage.newMessageText
-        }
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageText = ''
-        this._callSubscriber()
-    },
-    updateNewMessageText(newMessageText:string){
-        this._state.dialogsPage.newMessageText  = newMessageText
-        this._callSubscriber()
-    }
+
+    // addPost() {
+    //     const newPost:MyPostsType = {
+    //         id: 3,
+    //         message: this._state.profilePage.newPostText,
+    //         likesCount: 0
+    //     }
+    //    this._state.profilePage.posts.push(newPost)
+    //     this._state.profilePage.newPostText = ''
+    //     this._callSubscriber()
+    // },
+    // updateNewPostText(newPostText:string) {
+    //     this._state.profilePage.newPostText = newPostText
+    //     this._callSubscriber()
+    // },
+    // addMessage() {
+    //     const newMessage:MessagesType = {
+    //         id: this._state.dialogsPage.messages.length+1,
+    //         message: this._state.dialogsPage.newMessageText
+    //     }
+    //     this._state.dialogsPage.messages.push(newMessage)
+    //     this._state.dialogsPage.newMessageText = ''
+    //     this._callSubscriber()
+    // },
+    // updateNewMessageText(newMessageText:string){
+    //     this._state.dialogsPage.newMessageText  = newMessageText
+    //     this._callSubscriber()
+    // }
 
 }

@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsPageType} from "../../redux/state";
+import {DialogsPageType, GeneralActionType} from "../../redux/state";
 
 /*//типизация пропса dataForDialogItem
 type DialogItemType = {
@@ -17,8 +17,10 @@ type MessageType = {
 //общая типизация компоненты
 type Dialogs = {
     dialogsPage: DialogsPageType
-    addMessage: () => void
-    updateNewMessageText: (newMessageText: string) => void
+    dispatch:(action:GeneralActionType) => void
+    // addMessage: () => void
+    // updateNewMessageText: (newMessageText: string) => void
+
 }
 
 //------компонента Dialogs-------------
@@ -38,12 +40,14 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
 
     const newMyMessage = useRef<HTMLTextAreaElement>(null)
     const addMessage = () => {
-        props.addMessage()
+        // props.addMessage()
+        props.dispatch({type:'ADD-MESSAGE'})
     }
 
     const onMessageChange = () => {
         const text = newMyMessage.current as HTMLTextAreaElement
-        props.updateNewMessageText(text.value)
+        // props.updateNewMessageText(text.value)
+        props.dispatch({type:'UPDATE-NEW-MESSAGE-TEXT', newMessageText:text.value})
     }
 
 

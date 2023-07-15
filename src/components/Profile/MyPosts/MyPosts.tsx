@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useRef} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ProfilePageType} from "../../../redux/state";
+import {GeneralActionType, ProfilePageType} from "../../../redux/state";
 
 /*type Posts = {
     id: number
@@ -11,8 +11,9 @@ import {ProfilePageType} from "../../../redux/state";
 
 type MyPosts = {
     profilePage: ProfilePageType
-    addPost: () => void
-    updateNewPostText: (postText: string) => void
+    // addPost: () => void
+    // updateNewPostText: (postText: string) => void
+    dispatch:(action:GeneralActionType) => void
 }
 
 //------------компонента MyPosts--------------
@@ -31,11 +32,13 @@ export const MyPosts: React.FC<MyPosts> = (props) => {
     // -----------конец метода map----------------
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
-        props.addPost()
+        // props.addPost()
+        props.dispatch({type:'ADD-POST'})
     }
     const onPostChange = () => {
         const text = newPostElement.current as HTMLTextAreaElement
-        props.updateNewPostText(text.value)
+        // props.updateNewPostText(text.value)
+        props.dispatch({type:'UPDATE-NEW-POST-TEXT', newPostText:text.value})
     }
     return (
         <div className={s.postsBlock}>
