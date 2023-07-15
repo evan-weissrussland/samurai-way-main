@@ -8,7 +8,7 @@ import {Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
-import {addMessage, GlobalStateType, updateNewMessageText} from "./redux/state";
+import {GlobalStateType} from "./redux/state";
 
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
@@ -23,8 +23,8 @@ export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
     const DialogsComponent = () => <Dialogs
         dialogsPage={props.state.dialogsPage}
-        addMessage={addMessage}
-        updateNewMessageText={updateNewMessageText} />
+        addMessage={props.addMessage}
+        updateNewMessageText={props.updateNewMessageText} />
     //внешняя функция для передачи пропсов в компоненту Profile
     const ProfileComponent = () => <Profile
         addPost={props.addPost}

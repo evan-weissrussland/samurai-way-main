@@ -1,5 +1,8 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {}
 
+export const subscribe = (observer:()=>void) => {
+    rerenderEntireTree = observer
+}
 type MyPostsType = {
     id: number
     message: string
@@ -66,12 +69,12 @@ export const addPost = () => {
     }
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 // добавляем посимволтно текст в textarea постов
 export const updateNewPostText = (newPostText:string) => {
     state.profilePage.newPostText = newPostText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 // добавляем новое сообщение
@@ -82,11 +85,11 @@ export const addMessage = () => {
     }
     state.dialogsPage.messages.push(newMessage)
     state.dialogsPage.newMessageText = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 // добавляем посимволтно текст в textarea сообщений
 export const updateNewMessageText = (newMessageText:string) => {
     state.dialogsPage.newMessageText  = newMessageText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }

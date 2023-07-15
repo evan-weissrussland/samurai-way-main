@@ -5,6 +5,7 @@ import {App} from './App';
 import {BrowserRouter} from "react-router-dom";
 import {addPost, updateNewPostText, GlobalStateType, addMessage, updateNewMessageText} from "./redux/state";
 
+/*
 export const rerenderEntireTree = (state:GlobalStateType) => {
     ReactDOM.render(
         <BrowserRouter>
@@ -18,4 +19,4 @@ export const rerenderEntireTree = (state:GlobalStateType) => {
         </BrowserRouter>,
         document.getElementById('root')
     );
-}
+}*/
