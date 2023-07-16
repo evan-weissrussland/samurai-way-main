@@ -46,7 +46,8 @@ export type ActionAddPostOrAddMessageType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newPostText: string
 }*/
-//аналог типизации
+//аналог типизации. Смотри в profile-reducer.ts функцию-креатор updateNewPostTextAC. Там тоже нужно вносить изменения
+// по данному синтаксису
 export type ActionAddTextPostType = ReturnType<typeof updateNewPostTextAC>
 
 export type ActionAddTextMessageType = {
