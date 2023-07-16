@@ -6,7 +6,7 @@ const ADD_MESSAGE = 'ADD-MESSAGE'
 
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
-type MyPostsType = {
+export type MyPostsType = {
     id: number
     message: string
     likesCount: number
@@ -15,7 +15,7 @@ type DialogsItemType = {
     id: number
     name: string
 }
-type MessagesType = {
+export type MessagesType = {
     id: number
     message: string
 }
