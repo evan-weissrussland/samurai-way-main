@@ -15,6 +15,10 @@ type MessageType = {
     message: string
 }*/
 //общая типизация компоненты
+
+
+
+
 type Dialogs = {
     dialogsPage: DialogsPageType
     dispatch:(action:GeneralActionType) => void
@@ -41,13 +45,13 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
     const newMyMessage = useRef<HTMLTextAreaElement>(null)
     const addMessage = () => {
         // props.addMessage()
-        props.dispatch({type:'ADD-MESSAGE'})
+        props.dispatch(addMessageActionCreator())
     }
 
     const onMessageChange = () => {
         const text = newMyMessage.current as HTMLTextAreaElement
         // props.updateNewMessageText(text.value)
-        props.dispatch({type:'UPDATE-NEW-MESSAGE-TEXT', newMessageText:text.value})
+        props.dispatch(updateNewMessageTextActionCreator(text.value))
     }
 
 
