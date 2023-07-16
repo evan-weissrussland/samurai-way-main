@@ -1,14 +1,6 @@
-import {profileReducer} from "./profile-reducer";
+import {profileReducer, updateNewPostTextAC} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
-
-const ADD_POST = 'ADD-POST'
-
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-
-const ADD_MESSAGE = 'ADD-MESSAGE'
-
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 export type MyPostsType = {
     id: number
@@ -47,7 +39,7 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: GeneralActionType) => void
 }
-type ActionAddPostOrAddMessageType = {
+export type ActionAddPostOrAddMessageType = {
     type: 'ADD-MESSAGE' | 'ADD-POST'
 }
 /*type ActionAddTextPostType = {
@@ -55,9 +47,9 @@ type ActionAddPostOrAddMessageType = {
     newPostText: string
 }*/
 //аналог типизации
-type ActionAddTextPostType = ReturnType<typeof updateNewPostTextAC>
+export type ActionAddTextPostType = ReturnType<typeof updateNewPostTextAC>
 
-type ActionAddTextMessageType = {
+export type ActionAddTextMessageType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     newMessageText: string
 }
@@ -102,57 +94,13 @@ export const store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-
-
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
         this._callSubscriber()
-
-        /*if (action.type === ADD_POST) {
-            const newPost: MyPostsType = {
-                id: 3,
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber()
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newPostText
-            this._callSubscriber()
-        } else if (action.type === ADD_MESSAGE) {
-            const newMessage: MessagesType = {
-                id: this._state.dialogsPage.messages.length + 1,
-                message: this._state.dialogsPage.newMessageText
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._callSubscriber()
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.newMessageText
-            this._callSubscriber()
-        }*/
-
     },
 }
 
-export const addPostAC = (): ActionAddPostOrAddMessageType => ({type: ADD_POST})
 
-/*export const updateNewPostTextAC = (text: string): ActionAddTextPostType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newPostText: text
-})*/
-//т.к. мы используем типизацию  ActionAddTextPostType через ReturnType<typeof updateNewPostTextAC>, то в функции после
-// скобок (text: string) типизацию не ставим, но добавляем после функции инструкцию "as const"
-export const updateNewPostTextAC = (text: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newPostText: text
-}) as const
 
-export const addMessageAC = (): ActionAddPostOrAddMessageType => ({type: ADD_MESSAGE})
 
-export const updateNewMessageTextAC = (text: string): ActionAddTextMessageType => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newMessageText: text
-})
