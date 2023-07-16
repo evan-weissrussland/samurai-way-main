@@ -70,7 +70,7 @@ export const store: StoreType = {
                 {id: 1, message: "Hi, how are you?", likesCount: 6},
                 {id: 2, message: "It's my first post", likesCount: 3}
             ],
-            newPostText: "ffffffffffffffff",
+            newPostText: "",
         },
         dialogsPage: {
             //------Данные для компоненты DialogItem в папке Dialogs-------------

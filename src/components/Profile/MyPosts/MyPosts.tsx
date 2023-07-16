@@ -41,6 +41,7 @@ export const MyPosts: React.FC<MyPosts> = (props) => {
             <div>
                 <div>
                     <textarea
+                        placeholder={'Enter your post'}
                         onChange={onPostChange}
                         ref={newPostElement}
                         value={profilePage.newPostText}
