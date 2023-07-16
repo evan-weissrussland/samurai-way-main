@@ -3,16 +3,9 @@ import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {GeneralActionType, ProfilePageType} from "../../redux/state";
 
-/*type Posts = {
-    id: number
-    message: string
-    likesCount: number
-}*/
 type Profile = {
     profilePage: ProfilePageType
-    dispatch:(action:GeneralActionType) => void
-    // addPost:() => void
-    // updateNewPostText: (postText:string) => void
+    dispatch: (action: GeneralActionType) => void
 }
 
 export const Profile: React.FC<Profile> = (props) => {
@@ -20,9 +13,7 @@ export const Profile: React.FC<Profile> = (props) => {
         <div>
             <ProfileInfo/>
             <MyPosts
-                // addPost={props.addPost}
                 profilePage={props.profilePage}
-                // updateNewPostText={props.updateNewPostText}
                 dispatch={props.dispatch}
             />
         </div>

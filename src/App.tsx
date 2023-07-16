@@ -13,36 +13,15 @@ import {GeneralActionType, GlobalStateType, store} from "./redux/state";
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
     state: GlobalStateType
-    dispatch:(action:GeneralActionType)=>void
-    // addPost: () => void
-    // addMessage: () => void
-    // updateNewPostText: (postText: string) => void
-    // updateNewMessageText: (newMessageText: string) => void
+    dispatch: (action: GeneralActionType) => void
 }
 
 export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
-    /*const DialogsComponent = () => <Dialogs
-        // dialogsPage={props.state.dialogsPage}
-        dialogsPage={props.state.dialogsPage}
-        // addMessage={props.addMessage}
-        addMessage={props.addMessage}
-        // updateNewMessageText={props.updateNewMessageText} />
-        updateNewMessageText={props.updateNewMessageText} />
-    //внешняя функция для передачи пропсов в компоненту Profile
-    const ProfileComponent = () => <Profile
-        // addPost={props.addPost}
-        addPost={props.addPost}
-        // profilePage={props.state.profilePage}
-        profilePage={props.state.profilePage}
-        // updateNewPostText={props.updateNewPostText}/>
-        updateNewPostText={props.updateNewPostText}/>*/
-
     const DialogsComponent = () => <Dialogs
         dialogsPage={props.state.dialogsPage}
         dispatch={props.dispatch}
     />
-
     //внешняя функция для передачи пропсов в компоненту Profile
     const ProfileComponent = () => <Profile
         profilePage={props.state.profilePage}
@@ -53,11 +32,6 @@ export const App: FC<PropsAppType> = (props) => {
             <Header/>
             <Navbar/>
             <div className={'app-wripper-content'}>
-                {/*  <Route path={'/dialogs'} component={Dialogs}/>
-                    <Route path={'/profile'} component={Profile}/>
-                    <Route path={'/news'} component={News}/>
-                    <Route path={'/music'} component={Music}/>
-                    <Route path={'/settings'} component={Settings}/>*/}
                 <Route path={'/dialogs'} render={DialogsComponent}/>
                 <Route path={'/profile'} render={ProfileComponent}/>
                 <Route path={'/news'} render={() => <News/>}/>

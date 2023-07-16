@@ -8,19 +8,9 @@ import {
     updateNewPostTextAC
 } from "../../../redux/state";
 
-/*type Posts = {
-    id: number
-    message: string
-    likesCount: number
-}*/
-
-
-
 type MyPosts = {
     profilePage: ProfilePageType
-    // addPost: () => void
-    // updateNewPostText: (postText: string) => void
-    dispatch:(action:GeneralActionType) => void
+    dispatch: (action: GeneralActionType) => void
 }
 
 //------------компонента MyPosts--------------
@@ -39,12 +29,10 @@ export const MyPosts: React.FC<MyPosts> = (props) => {
     // -----------конец метода map----------------
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
-        // props.addPost()
         props.dispatch(addPostAC())
     }
     const onPostChange = () => {
         const text = newPostElement.current as HTMLTextAreaElement
-        // props.updateNewPostText(text.value)
         props.dispatch(updateNewPostTextAC(text.value))
     }
     return (
