@@ -82,7 +82,7 @@ export const store: StoreType = {
                 {id: 2, message: 'How are you?'},
                 {id: 3, message: 'Go прокидывать props'}
             ],
-            newMessageText: "ffffffffffffffff",
+            newMessageText: "",
         },
     },
     getState() {

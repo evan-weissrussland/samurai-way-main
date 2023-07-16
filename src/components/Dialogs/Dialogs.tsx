@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {ChangeEvent, useRef} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
@@ -28,15 +28,17 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
             <Message key={m.id} message={m.message} id={m.id}/>
         )
     })
-
-    const newMyMessage = useRef<HTMLTextAreaElement>(null)
     const addMessage = () => {
         props.dispatch(addMessageAC())
     }
-
+    /*const newMyMessage = useRef<HTMLTextAreaElement>(null)
     const onMessageChange = () => {
         const text = newMyMessage.current as HTMLTextAreaElement
         props.dispatch(updateNewMessageTextAC(text.value))
+    }*/
+    const onMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+        const text = e.currentTarget.value
+        props.dispatch(updateNewMessageTextAC(text))
     }
     //------отрисовка JSX------
     return (
@@ -49,8 +51,9 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
                 <div className={s.textAreaAndButton}>
                     <div>
                         <textarea
+                            placeholder={'Enter your message'}
                         onChange={onMessageChange}
-                        ref={newMyMessage}
+                        // ref={newMyMessage}
                         value={props.dialogsPage.newMessageText}/>
                     </div>
                     <div>
