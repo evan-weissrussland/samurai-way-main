@@ -1,3 +1,7 @@
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
+
 const ADD_POST = 'ADD-POST'
 
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -28,9 +32,11 @@ export type DialogsPageType = {
     messages: MessagesType[]
     newMessageText: string
 }
+export type SidebarPageType = {}
 export type GlobalStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+    sidebar:SidebarPageType
 
 }
 
@@ -84,6 +90,7 @@ export const store: StoreType = {
             ],
             newMessageText: "",
         },
+        sidebar: {}
     },
     getState() {
         return this._state
@@ -95,7 +102,14 @@ export const store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
+
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+
+        /*if (action.type === ADD_POST) {
             const newPost: MyPostsType = {
                 id: 3,
                 message: this._state.profilePage.newPostText,
@@ -118,7 +132,7 @@ export const store: StoreType = {
         } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
             this._state.dialogsPage.newMessageText = action.newMessageText
             this._callSubscriber()
-        }
+        }*/
 
     },
 }
