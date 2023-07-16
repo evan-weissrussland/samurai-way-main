@@ -135,8 +135,7 @@ export type StoreType = {
     getState: () => GlobalStateType
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
-    // dispatch: (action: GeneralActionType) => void
-    dispatch: (action: (undefined | string)=>GeneralActionType) => void
+    dispatch: (action: GeneralActionType) => void
     // addPost: () => void
     // updateNewPostText:(newPostText:string) => void
     // addMessage:() => void
@@ -251,10 +250,10 @@ export const store: StoreType = {
 
 }
 
-export const addPostActionCreator = () => ({type:ADD_POST})
+export const addPostAC = ():ActionAddPostOrAddMessageType => ({type:ADD_POST})
 
-export const updateNewPostTextActionCreator = (text:string) => ({type:UPDATE_NEW_POST_TEXT, newPostText:text})
+export const updateNewPostTextAC = (text:string):ActionAddTextPostType => ({type:UPDATE_NEW_POST_TEXT, newPostText:text})
 
-export const addMessageActionCreator = () => ({type:ADD_MESSAGE})
+export const addMessageAC = ():ActionAddPostOrAddMessageType => ({type:ADD_MESSAGE})
 
-export const updateNewMessageTextActionCreator = (text:string) => ({type:UPDATE_NEW_MESSAGE_TEXT, newMessageText:text})
+export const updateNewMessageTextAC = (text:string):ActionAddTextMessageType => ({type:UPDATE_NEW_MESSAGE_TEXT, newMessageText:text})

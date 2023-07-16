@@ -2,10 +2,10 @@ import React, {ChangeEvent, useRef} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {
-    addPostActionCreator,
+    addPostAC,
     GeneralActionType,
     ProfilePageType,
-    updateNewPostTextActionCreator
+    updateNewPostTextAC
 } from "../../../redux/state";
 
 /*type Posts = {
@@ -40,12 +40,12 @@ export const MyPosts: React.FC<MyPosts> = (props) => {
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
         // props.addPost()
-        props.dispatch(addPostActionCreator())
+        props.dispatch(addPostAC())
     }
     const onPostChange = () => {
         const text = newPostElement.current as HTMLTextAreaElement
         // props.updateNewPostText(text.value)
-        props.dispatch(updateNewPostTextActionCreator(text.value))
+        props.dispatch(updateNewPostTextAC(text.value))
     }
     return (
         <div className={s.postsBlock}>

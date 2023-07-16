@@ -2,7 +2,12 @@ import React, {useRef} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsPageType, GeneralActionType} from "../../redux/state";
+import {
+    addMessageAC,
+    DialogsPageType,
+    GeneralActionType,
+    updateNewMessageTextAC
+} from "../../redux/state";
 
 /*//типизация пропса dataForDialogItem
 type DialogItemType = {
@@ -45,13 +50,13 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
     const newMyMessage = useRef<HTMLTextAreaElement>(null)
     const addMessage = () => {
         // props.addMessage()
-        props.dispatch(addMessageActionCreator())
+        props.dispatch(addMessageAC())
     }
 
     const onMessageChange = () => {
         const text = newMyMessage.current as HTMLTextAreaElement
         // props.updateNewMessageText(text.value)
-        props.dispatch(updateNewMessageTextActionCreator(text.value))
+        props.dispatch(updateNewMessageTextAC(text.value))
     }
 
 
