@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {GlobalStateType, store} from "./redux/state";
+import {GlobalStateType, store} from "./redux/store";
 import {BrowserRouter} from "react-router-dom";
 import {App} from "./App";
 

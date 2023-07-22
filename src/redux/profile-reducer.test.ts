@@ -1,4 +1,4 @@
-import {ProfilePageType} from "./state";
+import {ProfilePageType} from "./store";
 import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
 
 test('correct profile-reducer add post', () => {
