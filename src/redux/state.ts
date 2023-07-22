@@ -35,8 +35,8 @@ export type GlobalStateType = {
 export type StoreType = {
     _state: GlobalStateType
     getState: () => GlobalStateType
-    _callSubscriber: () => void
-    subscribe: (observer: () => void) => void
+    _callSubscriber: (state:GlobalStateType) => void
+    subscribe: (observer: (state:GlobalStateType) => void) => void
     dispatch: (action: GeneralActionType) => void
 }
 export type ActionAddPostOrAddMessageType = {
@@ -88,7 +88,7 @@ export const store: StoreType = {
     getState() {
         return this._state
     },
-    _callSubscriber() {
+    _callSubscriber(state:GlobalStateType) {
         alert('no subscribers')
     },
     subscribe(observer) {
@@ -98,7 +98,7 @@ export const store: StoreType = {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-        this._callSubscriber()
+        this._callSubscriber(this._state)
     },
 }
 
