@@ -1,5 +1,4 @@
-import React from 'react';
-import {GlobalStateType, ProfilePageType} from "./state";
+import {ProfilePageType} from "./state";
 import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
 
 test('correct profile-reducer add post', () => {
