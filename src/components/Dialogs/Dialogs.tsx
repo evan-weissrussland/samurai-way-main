@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
@@ -16,6 +16,7 @@ type Dialogs = {
 //------компонента Dialogs-------------
 
 export const Dialogs: React.FC<Dialogs> = (props) => {
+    const [error, setError] = useState<string>('')
     //------методы map-------------
     const dialogsElements = props.dialogsPage.dialogs.map((d, index) => {
         return (
@@ -28,7 +29,7 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
         )
     })
     const addMessage = () => {
-        props.dispatch(addMessageAC())
+        props.dialogsPage.newMessageText.trim() ? props.dispatch(addMessageAC()) : setError("Your message is empty")
     }
     /*const newMyMessage = useRef<HTMLTextAreaElement>(null)
     const onMessageChange = () => {
@@ -37,7 +38,10 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
     }*/
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        props.dispatch(updateNewMessageTextAC(text))
+        if (text.trim()) {
+            setError('')
+            props.dispatch(updateNewMessageTextAC(text))
+        }
     }
     //------отрисовка JSX------
     return (
@@ -52,7 +56,7 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
                 <div className={s.textAreaAndButton}>
                     <div>
                         <textarea
-                            placeholder={'Enter your message'}
+                            placeholder={!error ? 'Enter your message' : error}
                             onChange={onMessageChange}
                             // ref={newMyMessage}
                             value={props.dialogsPage.newMessageText}

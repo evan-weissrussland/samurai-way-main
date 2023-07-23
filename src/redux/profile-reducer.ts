@@ -11,7 +11,7 @@ export const profileReducer = (state: ProfilePageType, action: GeneralActionType
                 message: state.newPostText,
                 likesCount: 0
             }
-            state.posts.push(newPost)
+            state.posts.unshift(newPost)
             state.newPostText = ''
             return state;
         case UPDATE_NEW_POST_TEXT:
