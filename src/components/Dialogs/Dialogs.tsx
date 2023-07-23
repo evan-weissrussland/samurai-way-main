@@ -5,7 +5,7 @@ import {Message} from "./Message/Message";
 import {
     DialogsPageType,
     GeneralActionType
-    } from "../../redux/store";
+} from "../../redux/store";
 import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 
 type Dialogs = {
@@ -35,7 +35,7 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
         const text = newMyMessage.current as HTMLTextAreaElement
         props.dispatch(updateNewMessageTextAC(text.value))
     }*/
-    const onMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+    const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
         props.dispatch(updateNewMessageTextAC(text))
     }
@@ -46,14 +46,17 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
                 {dialogsElements}
             </div>
             <div className={s.messagesWrapper}>
-                <div className={s.messages}>{mesagesElements}</div>
+                <div className={s.messages}>
+                    {mesagesElements}
+                </div>
                 <div className={s.textAreaAndButton}>
                     <div>
                         <textarea
                             placeholder={'Enter your message'}
-                        onChange={onMessageChange}
-                        // ref={newMyMessage}
-                        value={props.dialogsPage.newMessageText}/>
+                            onChange={onMessageChange}
+                            // ref={newMyMessage}
+                            value={props.dialogsPage.newMessageText}
+                        />
                     </div>
                     <div>
                         <button onClick={addMessage}>addMessage</button>
