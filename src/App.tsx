@@ -8,11 +8,12 @@ import {Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
-import {GeneralActionType, GlobalStateType} from "./redux/store";
+import {GeneralActionType} from "./redux/store";
+import {AppRootStateType} from "./redux/redux-store";
 
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
-    state: GlobalStateType
+    state: AppRootStateType
     dispatch: (action: GeneralActionType) => void
 }
 
