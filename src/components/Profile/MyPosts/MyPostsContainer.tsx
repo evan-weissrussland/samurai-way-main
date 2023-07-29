@@ -1,8 +1,4 @@
 import React, {ChangeEvent, useRef} from "react";
-import {
-    GeneralActionType,
-    ProfilePageType
-} from "../../../redux/store";
 import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 

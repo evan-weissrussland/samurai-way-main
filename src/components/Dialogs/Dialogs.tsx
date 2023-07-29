@@ -10,7 +10,8 @@ import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer"
 
 type Dialogs = {
     dialogsPage: DialogsPageType
-    dispatch: (action: GeneralActionType) => void
+    updateNewMessageText: (text:string)=>void
+    addMessage: ()=>void
 }
 
 //------компонента Dialogs-------------
@@ -29,7 +30,7 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
         )
     })
     const addMessage = () => {
-        props.dialogsPage.newMessageText.trim() ? props.dispatch(addMessageAC()) : setError("Your message is empty")
+        props.dialogsPage.newMessageText.trim() ? props.addMessage() : setError("Your message is empty")
     }
     /*const newMyMessage = useRef<HTMLTextAreaElement>(null)
     const onMessageChange = () => {
@@ -40,7 +41,7 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
         const text = e.currentTarget.value
         if (text.trim()) {
             setError('')
-            props.dispatch(updateNewMessageTextAC(text))
+            props.updateNewMessageText(text)
         }
     }
     //------отрисовка JSX------

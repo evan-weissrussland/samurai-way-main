@@ -10,25 +10,27 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {GeneralActionType} from "./redux/store";
 import {AppRootStateType} from "./redux/redux-store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
-    state: AppRootStateType
-    dispatch: (action: GeneralActionType) => void
+    // state: AppRootStateType
+    // dispatch: (action: GeneralActionType) => void
 
     store:any
 }
 
 export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
-    const DialogsComponent = () => <Dialogs
-        dialogsPage={props.state.dialogsPage}
-        dispatch={props.dispatch}
+    const DialogsComponent = () => <DialogsContainer
+        // dialogsPage={props.state.dialogsPage}
+        // dispatch={props.dispatch}
+        store={props.store}
     />
     //внешняя функция для передачи пропсов в компоненту Profile
     const ProfileComponent = () => <Profile
-        profilePage={props.state.profilePage}
-        dispatch={props.dispatch}
+        // profilePage={props.state.profilePage}
+        // dispatch={props.dispatch}
         store={props.store}
     />
     return (
