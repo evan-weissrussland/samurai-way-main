@@ -1,5 +1,7 @@
-import {GeneralActionType, SidebarPageType} from "./store";
+import {DialogsPageType, GeneralActionType, SidebarPageType} from "./store";
 
-export const sidebarReducer = (state: SidebarPageType, action: GeneralActionType): SidebarPageType => {
+const initialState:SidebarPageType = {}
+
+export const sidebarReducer = (state = initialState, action: GeneralActionType): SidebarPageType => {
     return state
 }
