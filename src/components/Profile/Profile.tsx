@@ -7,6 +7,8 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 type Profile = {
     profilePage: ProfilePageType
     dispatch: (action: GeneralActionType) => void
+
+    store:any
 }
 
 export const Profile: React.FC<Profile> = (props) => {
@@ -14,8 +16,9 @@ export const Profile: React.FC<Profile> = (props) => {
         <div>
             <ProfileInfo/>
             <MyPostsContainer
-                profilePage={props.profilePage}
-                dispatch={props.dispatch}
+                // profilePage={props.profilePage}
+                // dispatch={props.dispatch}
+                store={props.store}
             />
         </div>
     );

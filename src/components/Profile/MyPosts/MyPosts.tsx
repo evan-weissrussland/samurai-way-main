@@ -1,15 +1,12 @@
-import React, {ChangeEvent, useRef} from "react";
+import React, {useRef} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {
-    GeneralActionType,
     ProfilePageType
 } from "../../../redux/store";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 
 type MyPosts = {
     profilePage: ProfilePageType
-    // dispatch: (action: GeneralActionType) => void
     updateNewPostText: (text:string) => void
     addPost: () => void
 }

@@ -15,6 +15,8 @@ import {AppRootStateType} from "./redux/redux-store";
 type PropsAppType = {
     state: AppRootStateType
     dispatch: (action: GeneralActionType) => void
+
+    store:any
 }
 
 export const App: FC<PropsAppType> = (props) => {
@@ -27,6 +29,7 @@ export const App: FC<PropsAppType> = (props) => {
     const ProfileComponent = () => <Profile
         profilePage={props.state.profilePage}
         dispatch={props.dispatch}
+        store={props.store}
     />
     return (
         <div className={'app-wripper'}>
