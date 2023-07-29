@@ -18,3 +18,5 @@ let rerenderEntireTree = (state:GlobalStateType) => {
 }
 rerenderEntireTree(store.getState())
 store.subscribe(rerenderEntireTree)
+
+

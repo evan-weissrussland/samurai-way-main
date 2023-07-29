@@ -3,7 +3,16 @@ import {ActionAddPostOrAddMessageType, GeneralActionType, MyPostsType, ProfilePa
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
-export const profileReducer = (state: ProfilePageType, action: GeneralActionType): ProfilePageType => {
+const initialState:ProfilePageType = {
+    //------данные для MyPosts в папке Profile----------
+    posts: [
+        {id: 1, message: "Hi, how are you?", likesCount: 6},
+        {id: 2, message: "It's my first post", likesCount: 3}
+    ],
+    newPostText: "",
+}
+
+export const profileReducer = (state = initialState , action: GeneralActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             const newPost: MyPostsType = {

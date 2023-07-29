@@ -3,13 +3,32 @@ import {
     ActionAddTextMessageType,
     DialogsPageType,
     GeneralActionType,
-    MessagesType
+    MessagesType, ProfilePageType
 } from "./store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
-export const dialogsReducer = (state: DialogsPageType, action: GeneralActionType): DialogsPageType => {
+const initialState:DialogsPageType = {
+    //------Данные для компоненты DialogItem в папке Dialogs-------------
+    dialogs: [
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Vitoldas'},
+        {id: 3, name: 'Elon Musk'},
+        {id: 4, name: 'Bill Gates'},
+        {id: 5, name: 'Instasamka'},
+        {id: 6, name: 'Igor'}
+    ],
+//------Данные для компоненты Message  в папке Dialogs-------------
+        messages: [
+        {id: 1, message: 'Hi, Guys'},
+        {id: 2, message: 'How are you?'},
+        {id: 3, message: 'Go прокидывать props'}
+    ],
+        newMessageText: "",
+}
+
+export const dialogsReducer = (state = initialState, action: GeneralActionType): DialogsPageType => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage: MessagesType = {
