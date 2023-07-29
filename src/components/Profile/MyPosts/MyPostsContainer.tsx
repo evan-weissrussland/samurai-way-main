@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef} from "react";
+import React from "react";
 import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 

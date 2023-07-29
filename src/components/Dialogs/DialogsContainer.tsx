@@ -1,6 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
-import {DialogItem} from "./DialogItem/DialogItem";
-import {Message} from "./Message/Message";
+import React from 'react';
 import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 

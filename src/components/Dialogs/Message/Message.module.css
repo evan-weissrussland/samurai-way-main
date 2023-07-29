@@ -10,6 +10,3 @@
 .message:last-child {
     margin-bottom: 0;
 }
-.evenMessage {
-    align-self: end;
-}
