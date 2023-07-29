@@ -9,7 +9,8 @@ import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 
 type MyPosts = {
     profilePage: ProfilePageType
-    dispatch: (action: GeneralActionType) => void
+    // dispatch: (action: GeneralActionType) => void
+    callback: (action:GeneralActionType) => void
 }
 
 //------------компонента MyPosts--------------
@@ -28,11 +29,13 @@ export const MyPosts: React.FC<MyPosts> = (props) => {
     // -----------конец метода map----------------
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
-        props.dispatch(addPostAC())
+        // props.dispatch(addPostAC())
+        props.callback(addPostAC())
     }
     const onPostChange = () => {
         const text = newPostElement.current as HTMLTextAreaElement
-        props.dispatch(updateNewPostTextAC(text.value))
+        // props.dispatch(updateNewPostTextAC(text.value))
+        props.callback(updateNewPostTextAC(text.value))
     }
     return (
         <div className={s.postsBlock}>
