@@ -7,7 +7,7 @@ export type MyPostsType = {
     message: string
     likesCount: number
 }
-type DialogsItemType = {
+export type DialogsItemType = {
     id: number
     name: string
 }
@@ -31,7 +31,6 @@ export type GlobalStateType = {
     sidebar: SidebarPageType
 
 }
-
 export type StoreType = {
     _state: GlobalStateType
     getState: () => GlobalStateType
@@ -49,12 +48,16 @@ export type ActionAddPostOrAddMessageType = {
 //аналог типизации. Смотри в profile-reducer.ts функцию-креатор updateNewPostTextAC. Там тоже нужно вносить изменения
 // по данному синтаксису
 export type ActionAddTextPostType = ReturnType<typeof updateNewPostTextAC>
-
 export type ActionAddTextMessageType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     newMessageText: string
 }
 export type GeneralActionType = ActionAddPostOrAddMessageType | ActionAddTextPostType | ActionAddTextMessageType
+
+
+
+
+
 export const store: StoreType = {
     _state: {
         profilePage: {
