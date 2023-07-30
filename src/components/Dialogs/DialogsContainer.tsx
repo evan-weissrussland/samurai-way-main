@@ -2,11 +2,11 @@ import React from 'react';
 import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {GlobalStateType} from "../../redux/store";
 import {Dispatch} from "redux";
+import {AppRootStateType} from "../../redux/redux-store";
 
 type MapStateToPropsType = {
-    dialogsPage:
+    dialogsPage:any
 }
 
 type MapDispatchToPropsType = {
@@ -14,7 +14,7 @@ type MapDispatchToPropsType = {
     addMessage:() => void
 }
 
-const mapStateToProps = (state:GlobalStateType):MapStateToPropsType => {
+const mapStateToProps = (state:AppRootStateType):MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
