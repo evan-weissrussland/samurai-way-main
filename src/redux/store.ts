@@ -1,35 +1,35 @@
 import {updateNewPostTextAC} from "./profile-reducer";
 
-export type MyPostsType = {
+ type MyPostsType = {
     id: number
     message: string
     likesCount: number
 }
-export type DialogsItemType = {
+ type DialogsItemType = {
     id: number
     name: string
 }
-export type MessagesType = {
+ type MessagesType = {
     id: number
     message: string
 }
-export type ProfilePageType = {
+ type ProfilePageType = {
     posts: MyPostsType[]
     newPostText: string
 }
-export type DialogsPageType = {
+ type DialogsPageType = {
     dialogs: DialogsItemType[]
     messages: MessagesType[]
     newMessageText: string
 }
-export type SidebarPageType = {}
-export type GlobalStateType = {
+ type SidebarPageType = {}
+ type GlobalStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarPageType
 
 }
-export type StoreType = {
+ type StoreType = {
     _state: GlobalStateType
     getState: () => GlobalStateType
     _callSubscriber: (state:GlobalStateType) => void

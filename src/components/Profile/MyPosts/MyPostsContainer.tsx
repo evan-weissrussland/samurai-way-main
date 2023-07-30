@@ -1,5 +1,5 @@
 import React from "react";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
+import {addPostAC, ProfilePageType, updateNewPostTextAC} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../../redux/redux-store";
@@ -7,7 +7,7 @@ import {Dispatch} from "redux";
 
 
 type MapStateToPropsType = {
-    profilePage:any
+    profilePage:ProfilePageType
 }
 
 type MapDispatchToPropsType = {

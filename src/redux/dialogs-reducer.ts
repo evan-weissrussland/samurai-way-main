@@ -1,10 +1,25 @@
 import {
     ActionAddPostOrAddMessageType,
     ActionAddTextMessageType,
-    DialogsPageType,
-    GeneralActionType,
-    MessagesType, ProfilePageType
+    GeneralActionType
 } from "./store";
+
+
+type DialogsItemType = {
+    id: number
+    name: string
+}
+type MessagesType = {
+    id: number
+    message: string
+}
+export type DialogsPageType = {
+    dialogs: DialogsItemType[]
+    messages: MessagesType[]
+    newMessageText: string
+}
+
+
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
@@ -28,7 +43,7 @@ const initialState:DialogsPageType = {
         newMessageText: "",
 }
 
-export const dialogsReducer = (state = initialState, action: GeneralActionType): DialogsPageType => {
+export const dialogsReducer = (state:DialogsPageType = initialState, action: GeneralActionType): DialogsPageType => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage: MessagesType = {
