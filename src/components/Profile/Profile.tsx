@@ -2,13 +2,13 @@ import React from "react";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
-type Profile = {
+type ProfileTypeProps = {
     // profilePage: ProfilePageType
     // dispatch: (action: GeneralActionType) => void
     store:any
 }
 
-export const Profile: React.FC<Profile> = (props) => {
+export const Profile: React.FC<ProfileTypeProps> = (props) => {
     return (
         <div>
             <ProfileInfo/>
