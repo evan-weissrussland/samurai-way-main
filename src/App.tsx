@@ -9,7 +9,7 @@ import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {GeneralActionType} from "./redux/store";
-import {AppRootStateType} from "./redux/redux-store";
+import {AppRootStateType, StoreType} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 //импортируем из стэйта типизацию объекта state
@@ -17,7 +17,7 @@ type PropsAppType = {
     // state: AppRootStateType
     // dispatch: (action: GeneralActionType) => void
 
-    store:any
+    store:StoreType
 }
 
 export const App: FC<PropsAppType> = (props) => {

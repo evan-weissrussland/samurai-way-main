@@ -1,12 +1,13 @@
 import React from 'react';
 import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
+import {StoreType} from "../../redux/redux-store";
 
 
 type DialogsDialogsContainerType = {
     // dialogsPage: DialogsPageType
     // dispatch: (action: GeneralActionType) => void
-    store: any
+    store: StoreType
 }
 
 export const DialogsContainer: React.FC<DialogsDialogsContainerType> = (props) => {

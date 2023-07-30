@@ -1,11 +1,12 @@
 import React from "react";
 import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
+import {StoreType} from "../../../redux/redux-store";
 
 type MyPostsContainerTypeProps = {
     // profilePage: ProfilePageType
     // dispatch: (action: GeneralActionType) => void
-    store:any
+    store:StoreType
 }
 
 //------------компонента MyPosts--------------
