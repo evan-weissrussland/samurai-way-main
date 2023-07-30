@@ -5,7 +5,7 @@ import {
     ProfilePageType
 } from "../../../redux/store";
 
-type MyPosts = {
+type MyPostsTypeProps = {
     profilePage: ProfilePageType
     updateNewPostText: (text:string) => void
     addPost: () => void
@@ -13,7 +13,7 @@ type MyPosts = {
 
 //------------компонента MyPosts--------------
 
-export const MyPosts: React.FC<MyPosts> = (props) => {
+export const MyPosts: React.FC<MyPostsTypeProps> = (props) => {
     const {profilePage, ...restProps} = props
 
     //------------метод map--------------

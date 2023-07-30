@@ -4,7 +4,7 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {    DialogsPageType} from "../../redux/store";
 
-type Dialogs = {
+type DialogsTypeProps = {
     dialogsPage: DialogsPageType
     updateNewMessageText: (text:string)=>void
     addMessage: ()=>void
@@ -12,7 +12,7 @@ type Dialogs = {
 
 //------компонента Dialogs-------------
 
-export const Dialogs: React.FC<Dialogs> = (props) => {
+export const Dialogs: React.FC<DialogsTypeProps> = (props) => {
     const [error, setError] = useState<string>('')
     //------методы map-------------
     const dialogsElements = props.dialogsPage.dialogs.map((d) => {
