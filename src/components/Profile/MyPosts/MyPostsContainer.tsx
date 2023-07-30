@@ -1,25 +1,18 @@
 import React from "react";
 import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
+import {GlobalStateType} from "../../../redux/store";
+import {connect} from "react-redux";
 
-type MyPostsContainer = {
-    // profilePage: ProfilePageType
-    // dispatch: (action: GeneralActionType) => void
-    store:any
-}
-
-//------------компонента MyPosts--------------
-
-export const MyPostsContainer: React.FC<MyPostsContainer> = (props) => {
-const state = props.store.getState()
-    const addPost = () => {
-        props.store.dispatch(addPostAC())
+const mapStateToProps = (state:GlobalStateType) => {
+    return {
+        profilePage: state.profilePage
     }
-    const onPostChange = (text:string) => {
-        props.store.dispatch(updateNewPostTextAC(text))
-    }
-
-    return (
-        <MyPosts profilePage={state.profilePage} updateNewPostText={onPostChange} addPost={addPost}/>
-    );
 }
+const mapDispatchToProps = (dispatch:any) => {
+    return {
+        updateNewPostText: (text: string)=>{dispatch(updateNewPostTextAC(text))},
+        addPost:()=>{dispatch(addPostAC())}
+    }
+}
+export const MyPostsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts)
