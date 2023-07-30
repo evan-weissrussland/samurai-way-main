@@ -19,13 +19,9 @@ type PropsAppType = {
 
 export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
-    const DialogsComponent = () => <DialogsContainer
-        store={props.store}
-    />
+    const DialogsComponent = () => <DialogsContainer/>
     //внешняя функция для передачи пропсов в компоненту Profile
-    const ProfileComponent = () => <Profile
-        store={props.store}
-    />
+    const ProfileComponent = () => <Profile/>
     return (
         <div className={'app-wripper'}>
             <Header/>
