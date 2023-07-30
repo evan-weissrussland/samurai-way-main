@@ -11,17 +11,6 @@ type DialogsDialogsContainerType = {
 
 export const DialogsContainer: React.FC<DialogsDialogsContainerType> = (props) => {
     const state = props.store.getState().dialogsPage
-    //------методы map-------------
-    // const dialogsElements = state.dialogs.map((d: any, index: any) => {
-    //     return (
-    //         <DialogItem key={d.id} id={d.id} name={d.name}/>
-    //     )
-    // })
-    // const mesagesElements = state.messages.map((m: any) => {
-    //     return (
-    //         <Message key={m.id} message={m.message} id={m.id}/>
-    //     )
-    // })
     const addMessage = () => {
         props.store.dispatch(addMessageAC())
     }

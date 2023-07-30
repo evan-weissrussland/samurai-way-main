@@ -14,23 +14,16 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
-    // state: AppRootStateType
-    // dispatch: (action: GeneralActionType) => void
-
-    store:any
+    // store:any
 }
 
 export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
     const DialogsComponent = () => <DialogsContainer
-        // dialogsPage={props.state.dialogsPage}
-        // dispatch={props.dispatch}
         store={props.store}
     />
     //внешняя функция для передачи пропсов в компоненту Profile
     const ProfileComponent = () => <Profile
-        // profilePage={props.state.profilePage}
-        // dispatch={props.dispatch}
         store={props.store}
     />
     return (
