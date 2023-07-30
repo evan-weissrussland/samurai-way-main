@@ -2,6 +2,7 @@ import React from 'react';
 import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {StoreContext} from "../../StoreContext";
+import {StoreType} from "../../redux/redux-store";
 
 
 type DialogsDialogsContainerType = {
@@ -14,7 +15,7 @@ export const DialogsContainer: React.FC<DialogsDialogsContainerType> = (props) =
     return (
         <StoreContext.Consumer>
             {
-            (store:any) => {
+            (store:StoreType) => {
                 const state = store.getState().dialogsPage
                 const addMessage = () => {
                     store.dispatch(addMessageAC())
