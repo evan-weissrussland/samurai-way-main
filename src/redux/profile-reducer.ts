@@ -33,6 +33,7 @@ export const profileReducer = (state = initialState , action: GeneralActionType)
 
 export const addPostAC = (): ActionAddPostOrAddMessageType => ({type: ADD_POST})
 
+
 /*export const updateNewPostTextAC = (text: string): ActionAddTextPostType => ({
     type: UPDATE_NEW_POST_TEXT,
     newPostText: text

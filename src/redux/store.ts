@@ -36,20 +36,27 @@ export type StoreType = {
     subscribe: (observer: (state:GlobalStateType) => void) => void
     dispatch: (action: GeneralActionType) => void
 }
+
+//типизация actionCreator'а для добавления поста или сообщения
 export type ActionAddPostOrAddMessageType = {
     type: 'ADD-MESSAGE' | 'ADD-POST'
 }
+
+//типизация actionCreator'а для по-символьного ввода данных в textarea поста
+export type ActionAddTextPostType = ReturnType<typeof updateNewPostTextAC>
+// НИЖЕ аналог типизации. Смотри в profile-reducer.ts функцию-креатор updateNewPostTextAC. Там тоже нужно вносить изменения
+// по данному синтаксису
 /*type ActionAddTextPostType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newPostText: string
 }*/
-//аналог типизации. Смотри в profile-reducer.ts функцию-креатор updateNewPostTextAC. Там тоже нужно вносить изменения
-// по данному синтаксису
-export type ActionAddTextPostType = ReturnType<typeof updateNewPostTextAC>
+
+//типизация actionCreator'а для по-символьного ввода данных в textarea сообщения
 export type ActionAddTextMessageType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     newMessageText: string
 }
+//общая типизация  actionCreator'ов
 export type GeneralActionType = ActionAddPostOrAddMessageType | ActionAddTextPostType | ActionAddTextMessageType
 
 
