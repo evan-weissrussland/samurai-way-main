@@ -4,15 +4,15 @@ import {MyPosts} from "./MyPosts";
 import {GlobalStateType} from "../../../redux/store";
 import {connect} from "react-redux";
 
-const mapStateToProps = (state:GlobalStateType) => {
+const mapStateToProps = (state: GlobalStateType) => {
     return {
         profilePage: state.profilePage
     }
 }
-const mapDispatchToProps = (dispatch:any) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
-        updateNewPostText: (text: string)=>{dispatch(updateNewPostTextAC(text))},
-        addPost:()=>{dispatch(addPostAC())}
+        updateNewPostText: (text: string) => dispatch(updateNewPostTextAC(text)),
+        addPost: () => dispatch(addPostAC())
     }
 }
-export const MyPostsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts)
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)

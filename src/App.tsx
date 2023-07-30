@@ -11,7 +11,6 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
-    // store:any
 }
 
 export const App: FC<PropsAppType> = (props) => {

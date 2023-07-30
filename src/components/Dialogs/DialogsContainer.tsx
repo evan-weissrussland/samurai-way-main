@@ -11,8 +11,8 @@ const mapStateToProps = (state:GlobalStateType) => {
 }
 const mapDispatchToProps = (dispatch:any) => {
     return {
-        updateNewMessageText: (text: string)=>{dispatch(updateNewMessageTextAC(text))},
-        addMessage:()=>{dispatch(addMessageAC())}
+        updateNewMessageText: (text: string) => dispatch(updateNewMessageTextAC(text)),
+        addMessage:() => dispatch(addMessageAC())
     }
 }
 export const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
