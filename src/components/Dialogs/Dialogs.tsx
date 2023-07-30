@@ -54,6 +54,7 @@ export const Dialogs: React.FC<Dialogs> = (props) => {
                     <div>
                         <textarea
                             placeholder={!error ? 'Enter your message' : error}
+                            className={error && s.error}
                             onChange={onMessageChange}
                             // ref={newMyMessage}
                             value={props.dialogsPage.newMessageText}
