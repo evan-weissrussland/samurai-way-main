@@ -15,7 +15,7 @@ type MapDispatchToPropsType = {
     addPost:() => void
 }
 
-const mapStateToProps = (state: AppRootStateType) => {
+const mapStateToProps = (state: AppRootStateType):MapStateToPropsType => {
     return {
         profilePage: state.profilePage
     }
