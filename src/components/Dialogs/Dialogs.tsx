@@ -15,7 +15,7 @@ type Dialogs = {
 export const Dialogs: React.FC<Dialogs> = (props) => {
     const [error, setError] = useState<string>('')
     //------методы map-------------
-    const dialogsElements = props.dialogsPage.dialogs.map((d, index) => {
+    const dialogsElements = props.dialogsPage.dialogs.map((d) => {
         return (
             <DialogItem key={d.id} id={d.id} name={d.name}/>
         )
