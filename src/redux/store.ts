@@ -57,8 +57,8 @@ export type GeneralActionType = ActionAddPostOrAddMessageType | ActionAddTextPos
 
 
 
-
-export const store: StoreType = {
+//наш кастомный store, что-то вроде аналога store from Redux. с 42 урока соцсети не используется в коде. Оставил для себя
+/*export const store: StoreType = {
     _state: {
         profilePage: {
             //------данные для MyPosts в папке Profile----------
@@ -103,7 +103,7 @@ export const store: StoreType = {
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
         this._callSubscriber(this._state)
     },
-}
+}*/
 
 
 
