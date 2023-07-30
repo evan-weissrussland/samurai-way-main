@@ -1,6 +1,4 @@
-import {profileReducer, updateNewPostTextAC} from "./profile-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
-import {sidebarReducer} from "./sidebar-reducer";
+import {updateNewPostTextAC} from "./profile-reducer";
 
 export type MyPostsType = {
     id: number
