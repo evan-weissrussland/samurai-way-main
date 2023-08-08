@@ -52,12 +52,9 @@ export const dialogsReducer = (state:InitialStateType = initialState, action: Ge
                 id: state.messages.length + 1,
                 message: state.newMessageText
             }
-            state.messages.push(newMessage)
-            state.newMessageText = ''
-            return state;
+            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
         case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.newMessageText
-            return state;
+            return {...state, newMessageText: action.newMessageText}
         default:
             return state
     }
