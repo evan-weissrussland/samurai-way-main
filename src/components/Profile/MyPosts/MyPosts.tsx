@@ -26,6 +26,7 @@ export const MyPosts: React.FC<MyPostsTypeProps> = (props) => {
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const onAddPost = () => {
         props.addPost()
+
     }
     const onPostChange = () => {
         const text = newPostElement.current as HTMLTextAreaElement
