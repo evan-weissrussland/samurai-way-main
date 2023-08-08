@@ -1,5 +1,5 @@
-import {DialogsPageType} from "./store";
-import {addMessageAC, dialogsReducer, updateNewMessageTextAC} from "./dialogs-reducer";
+
+import {addMessageAC, DialogsPageType, dialogsReducer, updateNewMessageTextAC} from "./dialogs-reducer";
 
 test('correct dialogs-reducer add message', () => {
     const  dialogsPage:DialogsPageType = {

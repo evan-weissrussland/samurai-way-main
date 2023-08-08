@@ -1,5 +1,5 @@
-import {ProfilePageType} from "./store";
-import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
+
+import {addPostAC, ProfilePageType, profileReducer, updateNewPostTextAC} from "./profile-reducer";
 
 test('correct profile-reducer add post', () => {
    const  profilePage:ProfilePageType = {

@@ -1,4 +1,6 @@
-import {DialogsPageType, GeneralActionType, SidebarPageType} from "./store";
+import {GeneralActionType} from "./store";
+
+type SidebarPageType = {}
 
 const initialState:SidebarPageType = {}
 

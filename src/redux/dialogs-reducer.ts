@@ -13,11 +13,11 @@ type MessagesType = {
     id: number
     message: string
 }
-// export type DialogsPageType = {
-//     dialogs: DialogsItemType[]
-//     messages: MessagesType[]
-//     newMessageText: string
-// }
+export type DialogsPageType = {
+    dialogs: DialogsItemType[]
+    messages: MessagesType[]
+    newMessageText: string
+}
 
 
 
