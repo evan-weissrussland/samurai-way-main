@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import {Users} from "./Users";
 import {setUsersAC, followAC, InitialStateType, unfollowAC, UsersType} from "../../redux/users-reducer";
 
-
 type MapStateToPropsType = {
     usersPage:InitialStateType
 }

@@ -11,6 +11,7 @@ export type UsersType = {
     status: string
     location: LocationType
     followed: boolean
+    photoUrl:string
 }
 export type UsersPageType = {
     users: UsersType[]
@@ -24,17 +25,11 @@ const SET_USERS = 'SET-USERS'
 export const initialState = {
     //------данные для MyPosts в папке Profile----------
     users: [
-        /*{id: 1, followed: false, fullname: "Vitold", status: 'boss', location: {city: 'Minsk', country: 'Belarus'}},
-        {id: 2, followed: true, fullname: "Vasya", status: 'pre-boss', location: {city: 'Tourin', country: 'Belarus'}},
-        {
-            id: 3,
-            followed: false,
-            fullname: "Zinaida",
-            status: 'manager',
-            location: {city: 'Gudowichi', country: 'Belarus'}
-        },*/
+        {id: 1, photoUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.LIaPJq7RCzBb9g8_EzYxggAAAA%26pid%3DApi&f=1&ipt=3c3eca1380cf9846c55c32023f3c6252578c60ecfd4bef4ac38837b2d599732c&ipo=images', followed: false, fullname: "Vitold", status: 'boss', location: {city: 'Minsk', country: 'Belarus'}},
+        {id: 2, photoUrl:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.LIaPJq7RCzBb9g8_EzYxggAAAA%26pid%3DApi&f=1&ipt=3c3eca1380cf9846c55c32023f3c6252578c60ecfd4bef4ac38837b2d599732c&ipo=images', followed: true, fullname: "Vasya", status: 'pre-boss', location: {city: 'Tourin', country: 'Belarus'}},
+        {id: 3, photoUrl:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.LIaPJq7RCzBb9g8_EzYxggAAAA%26pid%3DApi&f=1&ipt=3c3eca1380cf9846c55c32023f3c6252578c60ecfd4bef4ac38837b2d599732c&ipo=images', followed: false, fullname: "Zinaida", status: 'manager', location: {city: 'Gudowichi', country: 'Belarus'}},
     ],
-} as UsersPageType
+}
 
 export type InitialStateType = typeof initialState
 
