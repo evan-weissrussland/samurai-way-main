@@ -21,7 +21,7 @@ const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 
-const initialStateType: UsersPageType = {
+export const initialState = {
     //------данные для MyPosts в папке Profile----------
     users: [
         /*{id: 1, followed: false, fullname: "Vitold", status: 'boss', location: {city: 'Minsk', country: 'Belarus'}},
@@ -34,9 +34,11 @@ const initialStateType: UsersPageType = {
             location: {city: 'Gudowichi', country: 'Belarus'}
         },*/
     ],
-}
+} as UsersPageType
 
-export const usersReducer = (state: UsersPageType = initialStateType, action: GeneralActionType): UsersPageType => {
+export type InitialStateType = typeof initialState
+
+export const usersReducer = (state: InitialStateType = initialState, action: GeneralActionType): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)}

@@ -9,6 +9,7 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {Users} from "./components/Users/Users";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
@@ -26,7 +27,7 @@ export const App: FC<PropsAppType> = (props) => {
             <div className={'app-wripper-content'}>
                 <Route path={'/dialogs'} render={DialogsComponent}/>
                 <Route path={'/profile'} render={ProfileComponent}/>
-                <Route path={'/users'} render={()=><Users/>}/>
+                <Route path={'/users'} render={()=><UsersContainer/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
