@@ -1,39 +1,40 @@
 import {updateNewPostTextAC} from "./profile-reducer";
+import {followAC, unfollowAC} from "./users-reducer";
 
- type MyPostsType = {
+type MyPostsType = {
     id: number
     message: string
     likesCount: number
 }
- type DialogsItemType = {
+type DialogsItemType = {
     id: number
     name: string
 }
- type MessagesType = {
+type MessagesType = {
     id: number
     message: string
 }
- type ProfilePageType = {
+type ProfilePageType = {
     posts: MyPostsType[]
     newPostText: string
 }
- type DialogsPageType = {
+type DialogsPageType = {
     dialogs: DialogsItemType[]
     messages: MessagesType[]
     newMessageText: string
 }
- type SidebarPageType = {}
- type GlobalStateType = {
+type SidebarPageType = {}
+type GlobalStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarPageType
 
 }
- type StoreType = {
+type StoreType = {
     _state: GlobalStateType
     getState: () => GlobalStateType
-    _callSubscriber: (state:GlobalStateType) => void
-    subscribe: (observer: (state:GlobalStateType) => void) => void
+    _callSubscriber: (state: GlobalStateType) => void
+    subscribe: (observer: (state: GlobalStateType) => void) => void
     dispatch: (action: GeneralActionType) => void
 }
 
@@ -56,10 +57,19 @@ export type ActionAddTextMessageType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     newMessageText: string
 }
+//типизация actionCreator'а для изменения статуса user'а на follow
+export type ActionFollowUserType = ReturnType<typeof followAC>
+
+//типизация actionCreator'а для изменения статуса user'а на unfollow
+export type ActionUnfollowUserType = ReturnType<typeof unfollowAC>
+
 //общая типизация  actionCreator'ов
-export type GeneralActionType = ActionAddPostOrAddMessageType | ActionAddTextPostType | ActionAddTextMessageType
-
-
+export type GeneralActionType =
+    ActionAddPostOrAddMessageType
+    | ActionAddTextPostType
+    | ActionAddTextMessageType
+    | ActionFollowUserType
+    | ActionUnfollowUserType
 
 
 //наш кастомный store, что-то вроде аналога store from Redux. с 42 урока соцсети не используется в коде. Оставил для себя
