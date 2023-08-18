@@ -1,5 +1,5 @@
 import {updateNewPostTextAC} from "./profile-reducer";
-import {followAC, setUsersAC, unfollowAC} from "./users-reducer";
+import {setUsersAC, followAC, unfollowAC} from "./users-reducer";
 
 type MyPostsType = {
     id: number
