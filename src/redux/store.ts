@@ -1,5 +1,5 @@
 import {updateNewPostTextAC} from "./profile-reducer";
-import {followAC, unfollowAC} from "./users-reducer";
+import {followAC, setUsersAC, unfollowAC} from "./users-reducer";
 
 type MyPostsType = {
     id: number
@@ -63,6 +63,9 @@ export type ActionFollowUserType = ReturnType<typeof followAC>
 //типизация actionCreator'а для изменения статуса user'а на unfollow
 export type ActionUnfollowUserType = ReturnType<typeof unfollowAC>
 
+//типизация actionCreator'а для Добавления user'ов с сервера
+export type ActionSetUsersType = ReturnType<typeof setUsersAC>
+
 //общая типизация  actionCreator'ов
 export type GeneralActionType =
     ActionAddPostOrAddMessageType
@@ -70,6 +73,7 @@ export type GeneralActionType =
     | ActionAddTextMessageType
     | ActionFollowUserType
     | ActionUnfollowUserType
+    | ActionSetUsersType
 
 
 //наш кастомный store, что-то вроде аналога store from Redux. с 42 урока соцсети не используется в коде. Оставил для себя

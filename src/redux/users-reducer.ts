@@ -19,11 +19,12 @@ export type UsersPageType = {
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET-USERS'
 
 const initialStateType: UsersPageType = {
     //------данные для MyPosts в папке Profile----------
     users: [
-        {id: 1, followed: false, fullname: "Vitold", status: 'boss', location: {city: 'Minsk', country: 'Belarus'}},
+        /*{id: 1, followed: false, fullname: "Vitold", status: 'boss', location: {city: 'Minsk', country: 'Belarus'}},
         {id: 2, followed: true, fullname: "Vasya", status: 'pre-boss', location: {city: 'Tourin', country: 'Belarus'}},
         {
             id: 3,
@@ -31,7 +32,7 @@ const initialStateType: UsersPageType = {
             fullname: "Zinaida",
             status: 'manager',
             location: {city: 'Gudowichi', country: 'Belarus'}
-        },
+        },*/
     ],
 }
 
@@ -41,6 +42,8 @@ export const usersReducer = (state: UsersPageType = initialStateType, action: Ge
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)}
         case UNFOLLOW:
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)}
+        case SET_USERS:
+            return {...state, users: [...state.users, ...action.users]}
         default:
             return state
     }
@@ -48,5 +51,6 @@ export const usersReducer = (state: UsersPageType = initialStateType, action: Ge
 
 export const followAC = (userId: number) => ({type: FOLLOW, userId}) as const
 export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId}) as const
+export const setUsersAC = (users: UsersType[]) => ({type: SET_USERS, users}) as const
 
 
