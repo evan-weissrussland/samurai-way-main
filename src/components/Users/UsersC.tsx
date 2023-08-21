@@ -6,18 +6,15 @@ import defaultavaUser from '../../images/avauser.jpg'
 import {UsersType} from "../../redux/users-reducer";
 
 export class UsersC extends React.Component<any, any> {
-    constructor(props: UsersPropsType) {
-        super(props);
-        if (this.props.usersPage.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                this.props.setUsers(response.data.items)
-            })
-        }
+
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            this.props.setUsers(response.data.items)
+        })
     }
 
     render() {
         return <div>
-            <button onClick={this.getUsers}>Get Users</button>
             {this.props.usersPage.users.map((u: UsersType) => {
 
                 return <div key={u.id} className={s.usersContainer}>
