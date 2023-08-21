@@ -6,20 +6,24 @@ import defaultavaUser from '../../images/avauser.jpg'
 
 export const Users = (props: UsersPropsType) => {
 
-    if (props.usersPage.users.length === 0) {
+    const getUsers = () => {
+        if (props.usersPage.users.length === 0) {
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            props.setUsers(response.data.items)
-        })
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                props.setUsers(response.data.items)
+            })
+        }
     }
 
+
     return <div>
+        <button onClick={getUsers}>Get Users</button>
         {props.usersPage.users.map(u => {
 
             return <div key={u.id} className={s.usersContainer}>
             <span>
                 <div>
-                    <img className={s.img} src={u.photos.small !== null ? u.photos.small : defaultavaUser } alt="ava"/>
+                    <img className={s.img} src={u.photos.small !== null ? u.photos.small : defaultavaUser} alt="ava"/>
                 </div>
                 <div>
                     {u.followed
