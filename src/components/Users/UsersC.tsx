@@ -10,7 +10,13 @@ export class UsersC extends React.Component<any, any> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items)
-            debugger
+        })
+    }
+
+    onPageChanged = (p:number) => {
+        this.props.setCurrentPage(p)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
         })
     }
 
@@ -22,7 +28,7 @@ export class UsersC extends React.Component<any, any> {
         }
         return <div>
             <div>
-                {pages.map(p => <span className={this.props.currentPage && p === this.props.currentPage && s.selectedPage}>{p}</span>)}
+                {pages.map((p,i) => <span key={i} onClick={()=>this.onPageChanged(p)} className={this.props.currentPage && p === this.props.currentPage && s.selectedPage}>{p}</span>)}
             </div>
             {this.props.usersPage.users.map((u: UsersType) => {
 
