@@ -8,6 +8,8 @@ import {UsersC} from "./UsersC";
 
 type MapStateToPropsType = {
     usersPage:InitialStateType
+    pageSize: number
+    totalUsersCount:number
 }
 
 type MapDispatchToPropsType = {
@@ -20,8 +22,9 @@ export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state:AppRootStateType):MapStateToPropsType => {
     return {
-        usersPage: state.usersPage
-        pageSize: state.usersPage
+        usersPage: state.usersPage,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
