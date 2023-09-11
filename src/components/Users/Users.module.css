@@ -8,3 +8,16 @@
     font-size: 2em;
     font-weight: bold;
 }
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.loader > img {
+    width: 150px;
+}
+.UsersAPIContainer {
+    /*border: 2px solid red;*/
+    height: 100%;
+}

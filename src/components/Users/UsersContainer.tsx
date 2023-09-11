@@ -8,45 +8,49 @@ import {
     InitialStateType,
     unfollowAC,
     UsersType,
-    setCurrentPageAC, setTotalUsersCountAC
+    setCurrentPageAC, setTotalUsersCountAC, toggleIsFetchingAC
 } from "../../redux/users-reducer";
 import axios from "axios";
 import {UsersPresentation} from "./UsersPresentation";
 import preloaderGif from "../../images/Spinner-2.gif"
+import s from "./Users.module.css";
 
 
 export class UsersAPIContainer extends React.Component<any, any> {
 
     componentDidMount() {
+        this.props.toggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items)
             this.props.setTotalUsersCount(response.data.totalCount)
-        })
+        }).finally(() => this.props.toggleIsFetching(false))
     }
 
     onPageChanged = (pageNumber: number) => {
+        this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items)
-
-        })
+        }).finally(() => this.props.toggleIsFetching(false))
     }
 
     render() {
 
-        return <>
-            {this.props.isFetching ? <img src={preloaderGif} alt="loader"/> : null}
-            <UsersPresentation
-                onPageChanged={this.onPageChanged}
-                currentPage={this.props.currentPage}
-                users={this.props.usersPage.users}
-                setFollowUser={this.props.setFollowUser}
-                setUnfollowUser={this.props.setUnfollowUser}
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-            />
-
-        </>
+        return <div className={s.UsersAPIContainer}>
+            {
+                this.props.isFetching ?
+                   <div className={s.loader}> <img  src={preloaderGif} alt="loader"/></div>
+                    : <UsersPresentation
+                        onPageChanged={this.onPageChanged}
+                        currentPage={this.props.currentPage}
+                        users={this.props.usersPage.users}
+                        setFollowUser={this.props.setFollowUser}
+                        setUnfollowUser={this.props.setUnfollowUser}
+                        totalUsersCount={this.props.totalUsersCount}
+                        pageSize={this.props.pageSize}
+                    />
+            }
+        </div>
 
     }
 }
@@ -57,7 +61,6 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-
 }
 
 type MapDispatchToPropsType = {
@@ -66,6 +69,7 @@ type MapDispatchToPropsType = {
     setUsers: (users: UsersType[]) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
+    toggleIsFetching: (isFetching: boolean) => void
 }
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -86,6 +90,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         setUsers: (users: UsersType[]) => dispatch(setUsersAC(users)),
         setCurrentPage: (currentPage: number) => dispatch(setCurrentPageAC(currentPage)),
         setTotalUsersCount: (totalUsersCount: number) => dispatch(setTotalUsersCountAC(totalUsersCount)),
+        toggleIsFetching: (isFetching: boolean) => dispatch(toggleIsFetchingAC(isFetching)),
     }
 }
 // export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(Users)
