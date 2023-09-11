@@ -8,21 +8,21 @@ import {UsersType} from "../../redux/users-reducer";
 export class UsersC extends React.Component<any, any> {
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=5`).then(response => {
             this.props.setUsers(response.data.items)
             debugger
         })
     }
 
     render() {
-        const pagesCount = this.props.totalUsersCount / this.props.pageSize
+        const pagesCount = Math.ceil( this.props.totalUsersCount / this.props.pageSize)
         const pages = []
-        for (let i = 0 ; i <= pagesCount; i++) {
+        for (let i = 1 ; i <= pagesCount; i++) {
             pages.push(i)
         }
         return <div>
             <div>
-                {pages.map(p => <span className={s.selectedPage}>{p}</span>)}
+                {pages.map(p => <span className={this.props.currentPage && p === this.props.currentPage && s.selectedPage}>{p}</span>)}
             </div>
             {this.props.usersPage.users.map((u: UsersType) => {
 
