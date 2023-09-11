@@ -24,6 +24,7 @@ export type UsersPageType = {
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 
 export const initialState = {
     //------данные для MyPosts в папке Profile----------
@@ -32,9 +33,9 @@ export const initialState = {
         {id: 2, photoUrl:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.LIaPJq7RCzBb9g8_EzYxggAAAA%26pid%3DApi&f=1&ipt=3c3eca1380cf9846c55c32023f3c6252578c60ecfd4bef4ac38837b2d599732c&ipo=images', followed: true, fullname: "Vasya", status: 'pre-boss', location: {city: 'Tourin', country: 'Belarus'}},
         {id: 3, photoUrl:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.LIaPJq7RCzBb9g8_EzYxggAAAA%26pid%3DApi&f=1&ipt=3c3eca1380cf9846c55c32023f3c6252578c60ecfd4bef4ac38837b2d599732c&ipo=images', followed: false, fullname: "Zinaida", status: 'manager', location: {city: 'Gudowichi', country: 'Belarus'}},*/
     ],
-    pageSize: 5,
+    pageSize: 4,
     totalUsersCount: 21,
-    currentPage:1
+    currentPage:2
 } as UsersPageType
 
 export type InitialStateType = typeof initialState
@@ -47,6 +48,8 @@ export const usersReducer = (state: InitialStateType = initialState, action: Gen
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)}
         case SET_USERS:
             return {...state, users: [...state.users, ...action.users]}
+        case SET_CURRENT_PAGE:
+            return {...state, users: [...state.users, ...action.users]}
         default:
             return state
     }
@@ -55,5 +58,6 @@ export const usersReducer = (state: InitialStateType = initialState, action: Gen
 export const followAC = (userId: number) => ({type: FOLLOW, userId}) as const
 export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId}) as const
 export const setUsersAC = (users: UsersType[]) => ({type: SET_USERS, users}) as const
+export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
 
 
