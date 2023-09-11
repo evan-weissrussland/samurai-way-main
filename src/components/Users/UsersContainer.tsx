@@ -11,7 +11,7 @@ import {
     UsersType,
     setCurrentPageAC, setTotalUsersCountAC
 } from "../../redux/users-reducer";
-import {UsersC} from "./UsersC";
+import {UsersAPIComponent} from "./UsersAPIComponent";
 
 type MapStateToPropsType = {
     usersPage:InitialStateType
@@ -48,4 +48,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 // export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(Users)
-export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(UsersC)
+export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(UsersAPIComponent)
