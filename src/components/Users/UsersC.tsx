@@ -15,13 +15,14 @@ export class UsersC extends React.Component<any, any> {
     }
 
     render() {
+        const pagesCount = this.props.totalUsersCount / this.props.pageSize
+        const pages = []
+        for (let i = 0 ; i <= pagesCount; i++) {
+            pages.push(i)
+        }
         return <div>
             <div>
-                <span>1</span>
-                <span className={s.selectedPage}>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
+                {pages.map(p => <span className={s.selectedPage}>{p}</span>)}
             </div>
             {this.props.usersPage.users.map((u: UsersType) => {
 
