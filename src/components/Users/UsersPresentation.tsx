@@ -21,7 +21,7 @@ export const UsersPresentation: FC<UsersPresentationType> = (props) => {
         pages.push(i)
     }
     return <div>
-        <div>
+        <div className={s.waipperSpans}>
             {pages.map((p, i) =>
                 <span
                     key={i}

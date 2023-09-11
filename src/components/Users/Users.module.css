@@ -21,3 +21,9 @@
     /*border: 2px solid red;*/
     height: 100%;
 }
+.waipperSpans {
+    display: flex;
+    /*border: 2px solid red;*/
+    align-items: center;
+    flex-wrap: wrap;
+}
