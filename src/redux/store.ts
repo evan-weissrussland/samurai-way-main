@@ -1,5 +1,12 @@
 import {updateNewPostTextAC} from "./profile-reducer";
-import {setUsersAC, followAC, unfollowAC, setCurrentPageAC, setTotalUsersCountAC} from "./users-reducer";
+import {
+    setUsersAC,
+    followAC,
+    unfollowAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    toggleIsFetchingAC
+} from "./users-reducer";
 
 type MyPostsType = {
     id: number
@@ -69,8 +76,11 @@ export type ActionSetUsersType = ReturnType<typeof setUsersAC>
 //типизация actionCreator'а для Добавления текущей страницы пользователей с сервера
 export type ActionSetCurrentPageType = ReturnType<typeof setCurrentPageAC>
 
-//типизация actionCreator'а для Добавления текущей страницы пользователей с сервера
+//типизация actionCreator'а для изменения общего количества юзеров с сервера
 export type ActionSetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
+
+//типизация actionCreator'а для изменения условия отображения preloaderGif
+export type ActionToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
 
 //общая типизация  actionCreator'ов
 export type GeneralActionType =
@@ -82,6 +92,7 @@ export type GeneralActionType =
     | ActionSetUsersType
     | ActionSetCurrentPageType
     | ActionSetTotalUsersCountACType
+    | ActionToggleIsFetchingACType
 
 
 //наш кастомный store, что-то вроде аналога store from Redux. с 42 урока соцсети не используется в коде. Оставил для себя

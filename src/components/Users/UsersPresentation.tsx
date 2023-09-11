@@ -12,7 +12,6 @@ type UsersPresentationType = {
     setUnfollowUser: (userId: number) => void
     totalUsersCount: number
     pageSize: number
-    isFetching:boolean
 }
 
 export const UsersPresentation: FC<UsersPresentationType> = (props) => {

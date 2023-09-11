@@ -12,6 +12,7 @@ import {
 } from "../../redux/users-reducer";
 import axios from "axios";
 import {UsersPresentation} from "./UsersPresentation";
+import preloaderGif from "../../images/Spinner-2.gif"
 
 
 export class UsersAPIContainer extends React.Component<any, any> {
@@ -34,6 +35,7 @@ export class UsersAPIContainer extends React.Component<any, any> {
     render() {
 
         return <>
+            {this.props.isFetching ? <img src={preloaderGif} alt="loader"/> : null}
             <UsersPresentation
                 onPageChanged={this.onPageChanged}
                 currentPage={this.props.currentPage}
@@ -42,8 +44,8 @@ export class UsersAPIContainer extends React.Component<any, any> {
                 setUnfollowUser={this.props.setUnfollowUser}
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
-                isFetching={this.props.isFetching}
             />
+
         </>
 
     }
