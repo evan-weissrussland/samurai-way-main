@@ -5,19 +5,24 @@ import defaultavaUser from "../../images/avauser.jpg";
 
 
 type UsersPresentationType = {
-    pages: Array<number>
     onPageChanged: (pageNumber: number) => void
     currentPage: number
     users: UsersType[]
     setFollowUser: (userId: number) => void
     setUnfollowUser: (userId: number) => void
+    totalUsersCount:number
+    pageSize:number
 }
 
 export const UsersPresentation: FC<UsersPresentationType> = (props) => {
-
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    const pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
     return <div>
         <div>
-            {props.pages.map((p, i) =>
+            {pages.map((p, i) =>
                 <span
                     key={i}
                     onClick={() => props.onPageChanged(p)}

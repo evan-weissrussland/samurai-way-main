@@ -2,7 +2,6 @@ import React from 'react';
 import {AppRootStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
-import {Users} from "./Users";
 import {
     setUsersAC,
     followAC,
@@ -11,7 +10,45 @@ import {
     UsersType,
     setCurrentPageAC, setTotalUsersCountAC
 } from "../../redux/users-reducer";
-import {UsersAPIComponent} from "./UsersAPIComponent";
+import axios from "axios";
+import {UsersPresentation} from "./UsersPresentation";
+
+
+
+export class UsersAPIComponent extends React.Component<any, any> {
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+
+        })
+    }
+
+    render() {
+
+        return <>
+            <UsersPresentation
+                onPageChanged={this.onPageChanged}
+                currentPage={this.props.currentPage}
+                users={this.props.usersPage.users}
+                setFollowUser={this.props.setFollowUser}
+                setUnfollowUser={this.props.setUnfollowUser}
+                totalUsersCount={this.props.totalUsersCount}
+                pageSize={this.props.pageSize}
+
+            />
+        </>
+
+    }
+}
 
 type MapStateToPropsType = {
     usersPage:InitialStateType
