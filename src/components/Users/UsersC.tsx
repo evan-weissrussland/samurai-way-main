@@ -10,11 +10,19 @@ export class UsersC extends React.Component<any, any> {
     componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
             this.props.setUsers(response.data.items)
+            debugger
         })
     }
 
     render() {
         return <div>
+            <div>
+                <span>1</span>
+                <span className={s.selectedPage}>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+            </div>
             {this.props.usersPage.users.map((u: UsersType) => {
 
                 return <div key={u.id} className={s.usersContainer}>

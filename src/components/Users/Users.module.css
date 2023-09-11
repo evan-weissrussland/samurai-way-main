@@ -4,3 +4,7 @@
 .img {
     width: 50px;
 }
+.selectedPage {
+    font-size: 2em;
+    font-weight: bold;
+}
