@@ -14,8 +14,7 @@ import axios from "axios";
 import {UsersPresentation} from "./UsersPresentation";
 
 
-
-export class UsersAPIComponent extends React.Component<any, any> {
+export class UsersAPIContainer extends React.Component<any, any> {
 
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
@@ -43,7 +42,7 @@ export class UsersAPIComponent extends React.Component<any, any> {
                 setUnfollowUser={this.props.setUnfollowUser}
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
-
+                isFetching={this.props.isFetching}
             />
         </>
 
@@ -51,38 +50,41 @@ export class UsersAPIComponent extends React.Component<any, any> {
 }
 
 type MapStateToPropsType = {
-    usersPage:InitialStateType
+    usersPage: InitialStateType
     pageSize: number
-    totalUsersCount:number
-    currentPage:number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+
 }
 
 type MapDispatchToPropsType = {
-    setFollowUser:(userId: number) => void
-    setUnfollowUser:(userId: number) => void
+    setFollowUser: (userId: number) => void
+    setUnfollowUser: (userId: number) => void
     setUsers: (users: UsersType[]) => void
-    setCurrentPage:(currentPage:number) => void
-    setTotalUsersCount:(totalUsersCount:number) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalUsersCount: number) => void
 }
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-const mapStateToProps = (state:AppRootStateType):MapStateToPropsType => {
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         usersPage: state.usersPage,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        setFollowUser:(userId: number) => dispatch(followAC(userId)),
-        setUnfollowUser:(userId: number) => dispatch(unfollowAC(userId)),
-        setUsers:(users: UsersType[]) => dispatch(setUsersAC(users)),
-        setCurrentPage:(currentPage:number) => dispatch(setCurrentPageAC(currentPage)),
-        setTotalUsersCount:(totalUsersCount:number) => dispatch(setTotalUsersCountAC(totalUsersCount)),
+        setFollowUser: (userId: number) => dispatch(followAC(userId)),
+        setUnfollowUser: (userId: number) => dispatch(unfollowAC(userId)),
+        setUsers: (users: UsersType[]) => dispatch(setUsersAC(users)),
+        setCurrentPage: (currentPage: number) => dispatch(setCurrentPageAC(currentPage)),
+        setTotalUsersCount: (totalUsersCount: number) => dispatch(setTotalUsersCountAC(totalUsersCount)),
     }
 }
 // export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(Users)
-export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(UsersAPIComponent)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)

@@ -18,6 +18,7 @@ export type UsersPageType = {
     pageSize: number
     totalUsersCount: number
     currentPage:number
+    isFetching:boolean
 }
 
 
@@ -36,7 +37,8 @@ export const initialState = {
     ],
     pageSize: 10,
     totalUsersCount: 0,
-    currentPage:1
+    currentPage:1,
+    isFetching:false
 } as UsersPageType
 
 export type InitialStateType = typeof initialState
