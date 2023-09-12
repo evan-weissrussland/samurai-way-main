@@ -34,7 +34,7 @@ export const UsersPresentation: FC<UsersPresentationType> = (props) => {
             return <div key={u.id} className={s.usersContainer}>
             <span>
                 <div>
-                   <NavLink to={`/profile/${u.id}`} activeClassName={s.active}>
+                   <NavLink to={`/profile/${u.id}`}>
                     <img className={s.img} src={u.photos.small !== null ? u.photos.small : defaultavaUser} alt="ava"/>
                     </NavLink>
                 </div>
