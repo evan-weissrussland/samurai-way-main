@@ -5,4 +5,26 @@
 }
 .descriptionBlock {
     padding: 10px;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+}
+.profileAva {
+    text-align: center;
+}
+.descriptionInfo {
+    color:orange;
+    font-weight: bold;
+    font-size: 20px;
+}
+.descriptionName {
+    color: rgba(57, 203, 81, 0.9);
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+}
+.descriptionfromProfile {
+    color: rgba(32, 36, 199, 0.9);
+    font-weight: bold;
+    font-size: 30px;
 }
