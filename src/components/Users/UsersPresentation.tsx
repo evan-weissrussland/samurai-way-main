@@ -2,6 +2,7 @@ import React, {FC} from "react";
 import s from "./Users.module.css";
 import {UsersType} from "../../redux/users-reducer";
 import defaultavaUser from "../../images/avauser.jpg";
+import {NavLink} from "react-router-dom";
 
 
 type UsersPresentationType = {
@@ -33,7 +34,9 @@ export const UsersPresentation: FC<UsersPresentationType> = (props) => {
             return <div key={u.id} className={s.usersContainer}>
             <span>
                 <div>
+                   <NavLink to={`/profile/${u.id}`} activeClassName={s.active}>
                     <img className={s.img} src={u.photos.small !== null ? u.photos.small : defaultavaUser} alt="ava"/>
+                    </NavLink>
                 </div>
                 <div>
                     {u.followed

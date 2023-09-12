@@ -1,4 +1,4 @@
-import {updateNewPostTextAC} from "./profile-reducer";
+import {setUserProfile, updateNewPostTextAC} from "./profile-reducer";
 import {
     setUsers,
     setFollowUser,
@@ -82,6 +82,9 @@ export type ActionSetTotalUsersCountACType = ReturnType<typeof setTotalUsersCoun
 //типизация actionCreator'а для изменения условия отображения preloaderGif
 export type ActionToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 
+//типизация actionCreator'а для изменения условия отображения preloaderGif
+export type ActionSetUserProfileACType = ReturnType<typeof setUserProfile>
+
 //общая типизация  actionCreator'ов
 export type GeneralActionType =
     ActionAddPostOrAddMessageType
@@ -93,6 +96,7 @@ export type GeneralActionType =
     | ActionSetCurrentPageType
     | ActionSetTotalUsersCountACType
     | ActionToggleIsFetchingACType
+    | ActionSetUserProfileACType
 
 
 //наш кастомный store, что-то вроде аналога store from Redux. с 42 урока соцсети не используется в коде. Оставил для себя

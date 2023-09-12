@@ -9,6 +9,7 @@ import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
+import {ProfileAPIContainer} from "./components/Profile/ProfileContainer";
 
 //импортируем из стэйта типизацию объекта state
 type PropsAppType = {
@@ -18,7 +19,8 @@ export const App: FC<PropsAppType> = (props) => {
     //внешняя функция для передачи пропсов в компоненту Dialogs
     const DialogsComponent = () => <DialogsContainer/>
     //внешняя функция для передачи пропсов в компоненту Profile
-    const ProfileComponent = () => <Profile/>
+    // const ProfileComponent = () => <Profile/>
+    const ProfileComponent = () => <ProfileAPIContainer/>
     return (
         <div className={'app-wripper'}>
             <Header/>

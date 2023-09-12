@@ -1,15 +1,15 @@
-
 import {addPostAC, ProfilePageType, profileReducer, updateNewPostTextAC} from "./profile-reducer";
 
 test('correct profile-reducer add post', () => {
-   const  profilePage:ProfilePageType = {
-            //------данные для MyPosts в папке Profile----------
-            posts: [
-                {id: 1, message: "Hi, how are you?", likesCount: 6},
-                {id: 2, message: "It's my first post", likesCount: 3}
-            ],
-                newPostText: "ffff",
-        }
+    const profilePage: ProfilePageType = {
+        //------данные для MyPosts в папке Profile----------
+        posts: [
+            {id: 1, message: "Hi, how are you?", likesCount: 6},
+            {id: 2, message: "It's my first post", likesCount: 3}
+        ],
+        newPostText: "ffff",
+        profile: {}
+    }
 
     const endState = profileReducer(profilePage, addPostAC())
 
@@ -21,15 +21,16 @@ test('correct profile-reducer add post', () => {
 });
 
 test('correct profile-reducer add new post text', () => {
-    const  profilePage:ProfilePageType = {
+    const profilePage: ProfilePageType = {
         //------данные для MyPosts в папке Profile----------
         posts: [
             {id: 1, message: "Hi, how are you?", likesCount: 6},
             {id: 2, message: "It's my first post", likesCount: 3}
         ],
         newPostText: "ffff",
+        profile: {}
     }
-const text = 'Vetal'
+    const text = 'Vetal'
     const endState = profileReducer(profilePage, updateNewPostTextAC(text))
 
     expect(endState.posts.length).toBe(2);

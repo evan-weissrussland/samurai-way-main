@@ -1,6 +1,25 @@
 import {ActionAddPostOrAddMessageType, GeneralActionType} from "./store";
 
-
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+    }
+    photos: {
+    small: string | null
+    large: string | null
+    }
+}
 export type MyPostType = {
     id: number
     message: string
@@ -9,22 +28,25 @@ export type MyPostType = {
 export type ProfilePageType = {
     posts: MyPostType[]
     newPostText: string
+    profile: ProfileType | null
 }
 
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SET_USER_PROFILE = 'SET-USER-PROFILE'
 
-const initialStateType:ProfilePageType = {
+const initialStateType: ProfilePageType = {
     //------данные для MyPosts в папке Profile----------
     posts: [
         {id: 1, message: "Hi, how are you?", likesCount: 6},
         {id: 2, message: "It's my first post", likesCount: 3}
     ],
     newPostText: "",
+    profile: null,
 }
 
-export const profileReducer = (state:ProfilePageType = initialStateType , action: GeneralActionType): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialStateType, action: GeneralActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             const newPost: MyPostType = {
@@ -32,9 +54,11 @@ export const profileReducer = (state:ProfilePageType = initialStateType , action
                 message: state.newPostText,
                 likesCount: 0
             }
-            return {...state, posts:[newPost, ...state.posts], newPostText:''}
+            return {...state, posts: [newPost, ...state.posts], newPostText: ''}
         case UPDATE_NEW_POST_TEXT:
-            return {...state, newPostText:action.newPostText}
+            return {...state, newPostText: action.newPostText}
+        case SET_USER_PROFILE:
+            return {...state, profile: action.profile}
         default:
             return state
     }
@@ -53,3 +77,5 @@ export const updateNewPostTextAC = (text: string) => ({
     type: UPDATE_NEW_POST_TEXT,
     newPostText: text
 }) as const
+
+export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const

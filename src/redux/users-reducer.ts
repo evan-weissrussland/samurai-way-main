@@ -51,7 +51,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Gen
         case UNFOLLOW:
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)}
         case SET_USERS:
-            // return {...state, users: [...state.users, ...action.users]}
+            // return {...state, users: [...state.users, ...action.users]} //этот код добавляет новых пользователей после запроса на сервак в конец массива, не очищая страницу спредыдущими пользователями
             return {...state, users: [...action.users]}
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage}
