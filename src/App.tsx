@@ -27,7 +27,7 @@ export const App: FC<PropsAppType> = (props) => {
             <Navbar/>
             <div className={'app-wripper-content'}>
                 <Route path={'/dialogs'} render={DialogsComponent}/>
-                <Route path={'/profile'} render={ProfileComponent}/>
+                <Route path={'/profile/:userId?'} render={ProfileComponent}/>
                 <Route path={'/users'} render={()=> <UsersContainer/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
