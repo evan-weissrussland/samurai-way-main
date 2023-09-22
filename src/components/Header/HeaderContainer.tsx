@@ -12,13 +12,19 @@ export class HeaderAPIContainer extends React.Component<any, any> {
         })
     }
     render() {
-        return <Header/>
+        return <Header isAuth={this.props.isAuth} login={this.props.login}/>
     }
 }
-type MapStateToPropsType = {}
+type MapStateToPropsType = {
+    isAuth: boolean
+    login:string
+}
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
-    return {}
+    return {
+        isAuth: state.auth.isAuth,
+        login: state.auth.login
+    }
 }
 
 export const HeaderContainer = connect(mapStateToProps, {
