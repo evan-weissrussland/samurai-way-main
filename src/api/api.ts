@@ -12,7 +12,7 @@ export function onFollowUser(userId: number) {
 }
 
 export function onUnfollowUser(userId: number) {
-    return axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, null, {withCredentials: true}).then(response =>
+    return axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {withCredentials: true}).then(response =>
         response.data)
 }
 
