@@ -14,7 +14,10 @@ export const Header: FC<HeaderPropsType> = (props) => {
             <img src={image1} alt={''}/>
             <div className={s.loginBlock}>
                 {props.isAuth ?
-                    <div>{`Your Login: ${props.login}`}</div> :
+                    <div>
+                        <span>You Loged as: </span>
+                        <span className={s.propsLogin}>{props.login}</span>
+                    </div> :
                     <NavLink activeClassName={s.navLinkLogin} to={`/login`}>Login</NavLink>}
             </div>
         </header>
