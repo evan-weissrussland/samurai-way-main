@@ -1,6 +1,6 @@
 import {GeneralActionType} from "./store";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {followUserAPI, usersAPI} from "../api/api";
 import {AppRootStateType} from "./redux-store";
 
 type LocationType = {
@@ -91,12 +91,30 @@ export const toggleIsFollowingProgress = (userId: number, isToggleFollowFetching
 } as const)
 
 // Thunks
-export const getUsersTC = () => {
+export const getUsersTC = (pageNumber:number) => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(getState().usersPage.currentPage, getState().usersPage.pageSize).then(data => {
+        usersAPI.getUsers(pageNumber, getState().usersPage.pageSize).then(data => {
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
         }).finally(() => dispatch(toggleIsFetching(false)))
+    }
+}
+
+export const onFollowUserTC = (userId: number) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        dispatch(toggleIsFollowingProgress(userId, true))
+        followUserAPI.onFollowUser(userId).then(data => {
+            !data.resultCode && dispatch(setFollowUser(userId))
+        }).finally(() => dispatch(toggleIsFollowingProgress(userId, false)))
+    }
+}
+
+export const onUnfollowUserTC = (userId: number) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        dispatch(toggleIsFollowingProgress(userId, true))
+        followUserAPI.onUnfollowUser(userId).then(data => {
+            !data.resultCode && dispatch(setUnfollowUser(userId))
+        }).finally(() => dispatch(toggleIsFollowingProgress(userId, false)))
     }
 }
