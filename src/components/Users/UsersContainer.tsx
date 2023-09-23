@@ -13,35 +13,35 @@ import axios from "axios";
 import {UsersPresentation} from "./UsersPresentation";
 import s from "./Users.module.css";
 import {Preloader} from "../common/Preloader/Preloader";
-import {getUsers} from "../../api/api";
+import {getUsers, onFollowUser, onUnfollowUser} from "../../api/api";
 
 
 export class UsersAPIContainer extends React.Component<any, any> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        getUsers(this.props.currentPage, this.props.pageSize).then(response => {
-            this.props.setUsers(response.data.items)
-            this.props.setTotalUsersCount(response.data.totalCount)
+        getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items)
+            this.props.setTotalUsersCount(data.totalCount)
         }).finally(() => this.props.toggleIsFetching(false))
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        getUsers(pageNumber, this.props.pageSize).then(response => {
-            this.props.setUsers(response.items)
+        getUsers(pageNumber, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items)
         }).finally(() => this.props.toggleIsFetching(false))
     }
 
     onFollowUser = (userId: number) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, null, {withCredentials: true}).then(response => {
-            !response.data.resultCode && this.props.setFollowUser(userId)
+        onFollowUser(userId).then(data => {
+            !data.resultCode && this.props.setFollowUser(userId)
         })
     }
     onUnfollowUser = (userId: number) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{withCredentials: true}).then(response => {
-            !response.data.resultCode && this.props.setUnfollowUser(userId)
+        onUnfollowUser(userId).then(data => {
+            !data.resultCode && this.props.setUnfollowUser(userId)
         })
     }
 
