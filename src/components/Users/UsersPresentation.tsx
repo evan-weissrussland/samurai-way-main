@@ -9,8 +9,8 @@ type UsersPresentationType = {
     onPageChanged: (pageNumber: number) => void
     currentPage: number
     users: UsersType[]
-    setFollowUser: (userId: number) => void
-    setUnfollowUser: (userId: number) => void
+    // setFollowUser: (userId: number) => void
+    // setUnfollowUser: (userId: number) => void
     totalUsersCount: number
     pageSize: number
     onFollowUser: (userId:number)=>void
@@ -42,8 +42,8 @@ export const UsersPresentation: FC<UsersPresentationType> = (props) => {
                 </div>
                 <div>
                     {u.followed
-                        ? <button onClick={() => props.setUnfollowUser(u.id)}>unfollow</button>
-                        : <button onClick={() => props.setFollowUser(u.id)}>follow</button>}
+                        ? <button onClick={() => props.onUnfollowUser(u.id)}>unfollow</button>
+                        : <button onClick={() => props.onFollowUser(u.id)}>follow</button>}
                 </div>
             </span>
                 <span>

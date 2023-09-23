@@ -19,7 +19,7 @@ export class UsersAPIContainer extends React.Component<any, any> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
             this.props.setUsers(response.data.items)
             this.props.setTotalUsersCount(response.data.totalCount)
         }).finally(() => this.props.toggleIsFetching(false))
@@ -28,19 +28,19 @@ export class UsersAPIContainer extends React.Component<any, any> {
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,{withCredentials: true}).then(response => {
             this.props.setUsers(response.data.items)
         }).finally(() => this.props.toggleIsFetching(false))
     }
 
     onFollowUser = (userId: number) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`).then(response => {
-            this.props.setFollowUser(userId)
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, null, {withCredentials: true}).then(response => {
+            !response.data.resultCode && this.props.setFollowUser(userId)
         })
     }
     onUnfollowUser = (userId: number) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`).then(response => {
-            this.props.setUnfollowUser(userId)
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{withCredentials: true}).then(response => {
+            !response.data.resultCode && this.props.setUnfollowUser(userId)
         })
     }
 
@@ -56,8 +56,8 @@ export class UsersAPIContainer extends React.Component<any, any> {
                         onPageChanged={this.onPageChanged}
                         currentPage={this.props.currentPage}
                         users={this.props.usersPage.users}
-                        setFollowUser={this.props.setFollowUser}
-                        setUnfollowUser={this.props.setUnfollowUser}
+                        // setFollowUser={this.props.setFollowUser}
+                        // setUnfollowUser={this.props.setUnfollowUser}
                         totalUsersCount={this.props.totalUsersCount}
                         pageSize={this.props.pageSize}
                         onFollowUser={this.onFollowUser}
