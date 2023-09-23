@@ -7,12 +7,6 @@ export type AuthResponseType = {
 
 export type AuthType = AuthResponseType & {isAuth:boolean}
 
-type AuthResponceType = {
-    data: {id: number, email:string, login: string}
-    resultCode: number
-    message: string[]
-}
-
 export const initialState = {
     // id: 5,
     // email:'qqqq',
@@ -36,6 +30,6 @@ export const authReducer = (state: InitialStateType = initialState, action: SetU
 }
 
 //action=Creators
-export const setUserData = (authData:AuthType) => {
+export const setUserData = (authData:AuthResponseType) => {
     return {type:SET_USER_DATE, authData}
 }

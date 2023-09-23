@@ -8,7 +8,7 @@ import {authAPI} from "../../api/api";
 export class HeaderAPIContainer extends React.Component<any, any> {
     componentDidMount() {
         authAPI.authMe().then(data => {
-            data.resultCode === 0 && this.props.setUserData(data)
+            data.resultCode === 0 && this.props.setUserData(data.data)
         })
     }
 

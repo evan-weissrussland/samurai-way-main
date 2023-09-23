@@ -1,4 +1,5 @@
 import axios from "axios";
+import {debuglog} from "util";
 
 
 const instance = axios.create({
@@ -24,7 +25,6 @@ export const followUserAPI = {
             response.data)
     }
 }
-
 
 export const authAPI = {
     authMe() {
