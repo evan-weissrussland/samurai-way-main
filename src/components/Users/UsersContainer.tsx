@@ -6,7 +6,7 @@ import {
     setFollowUser,
     InitialStateType,
     setUnfollowUser,
-    setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleIsFollowingProgress
+    setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleIsFollowingProgress, getUsersTC
 } from "../../redux/users-reducer";
 import {UsersPresentation} from "./UsersPresentation";
 import s from "./Users.module.css";
@@ -16,11 +16,7 @@ import {followUserAPI, usersAPI} from "../../api/api";
 export class UsersAPIContainer extends React.Component<any, any> {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)
-        }).finally(() => this.props.toggleIsFetching(false))
+        this.props.getUsersTC()
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -116,6 +112,7 @@ export const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     toggleIsFetching,
-    toggleIsFollowingProgress
+    toggleIsFollowingProgress,
+    getUsersTC
 })(UsersAPIContainer)
 

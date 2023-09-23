@@ -1,4 +1,7 @@
 import {GeneralActionType} from "./store";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+import {AppRootStateType} from "./redux-store";
 
 type LocationType = {
     city: string
@@ -63,21 +66,37 @@ export const usersReducer = (state: InitialStateType = initialState, action: Gen
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
         case TOGGLE_IS_FOLLOWING_PROGRESS:
-            return {...state, followingArray: action.isToggleFollowFetching ? [...state.followingArray, action.userId] : state.followingArray.filter(id => id !== action.userId)}
+            return {
+                ...state,
+                followingArray: action.isToggleFollowFetching ? [...state.followingArray, action.userId] : state.followingArray.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
 }
 // ACTION-cREATORS
-export const setFollowUser = (userId: number) => ({type: FOLLOW, userId}as const)
-export const setUnfollowUser = (userId: number) => ({type: UNFOLLOW, userId}as const)
-export const setUsers = (users: UsersType[]) => ({type: SET_USERS, users}as const)
-export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}as const)
+export const setFollowUser = (userId: number) => ({type: FOLLOW, userId} as const)
+export const setUnfollowUser = (userId: number) => ({type: UNFOLLOW, userId} as const)
+export const setUsers = (users: UsersType[]) => ({type: SET_USERS, users} as const)
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalUsersCount: number) => ({
     type: SET_TOTAL_USERS_COUNT,
     count: totalUsersCount
-}as const)
-export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}as const)
-export const toggleIsFollowingProgress = (userId: number, isToggleFollowFetching:boolean) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, userId, isToggleFollowFetching}as const)
+} as const)
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
+export const toggleIsFollowingProgress = (userId: number, isToggleFollowFetching: boolean) => ({
+    type: TOGGLE_IS_FOLLOWING_PROGRESS,
+    userId,
+    isToggleFollowFetching
+} as const)
 
-
+// Thunks
+export const getUsersTC = () => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(getState().usersPage.currentPage, getState().usersPage.pageSize).then(data => {
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        }).finally(() => dispatch(toggleIsFetching(false)))
+    }
+}
