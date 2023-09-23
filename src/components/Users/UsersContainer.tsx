@@ -6,10 +6,8 @@ import {
     setFollowUser,
     InitialStateType,
     setUnfollowUser,
-    UsersType,
     setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleIsFollowingProgress
 } from "../../redux/users-reducer";
-import axios from "axios";
 import {UsersPresentation} from "./UsersPresentation";
 import s from "./Users.module.css";
 import {Preloader} from "../common/Preloader/Preloader";
@@ -35,16 +33,17 @@ export class UsersAPIContainer extends React.Component<any, any> {
     }
 
     onFollowUser = (userId: number) => {
-        this.props.toggleIsFollowingProgress(true)
+        this.props.toggleIsFollowingProgress(userId, true)
         followUserAPI.onFollowUser(userId).then(data => {
             !data.resultCode && this.props.setFollowUser(userId)
-        }).finally(() => this.props.toggleIsFollowingProgress(false))
+        }).finally(() => this.props.toggleIsFollowingProgress(userId, false))
     }
+
     onUnfollowUser = (userId: number) => {
-        this.props.toggleIsFollowingProgress(true)
+        this.props.toggleIsFollowingProgress(userId, true)
         followUserAPI.onUnfollowUser(userId).then(data => {
             !data.resultCode && this.props.setUnfollowUser(userId)
-        }).finally(() => this.props.toggleIsFollowingProgress(false))
+        }).finally(() => this.props.toggleIsFollowingProgress(userId, false))
     }
 
 
@@ -63,7 +62,7 @@ export class UsersAPIContainer extends React.Component<any, any> {
                         pageSize={this.props.pageSize}
                         onFollowUser={this.onFollowUser}
                         onUnfollowUser={this.onUnfollowUser}
-                        followingInProgress={this.props.followingInProgress}
+                        followingAray={this.props.followingAray}
                     />
             }
         </div>
@@ -77,7 +76,7 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: boolean
+    followingAray: number[]
 }
 
 /*type MapDispatchToPropsType = {
@@ -98,7 +97,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingAray: state.usersPage.followingAray
     }
 }
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
