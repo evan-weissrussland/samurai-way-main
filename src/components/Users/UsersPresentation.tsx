@@ -13,6 +13,8 @@ type UsersPresentationType = {
     setUnfollowUser: (userId: number) => void
     totalUsersCount: number
     pageSize: number
+    onFollowUser: (userId:number)=>void
+    onUnfollowUser: (userId:number)=>void
 }
 
 export const UsersPresentation: FC<UsersPresentationType> = (props) => {

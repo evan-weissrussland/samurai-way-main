@@ -33,6 +33,19 @@ export class UsersAPIContainer extends React.Component<any, any> {
         }).finally(() => this.props.toggleIsFetching(false))
     }
 
+    onFollowUser = (userId: number) => {
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`).then(response => {
+            this.props.setFollowUser(userId)
+        })
+    }
+    onUnfollowUser = (userId: number) => {
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`).then(response => {
+            this.props.setUnfollowUser(userId)
+        })
+    }
+
+
+
     render() {
 
         return <div className={s.UsersAPIContainer}>
@@ -47,6 +60,8 @@ export class UsersAPIContainer extends React.Component<any, any> {
                         setUnfollowUser={this.props.setUnfollowUser}
                         totalUsersCount={this.props.totalUsersCount}
                         pageSize={this.props.pageSize}
+                        onFollowUser={this.onFollowUser}
+                        onUnfollowUser={this.onUnfollowUser}
                     />
             }
         </div>
