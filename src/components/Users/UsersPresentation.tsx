@@ -13,7 +13,7 @@ type UsersPresentationType = {
     pageSize: number
     onFollowUser: (userId:number)=>void
     onUnfollowUser: (userId:number)=>void
-    followingAray: number[]
+    followingArray: number[]
 }
 
 export const UsersPresentation: FC<UsersPresentationType> = (props) => {
@@ -41,8 +41,8 @@ export const UsersPresentation: FC<UsersPresentationType> = (props) => {
                 </div>
                 <div>
                     {u.followed
-                        ? <button disabled={props.followingAray.some(id => id === u.id)} onClick={() => props.onUnfollowUser(u.id)}>unfollow</button>
-                        : <button disabled={props.followingAray.some(id => id === u.id)} onClick={() => props.onFollowUser(u.id)}>follow</button>}
+                        ? <button disabled={props.followingArray.some(id => id === u.id)} onClick={() => props.onUnfollowUser(u.id)}>unfollow</button>
+                        : <button disabled={props.followingArray.some(id => id === u.id)} onClick={() => props.onFollowUser(u.id)}>follow</button>}
                 </div>
             </span>
                 <span>

@@ -19,7 +19,7 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingAray: number[]
+    followingArray: number[]
 }
 
 
@@ -42,7 +42,7 @@ export const initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingAray: []
+    followingArray: []
 } as UsersPageType
 
 export type InitialStateType = typeof initialState
@@ -63,7 +63,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Gen
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
         case TOGGLE_IS_FOLLOWING_PROGRESS:
-            return {...state, followingAray: action.isToggleFollowFetching ? [...state.followingAray, action.userId] : state.followingAray.filter(id => id !== action.userId)}
+            return {...state, followingArray: action.isToggleFollowFetching ? [...state.followingArray, action.userId] : state.followingArray.filter(id => id !== action.userId)}
         default:
             return state
     }

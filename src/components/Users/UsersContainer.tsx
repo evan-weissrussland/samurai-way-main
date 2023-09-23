@@ -13,7 +13,6 @@ import s from "./Users.module.css";
 import {Preloader} from "../common/Preloader/Preloader";
 import {followUserAPI, usersAPI} from "../../api/api";
 
-
 export class UsersAPIContainer extends React.Component<any, any> {
 
     componentDidMount() {
@@ -46,10 +45,7 @@ export class UsersAPIContainer extends React.Component<any, any> {
         }).finally(() => this.props.toggleIsFollowingProgress(userId, false))
     }
 
-
-
     render() {
-
         return <div className={s.UsersAPIContainer}>
             {
                 this.props.isFetching
@@ -62,11 +58,10 @@ export class UsersAPIContainer extends React.Component<any, any> {
                         pageSize={this.props.pageSize}
                         onFollowUser={this.onFollowUser}
                         onUnfollowUser={this.onUnfollowUser}
-                        followingAray={this.props.followingAray}
+                        followingArray={this.props.followingArray}
                     />
             }
         </div>
-
     }
 }
 
@@ -76,7 +71,7 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingAray: number[]
+    followingArray: number[]
 }
 
 /*type MapDispatchToPropsType = {
@@ -97,9 +92,10 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingAray: state.usersPage.followingAray
+        followingArray: state.usersPage.followingArray
     }
 }
+
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 //     return {
 //         setFollowUser: (userId: number) => dispatch(followAC(userId)),
@@ -112,6 +108,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 // }
 
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
+
 export const UsersContainer = connect(mapStateToProps, {
     setFollowUser,
     setUnfollowUser,
