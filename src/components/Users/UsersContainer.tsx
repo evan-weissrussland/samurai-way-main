@@ -13,14 +13,14 @@ import axios from "axios";
 import {UsersPresentation} from "./UsersPresentation";
 import s from "./Users.module.css";
 import {Preloader} from "../common/Preloader/Preloader";
-import {getUsers, onFollowUser, onUnfollowUser} from "../../api/api";
+import {followUserAPI, usersAPI} from "../../api/api";
 
 
 export class UsersAPIContainer extends React.Component<any, any> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
             this.props.setUsers(data.items)
             this.props.setTotalUsersCount(data.totalCount)
         }).finally(() => this.props.toggleIsFetching(false))
@@ -29,18 +29,18 @@ export class UsersAPIContainer extends React.Component<any, any> {
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        getUsers(pageNumber, this.props.pageSize).then(data => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
             this.props.setUsers(data.items)
         }).finally(() => this.props.toggleIsFetching(false))
     }
 
     onFollowUser = (userId: number) => {
-        onFollowUser(userId).then(data => {
+        followUserAPI.onFollowUser(userId).then(data => {
             !data.resultCode && this.props.setFollowUser(userId)
         })
     }
     onUnfollowUser = (userId: number) => {
-        onUnfollowUser(userId).then(data => {
+        followUserAPI.onUnfollowUser(userId).then(data => {
             !data.resultCode && this.props.setUnfollowUser(userId)
         })
     }
