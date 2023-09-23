@@ -56,8 +56,6 @@ export class UsersAPIContainer extends React.Component<any, any> {
                         onPageChanged={this.onPageChanged}
                         currentPage={this.props.currentPage}
                         users={this.props.usersPage.users}
-                        // setFollowUser={this.props.setFollowUser}
-                        // setUnfollowUser={this.props.setUnfollowUser}
                         totalUsersCount={this.props.totalUsersCount}
                         pageSize={this.props.pageSize}
                         onFollowUser={this.onFollowUser}

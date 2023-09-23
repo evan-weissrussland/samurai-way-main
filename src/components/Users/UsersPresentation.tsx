@@ -9,8 +9,6 @@ type UsersPresentationType = {
     onPageChanged: (pageNumber: number) => void
     currentPage: number
     users: UsersType[]
-    // setFollowUser: (userId: number) => void
-    // setUnfollowUser: (userId: number) => void
     totalUsersCount: number
     pageSize: number
     onFollowUser: (userId:number)=>void
