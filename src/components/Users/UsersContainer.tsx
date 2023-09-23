@@ -2,16 +2,10 @@ import React from 'react';
 import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {
-    setFollowUser,
     InitialStateType,
-    setUnfollowUser,
-    setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleIsFollowingProgress,
     getUsersTC,
     onFollowUserTC,
-    onUnfollowUserTC
+    onUnfollowUserTC, onPageChangedTC
 } from "../../redux/users-reducer";
 import {UsersPresentation} from "./UsersPresentation";
 import s from "./Users.module.css";
@@ -20,11 +14,11 @@ import {Preloader} from "../common/Preloader/Preloader";
 export class UsersAPIContainer extends React.Component<any, any> {
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage)
+        this.props.getUsersTC()
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsersTC(pageNumber)
+        this.props.onPageChangedTC(pageNumber)
     }
 
     onFollowUser = (userId: number) => {
@@ -100,14 +94,9 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
 
 export const UsersContainer = connect(mapStateToProps, {
-    setFollowUser,
-    setUnfollowUser,
-    setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleIsFollowingProgress,
     getUsersTC,
     onFollowUserTC,
-    onUnfollowUserTC
+    onUnfollowUserTC,
+    onPageChangedTC
 })(UsersAPIContainer)
 

@@ -91,12 +91,22 @@ export const toggleIsFollowingProgress = (userId: number, isToggleFollowFetching
 } as const)
 
 // Thunks
-export const getUsersTC = (pageNumber:number) => {
+export const getUsersTC = () => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(pageNumber, getState().usersPage.pageSize).then(data => {
+        usersAPI.getUsers(getState().usersPage.currentPage, getState().usersPage.pageSize).then(data => {
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
+        }).finally(() => dispatch(toggleIsFetching(false)))
+    }
+}
+
+export const onPageChangedTC = (pageNumber:number) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        dispatch(toggleIsFetching(true))
+        dispatch(setCurrentPage(pageNumber))
+        usersAPI.getUsers(pageNumber, getState().usersPage.pageSize).then(data => {
+            dispatch(setUsers(data.items))
         }).finally(() => dispatch(toggleIsFetching(false)))
     }
 }
