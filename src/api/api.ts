@@ -20,3 +20,8 @@ export function authMe() {
     return axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true}).then(response =>
         response.data)
 }
+
+export function getProfileUser(userId:number) {
+   return axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(response =>
+        response.data)
+}
