@@ -19,6 +19,7 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: boolean
 }
 
 
@@ -28,6 +29,7 @@ const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
 
 export const initialState = {
     //------данные для MyPosts в папке Profile----------
@@ -39,7 +41,8 @@ export const initialState = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: false
 } as UsersPageType
 
 export type InitialStateType = typeof initialState
@@ -59,11 +62,13 @@ export const usersReducer = (state: InitialStateType = initialState, action: Gen
             return {...state, totalUsersCount: action.count}
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+            return {...state, followingInProgress: action.followingInProgress}
         default:
             return state
     }
 }
-
+// ACTION-cREATORS
 export const setFollowUser = (userId: number) => ({type: FOLLOW, userId}as const)
 export const setUnfollowUser = (userId: number) => ({type: UNFOLLOW, userId}as const)
 export const setUsers = (users: UsersType[]) => ({type: SET_USERS, users}as const)
@@ -73,5 +78,6 @@ export const setTotalUsersCount = (totalUsersCount: number) => ({
     count: totalUsersCount
 }as const)
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}as const)
+export const toggleIsFollowingProgress = (followingInProgress: boolean) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, followingInProgress}as const)
 
 

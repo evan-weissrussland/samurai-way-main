@@ -1,4 +1,5 @@
 import React from 'react';
+/*
 import s from './Users.module.css'
 import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
@@ -45,3 +46,4 @@ export const Users = (props: UsersPropsType) => {
         })}
     </div>
 };
+*/

@@ -5,7 +5,7 @@ import {
     setUnfollowUser,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFetching
+    toggleIsFetching, toggleIsFollowingProgress
 } from "./users-reducer";
 
 type MyPostsType = {
@@ -82,8 +82,11 @@ export type ActionSetTotalUsersCountACType = ReturnType<typeof setTotalUsersCoun
 //типизация actionCreator'а для изменения условия отображения preloaderGif
 export type ActionToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 
-//типизация actionCreator'а для изменения условия отображения preloaderGif
+//типизация actionCreator'а для запроса юзеров с сервера
 export type ActionSetUserProfileACType = ReturnType<typeof setUserProfile>
+
+//типизация actionCreator'а для блокировки кнопок follow/unfollow
+export type ActionToggleIsFollowingProgressACType = ReturnType<typeof toggleIsFollowingProgress>
 
 //общая типизация  actionCreator'ов
 export type GeneralActionType =
@@ -97,6 +100,7 @@ export type GeneralActionType =
     | ActionSetTotalUsersCountACType
     | ActionToggleIsFetchingACType
     | ActionSetUserProfileACType
+    | ActionToggleIsFollowingProgressACType
 
 
 //наш кастомный store, что-то вроде аналога store from Redux. с 42 урока соцсети не используется в коде. Оставил для себя
