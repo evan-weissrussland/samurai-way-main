@@ -75,20 +75,20 @@ export const usersReducer = (state: InitialStateType = initialState, action: Gen
     }
 }
 // ACTION-cREATORS
-export const setFollowUser = (userId: number) => ({type: FOLLOW, userId} as const)
-export const setUnfollowUser = (userId: number) => ({type: UNFOLLOW, userId} as const)
-export const setUsers = (users: UsersType[]) => ({type: SET_USERS, users} as const)
-export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setFollowUser = (userId: number) => ({type: FOLLOW, userId}) as const
+export const setUnfollowUser = (userId: number) => ({type: UNFOLLOW, userId}) as const
+export const setUsers = (users: UsersType[]) => ({type: SET_USERS, users}) as const
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
 export const setTotalUsersCount = (totalUsersCount: number) => ({
     type: SET_TOTAL_USERS_COUNT,
     count: totalUsersCount
-} as const)
-export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
+}) as const
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}) as const
 export const toggleIsFollowingProgress = (userId: number, isToggleFollowFetching: boolean) => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     userId,
     isToggleFollowFetching
-} as const)
+}) as const
 
 // Thunks
 export const getUsersTC = () => {

@@ -1,11 +1,14 @@
+import {Dispatch} from "redux";
+import {authAPI, profileAPI} from "../api/api";
+import {setUserProfile} from "./profile-reducer";
 
 export type AuthResponseType = {
     id: number
-    email:string
+    email: string
     login: string
 }
 
-export type AuthType = AuthResponseType & {isAuth:boolean}
+export type AuthType = AuthResponseType & { isAuth: boolean }
 
 export const initialState = {
     // id: 5,
@@ -24,12 +27,21 @@ export const authReducer = (state: InitialStateType = initialState, action: SetU
     switch (action.type) {
         case SET_USER_DATE:
             return {...state, ...action.authData, isAuth: true}
-                default:
+        default:
             return state
     }
 }
 
 //action=Creators
-export const setUserData = (authData:AuthResponseType) => {
-    return {type:SET_USER_DATE, authData}
+export const setUserData = (authData: AuthResponseType) => {
+    return {type: SET_USER_DATE, authData}
+}
+
+//thunk Creators
+export const setUserDataTC = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.authMe().then(data => {
+            data.resultCode === 0 && dispatch(setUserData(data.data))
+        })
+    }
 }

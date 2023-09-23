@@ -1,4 +1,8 @@
 import {ActionAddPostOrAddMessageType, GeneralActionType} from "./store";
+import {Dispatch} from "redux";
+import {AppRootStateType} from "./redux-store";
+import {profileAPI, usersAPI} from "../api/api";
+import {setCurrentPage, setUsers, toggleIsFetching} from "./users-reducer";
 
 export type ProfileType = {
     aboutMe: string
@@ -78,5 +82,19 @@ export const updateNewPostTextAC = (text: string) => ({
     type: UPDATE_NEW_POST_TEXT,
     newPostText: text
 }) as const
-
+//action-Creators
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
+
+//thunk-Creators
+export const getProfileUserTC = (paramsUserId:string) => {
+    return (dispatch: Dispatch) => {
+        let userId = Number(paramsUserId)
+        if (!userId) {
+            userId = 2
+        }
+        profileAPI.getProfileUser(userId).then(data => {
+            dispatch(setUserProfile(data))})
+            .finally(() => {
+            })
+    }
+}
