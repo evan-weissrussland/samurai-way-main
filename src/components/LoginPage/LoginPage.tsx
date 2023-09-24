@@ -3,7 +3,7 @@ import s from './LoginPage.module.css'
 
 export const LoginPage = () => {
     return (
-        <div>
+        <div className={s.loginPageContainer}>
             LoginPage
         </div>
     );
