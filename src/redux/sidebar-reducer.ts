@@ -1,9 +1,10 @@
-import {GeneralActionType} from "./store";
 
 type SidebarPageType = {}
 
 const initialState:SidebarPageType = {}
 
-export const sidebarReducer = (state = initialState, action: GeneralActionType): SidebarPageType => {
+type SidebarReducerActiontype = {type:string}
+
+export const sidebarReducer = (state = initialState, action: SidebarReducerActiontype): SidebarPageType => {
     return state
 }

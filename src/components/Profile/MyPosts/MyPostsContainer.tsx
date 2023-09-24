@@ -11,8 +11,8 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    updateNewPostText: (text: string) => void;
-    addPost:() => void
+    updateNewPostTextAC: (text: string) => void;
+    addPostAC:() => void
 }
 
 const mapStateToProps = (state: AppRootStateType):MapStateToPropsType => {
@@ -22,8 +22,11 @@ const mapStateToProps = (state: AppRootStateType):MapStateToPropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
     return {
-        updateNewPostText: (text: string) => dispatch(updateNewPostTextAC(text)),
-        addPost: () => dispatch(addPostAC())
+        updateNewPostTextAC: (text: string) => dispatch(updateNewPostTextAC(text)),
+        addPostAC: () => dispatch(addPostAC())
     }
 }
+
+export type MypostType = MapStateToPropsType & MapDispatchToPropsType
+
 export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)

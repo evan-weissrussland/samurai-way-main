@@ -1,7 +1,6 @@
-import {GeneralActionType} from "./store";
 import {Dispatch} from "redux";
 import {followUserAPI, usersAPI} from "../api/api";
-import {AppRootStateType} from "./redux-store";
+import {AppRootStateType, AppThunk} from "./redux-store";
 
 type LocationType = {
     city: string
@@ -25,6 +24,36 @@ export type UsersPageType = {
     followingArray: number[]
 }
 
+
+//типизация actionCreator'а для блокировки кнопок follow/unfollow
+export type ActionToggleIsFollowingProgressACType = ReturnType<typeof toggleIsFollowingProgress>
+
+//типизация actionCreator'а для изменения статуса user'а на follow
+export type ActionFollowUserType = ReturnType<typeof setFollowUser>
+
+//типизация actionCreator'а для изменения статуса user'а на unfollow
+export type ActionUnfollowUserType = ReturnType<typeof setUnfollowUser>
+
+//типизация actionCreator'а для Добавления user'ов с сервера
+export type ActionSetUsersType = ReturnType<typeof setUsers>
+
+//типизация actionCreator'а для Добавления текущей страницы пользователей с сервера
+export type ActionSetCurrentPageType = ReturnType<typeof setCurrentPage>
+
+//типизация actionCreator'а для изменения общего количества юзеров с сервера
+export type ActionSetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
+
+//типизация actionCreator'а для изменения условия отображения preloaderGif
+export type ActionToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
+
+export type UserReducerActiontype =
+    | ActionToggleIsFollowingProgressACType
+    | ActionFollowUserType
+    | ActionUnfollowUserType
+    | ActionSetUsersType
+    | ActionSetCurrentPageType
+    | ActionSetTotalUsersCountACType
+    | ActionToggleIsFetchingACType
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -50,7 +79,7 @@ export const initialState = {
 
 export type InitialStateType = typeof initialState
 
-export const usersReducer = (state: InitialStateType = initialState, action: GeneralActionType): InitialStateType => {
+export const usersReducer = (state: InitialStateType = initialState, action: UserReducerActiontype): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)}
@@ -91,7 +120,7 @@ export const toggleIsFollowingProgress = (userId: number, isToggleFollowFetching
 }) as const
 
 // Thunks
-export const getUsersTC = () => {
+export const getUsersTC = ():AppThunk => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(toggleIsFetching(true))
         usersAPI.getUsers(getState().usersPage.currentPage, getState().usersPage.pageSize).then(data => {
@@ -101,7 +130,7 @@ export const getUsersTC = () => {
     }
 }
 
-export const onPageChangedTC = (pageNumber:number) => {
+export const onPageChangedTC = (pageNumber: number): AppThunk => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(pageNumber))
@@ -111,7 +140,7 @@ export const onPageChangedTC = (pageNumber:number) => {
     }
 }
 
-export const onFollowUserTC = (userId: number) => {
+export const onFollowUserTC = (userId: number): AppThunk => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(toggleIsFollowingProgress(userId, true))
         followUserAPI.onFollowUser(userId).then(data => {
@@ -120,7 +149,7 @@ export const onFollowUserTC = (userId: number) => {
     }
 }
 
-export const onUnfollowUserTC = (userId: number) => {
+export const onUnfollowUserTC = (userId: number): AppThunk => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(toggleIsFollowingProgress(userId, true))
         followUserAPI.onUnfollowUser(userId).then(data => {

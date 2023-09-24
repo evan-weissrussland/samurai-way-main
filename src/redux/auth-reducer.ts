@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {authAPI, profileAPI} from "../api/api";
-import {setUserProfile} from "./profile-reducer";
+import {authAPI} from "../api/api";
+import {AppThunk} from "./redux-store";
 
 export type AuthResponseType = {
     id: number
@@ -21,7 +21,7 @@ export type InitialStateType = typeof initialState
 
 const SET_USER_DATE = 'SET-USER-DATE'
 
-type SetUserDataActionType = ReturnType<typeof setUserData>
+export type SetUserDataActionType = ReturnType<typeof setUserData>
 
 export const authReducer = (state: InitialStateType = initialState, action: SetUserDataActionType): InitialStateType => {
     switch (action.type) {
@@ -38,7 +38,7 @@ export const setUserData = (authData: AuthResponseType) => {
 }
 
 //thunk Creators
-export const setUserDataTC = () => {
+export const setUserDataTC = ():AppThunk => {
     return (dispatch: Dispatch) => {
         authAPI.authMe().then(data => {
             data.resultCode === 0 && dispatch(setUserData(data.data))

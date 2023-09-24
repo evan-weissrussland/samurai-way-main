@@ -1,10 +1,3 @@
-import {
-    ActionAddPostOrAddMessageType,
-    ActionAddTextMessageType,
-    GeneralActionType
-} from "./store";
-
-
 type DialogsItemType = {
     id: number
     name: string
@@ -19,7 +12,19 @@ export type DialogsPageType = {
     newMessageText: string
 }
 
+//типизация actionCreator'а для добавления поста или сообщения
+export type ActionAddMessageType = {
+    type: 'ADD-MESSAGE'
+}
+//типизация actionCreator'а для по-символьного ввода данных в textarea сообщения
+export type ActionAddTextMessageType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newMessageText: string
+}
 
+export type DialogsReducerActionType =
+    | ActionAddMessageType
+    | ActionAddTextMessageType
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
@@ -45,7 +50,7 @@ const initialState = {
 
 export type InitialStateType = typeof initialState
 
-export const dialogsReducer = (state:InitialStateType = initialState, action: GeneralActionType): InitialStateType => {
+export const dialogsReducer = (state:InitialStateType = initialState, action: DialogsReducerActionType): InitialStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage: MessagesType = {
@@ -58,10 +63,9 @@ export const dialogsReducer = (state:InitialStateType = initialState, action: Ge
         default:
             return state
     }
-
 }
 
-export const addMessageAC = (): ActionAddPostOrAddMessageType => ({type: ADD_MESSAGE})
+export const addMessageAC = (): ActionAddMessageType => ({type: ADD_MESSAGE})
 export const updateNewMessageTextAC = (text: string): ActionAddTextMessageType => ({
     type: UPDATE_NEW_MESSAGE_TEXT,
     newMessageText: text

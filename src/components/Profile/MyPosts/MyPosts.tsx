@@ -1,18 +1,12 @@
 import React, {useRef} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ProfilePageType} from "../../../redux/profile-reducer";
-
-type MyPostsTypeProps = {
-    profilePage: ProfilePageType
-    updateNewPostText: (text:string) => void
-    addPost: () => void
-}
+import {MypostType} from "./MyPostsContainer";
 
 //------------компонента MyPosts--------------
 
-export const MyPosts: React.FC<MyPostsTypeProps> = (props) => {
-    const {profilePage, ...restProps} = props
+export const MyPosts: React.FC<MypostType> = (props) => {
+    const {profilePage} = props
 
     //------------метод map--------------
 
@@ -25,12 +19,11 @@ export const MyPosts: React.FC<MyPostsTypeProps> = (props) => {
     // -----------конец метода map----------------
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const onAddPost = () => {
-        props.addPost()
-
+        props.addPostAC()
     }
     const onPostChange = () => {
         const text = newPostElement.current as HTMLTextAreaElement
-        props.updateNewPostText(text.value)
+        props.updateNewPostTextAC(text.value)
     }
     return (
         <div className={s.postsBlock}>

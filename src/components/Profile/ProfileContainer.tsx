@@ -2,9 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 import {Profile} from "./Profile";
 import {AppRootStateType} from "../../redux/redux-store";
-import {getProfileUserTC, ProfileType, setUserProfile} from "../../redux/profile-reducer";
+import {getProfileUserTC, ProfileType} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {Dispatch} from "redux";
 
 export class ProfileContainer extends React.Component<PropsType, any> {
 

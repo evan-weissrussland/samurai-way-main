@@ -1,8 +1,6 @@
-import {ActionAddPostOrAddMessageType, GeneralActionType} from "./store";
 import {Dispatch} from "redux";
-import {AppRootStateType} from "./redux-store";
-import {profileAPI, usersAPI} from "../api/api";
-import {setCurrentPage, setUsers, toggleIsFetching} from "./users-reducer";
+import {profileAPI} from "../api/api";
+import {AppThunk} from "./redux-store";
 
 export type ProfileType = {
     aboutMe: string
@@ -36,6 +34,26 @@ export type ProfilePageType = {
     profile: ProfileType | null
 }
 
+//типизация actionCreator'а для запроса юзеров с сервера
+export type ActionSetUserProfileACType = ReturnType<typeof setUserProfileAC>
+
+//типизация actionCreator'а для по-символьного ввода данных в textarea поста
+export type ActionAddTextPostType = ReturnType<typeof updateNewPostTextAC>
+// НИЖЕ аналог типизации.
+/*type ActionAddTextPostType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newPostText: string
+}*/
+
+//типизация actionCreator'а для добавления поста
+export type ActionAddPostType = {
+    type: 'ADD-POST'
+}
+
+export type ProfileReducerActionType =
+    | ActionSetUserProfileACType
+    | ActionAddTextPostType
+    | ActionAddPostType
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -51,7 +69,7 @@ const initialStateType: ProfilePageType = {
     profile: null,
 }
 
-export const profileReducer = (state: ProfilePageType = initialStateType, action: GeneralActionType): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialStateType, action: ProfileReducerActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             const newPost: MyPostType = {
@@ -68,9 +86,8 @@ export const profileReducer = (state: ProfilePageType = initialStateType, action
             return state
     }
 }
-
-export const addPostAC = (): ActionAddPostOrAddMessageType => ({type: ADD_POST})
-
+//action-Creators
+export const addPostAC = (): ActionAddPostType => ({type: ADD_POST})
 
 /*export const updateNewPostTextAC = (text: string): ActionAddTextPostType => ({
     type: UPDATE_NEW_POST_TEXT,
@@ -82,18 +99,19 @@ export const updateNewPostTextAC = (text: string) => ({
     type: UPDATE_NEW_POST_TEXT,
     newPostText: text
 }) as const
-//action-Creators
-export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
+
+export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 
 //thunk-Creators
-export const getProfileUserTC = (paramsUserId:string) => {
+export const getProfileUserTC = (paramsUserId: string):AppThunk => {
     return (dispatch: Dispatch) => {
         let userId = Number(paramsUserId)
         if (!userId) {
             userId = 2
         }
         profileAPI.getProfileUser(userId).then(data => {
-            dispatch(setUserProfile(data))})
+            dispatch(setUserProfileAC(data))
+        })
             .finally(() => {
             })
     }
