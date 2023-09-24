@@ -3,18 +3,18 @@ import {authAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
 
 export type AuthResponseType = {
-    id: number
-    email: string
-    login: string
+    id: number | null
+    email: string | null
+    login: string | null
 }
 
 export type AuthType = AuthResponseType & { isAuth: boolean }
 
 export const initialState = {
-    // id: 5,
-    // email:'qqqq',
-    // login: 'asdf'
-    //isAuth: false
+    id: null,
+    email:null,
+    login: null,
+    isAuth: false
 } as AuthType
 
 export type InitialStateType = typeof initialState

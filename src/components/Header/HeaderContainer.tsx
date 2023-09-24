@@ -16,7 +16,7 @@ export class HeaderAPIContainer extends React.Component<any, any> {
 
 export type MapStateToPropsType = {
     isAuth: boolean
-    login: string
+    login: string | null
 }
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
