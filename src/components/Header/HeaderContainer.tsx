@@ -1,9 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-import {setUserData, setUserDataTC} from "../../redux/auth-reducer";
+import {setUserDataTC} from "../../redux/auth-reducer";
 import {Header} from "./Header";
 import {AppRootStateType} from "../../redux/redux-store";
-import {authAPI} from "../../api/api";
 
 export class HeaderAPIContainer extends React.Component<any, any> {
     componentDidMount() {
@@ -15,7 +14,7 @@ export class HeaderAPIContainer extends React.Component<any, any> {
     }
 }
 
-type MapStateToPropsType = {
+export type MapStateToPropsType = {
     isAuth: boolean
     login: string
 }

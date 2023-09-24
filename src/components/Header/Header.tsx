@@ -2,13 +2,10 @@ import React, {FC} from "react";
 import image1 from '../../images/image1.svg'
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
+import {MapStateToPropsType} from "./HeaderContainer";
 
-type HeaderPropsType = {
-    isAuth: boolean
-    login: string
-}
 
-export const Header: FC<HeaderPropsType> = (props) => {
+export const Header: FC<MapStateToPropsType> = (props) => {
     return (
         <header className={s.header}>
             <img src={image1} alt={''}/>

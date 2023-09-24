@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
 import image2 from "../../../images/image2.jpg";
+import emptyAva from "../../../images/emptyAccount.jpg";
 import {ProfileType} from "../../../redux/profile-reducer";
 import {Preloader} from "../../common/Preloader/Preloader";
 
@@ -13,7 +14,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
         return <Preloader/>
     }
 
-    const srcImage = props.profile.photos.small ?? ""
+    const srcImage = props.profile.photos.small ?? emptyAva
     const LookingJob = props.profile.lookingForAJob ? 'да' : 'нет'
 
     return (
@@ -22,7 +23,9 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                 <img className={s.image2} src={image2} alt={'image2'}/>
             </div>
             <div className={s.descriptionBlock}>
-                <div className={s.profileAva}><img  src={srcImage} alt=""/></div>
+                <div className={s.profileAva}>
+                    <img  src={srcImage} alt=""/>
+                </div>
                 <div className={s.descriptionName}>{props.profile.fullName}</div>
                 <div>
                     <span className={s.descriptionInfo}>Обо мне:  </span>

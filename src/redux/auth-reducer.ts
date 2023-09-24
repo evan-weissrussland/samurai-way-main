@@ -21,7 +21,7 @@ export type InitialStateType = typeof initialState
 
 const SET_USER_DATE = 'SET-USER-DATE'
 
-export type SetUserDataActionType = ReturnType<typeof setUserData>
+export type SetUserDataActionType = ReturnType<typeof setUserDataAC>
 
 export const authReducer = (state: InitialStateType = initialState, action: SetUserDataActionType): InitialStateType => {
     switch (action.type) {
@@ -33,7 +33,7 @@ export const authReducer = (state: InitialStateType = initialState, action: SetU
 }
 
 //action=Creators
-export const setUserData = (authData: AuthResponseType) => {
+export const setUserDataAC = (authData: AuthResponseType) => {
     return {type: SET_USER_DATE, authData}
 }
 
@@ -41,7 +41,7 @@ export const setUserData = (authData: AuthResponseType) => {
 export const setUserDataTC = ():AppThunk => {
     return (dispatch: Dispatch) => {
         authAPI.authMe().then(data => {
-            data.resultCode === 0 && dispatch(setUserData(data.data))
+            data.resultCode === 0 && dispatch(setUserDataAC(data.data))
         })
     }
 }

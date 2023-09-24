@@ -12,6 +12,9 @@
 .profileAva {
     text-align: center;
 }
+.profileAva > img {
+    width: 150px;
+}
 .descriptionInfo {
     color:orange;
     font-weight: bold;
