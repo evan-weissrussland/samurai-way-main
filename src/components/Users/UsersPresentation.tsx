@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import s from "./Users.module.css";
 import {UsersType} from "../../redux/users-reducer";
-import defaultavaUser from "../../images/avauser.jpg";
+import defaultAvaUser from "../../images/avauser.jpg";
 import {NavLink} from "react-router-dom";
 
 
@@ -36,7 +36,7 @@ export const UsersPresentation: FC<UsersPresentationType> = (props) => {
             <span>
                 <div>
                    <NavLink to={`/profile/${u.id}`}>
-                    <img className={s.img} src={u.photos.small !== null ? u.photos.small : defaultavaUser} alt="ava"/>
+                    <img className={s.img} src={u.photos.small !== null ? u.photos.small : defaultAvaUser} alt="ava"/>
                     </NavLink>
                 </div>
                 <div>

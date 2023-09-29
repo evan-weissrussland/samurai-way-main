@@ -98,16 +98,16 @@ export const addPostAC = (): ActionAddPostType => ({type: ADD_POST})
 export const updateNewPostTextAC = (text: string) => ({
     type: UPDATE_NEW_POST_TEXT,
     newPostText: text
-}) as const
+} as const)
 
-export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
+export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 
 //thunk-Creators
 export const getProfileUserTC = (paramsUserId: string):AppThunk => {
     return (dispatch: Dispatch) => {
         let userId = Number(paramsUserId)
         if (!userId) {
-            userId = 2
+            userId = 3
         }
         profileAPI.getProfileUser(userId).then(data => {
             dispatch(setUserProfileAC(data))
