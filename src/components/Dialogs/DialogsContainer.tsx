@@ -4,6 +4,8 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../redux/redux-store";
+import {Redirect} from "react-router-dom";
+import {ProfileContainer} from "../Profile/ProfileContainer";
 
 type MapStateToPropsType = {
     dialogsPage:InitialStateType
@@ -29,4 +31,12 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         addMessage:() => dispatch(addMessageAC())
     }
 }
-export const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+
+const AuthDialogsComponent = (props:any) => {
+    if(!props.isAuth) {
+        return <Redirect to={'/login'}/>
+    }
+    return <Dialogs {...props}/>
+}
+
+export const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(AuthDialogsComponent)
