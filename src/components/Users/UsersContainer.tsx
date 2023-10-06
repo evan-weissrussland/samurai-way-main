@@ -10,6 +10,8 @@ import {
 import {UsersPresentation} from "./UsersPresentation";
 import s from "./Users.module.css";
 import {Preloader} from "../common/Preloader/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export class UsersAPIContainer extends React.Component<any, any> {
 
@@ -93,10 +95,16 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
 
-export const UsersContainer = connect(mapStateToProps, {
+// export const UsersContainer = connect(mapStateToProps, {
+//     getUsersTC,
+//     onFollowUserTC,
+//     onUnfollowUserTC,
+//     onPageChangedTC
+// })(UsersAPIContainer)
+
+export const UsersContainer = compose<React.ComponentType>(connect(mapStateToProps, {
     getUsersTC,
     onFollowUserTC,
     onUnfollowUserTC,
     onPageChangedTC
-})(UsersAPIContainer)
-
+}),withAuthRedirect)(UsersAPIContainer)
