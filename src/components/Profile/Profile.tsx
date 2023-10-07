@@ -9,7 +9,7 @@ import {Redirect} from "react-router-dom";
 export const Profile: React.FC<OwnPropsType> = (props) => {
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo status={props.status} profile={props.profile} updateStatus={props.updateStatusUserTC}/>
             <MyPostsContainer/>
         </div>
     );

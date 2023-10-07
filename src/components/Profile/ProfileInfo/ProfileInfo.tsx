@@ -4,9 +4,12 @@ import image2 from "../../../images/image2.jpg";
 import emptyAva from "../../../images/emptyAccount.jpg";
 import {ProfileType} from "../../../redux/profile-reducer";
 import {Preloader} from "../../common/Preloader/Preloader";
+import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoType = {
     profile: ProfileType | null
+    updateStatus: (status:string) => void
+    status:string
 }
 
 export const ProfileInfo = (props: ProfileInfoType) => {
@@ -27,6 +30,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     <img  src={srcImage} alt=""/>
                 </div>
                 <div className={s.descriptionName}>{props.profile.fullName}</div>
+                <ProfileStatus status={props.status}/>
                 <div>
                     <span className={s.descriptionInfo}>Обо мне:  </span>
                     <span className={s.descriptionfromProfile}>{props.profile.aboutMe}</span>

@@ -8,7 +8,8 @@ test('correct profile-reducer add post', () => {
             {id: 2, message: "It's my first post", likesCount: 3}
         ],
         newPostText: "ffff",
-        profile: null
+        profile: null,
+        status:''
     }
 
     const endState = profileReducer(profilePage, addPostAC())
@@ -28,7 +29,8 @@ test('correct profile-reducer add new post text', () => {
             {id: 2, message: "It's my first post", likesCount: 3}
         ],
         newPostText: "ffff",
-        profile: null
+        profile: null,
+        status:''
     }
     const text = 'Vetal'
     const endState = profileReducer(profilePage, updateNewPostTextAC(text))
