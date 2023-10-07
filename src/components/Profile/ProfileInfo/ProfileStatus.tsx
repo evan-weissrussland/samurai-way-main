@@ -3,19 +3,23 @@ import React, {ChangeEvent} from "react";
 type ProfileStatusPropsType = {
     status: string
     updateStatus: (status: string) => void
+    myProfileId: number | null
+    userProfileId: number
 }
 
 export class ProfileStatus extends React.Component<ProfileStatusPropsType, any> {
 
     state = {
         editMode: false,
-        status: this.props.status
+        status: this.props.status ?? 'no status'
     }
 
     activateEditMode = () => {
-        this.setState({
-            editMode: true
-        })
+        if (this.props.myProfileId === this.props.userProfileId) {
+            this.setState({
+                editMode: true
+            })
+        }
     }
     closeEditMode = () => {
         this.setState({
@@ -34,7 +38,7 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType, any> 
             <div>
                 {!this.state.editMode ?
                     <div>
-                        <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
+                        <span onDoubleClick={this.activateEditMode}>{this.props.status || 'no status'}</span>
                     </div>
                     :
                     <div>

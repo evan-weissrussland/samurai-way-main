@@ -9,24 +9,12 @@ import {compose} from "redux";
 import {Dialogs} from "../Dialogs/Dialogs";
 
 export class ProfileContainer extends React.Component<PropsType, any> {
-
     componentDidMount() {
-        const localStorageUserId = localStorage.getItem('userId')
-        if (this.props.match.params.userId) {
-            localStorage.setItem('userId', JSON.stringify(this.props.match.params.userId))
             this.props.getProfileUserTC(this.props.match.params.userId)
             this.props.getStatusUserTC(this.props.match.params.userId)
-        } else if (localStorageUserId) {
-            this.props.getProfileUserTC(JSON.parse(localStorageUserId))
-            this.props.getStatusUserTC(JSON.parse(localStorageUserId))
-        } else {
-            this.props.getProfileUserTC(this.props.match.params.userId)
-            this.props.getStatusUserTC(this.props.match.params.userId)
-        }
-
     }
-
     render() {
+        console.log('ProfileContainer')
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         );
@@ -44,6 +32,7 @@ type PathParamsType = {
 type MapStateToPropsType = {
     profile:ProfileType | null
     status:string
+    myProfileId:number | null
 }
 type MapDispatchToPropsType = {
     getProfileUserTC: (paramsUserId:string) => void
@@ -53,7 +42,8 @@ type MapDispatchToPropsType = {
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        myProfileId: state.auth.id
     }
 }
 

@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
-import {AppThunk} from "./redux-store";
+import {AppRootStateType, AppThunk} from "./redux-store";
 
 export type ProfileType = {
     aboutMe: string
@@ -124,7 +124,7 @@ export const getProfileUserTC = (paramsUserId: string): AppThunk => {
     return (dispatch: Dispatch) => {
         let userId = Number(paramsUserId)
         if (!userId) {
-            userId = 3
+            userId = 29613
         }
         profileAPI.getProfileUser(userId).then(data => {
             dispatch(setUserProfileAC(data))
@@ -136,7 +136,10 @@ export const getProfileUserTC = (paramsUserId: string): AppThunk => {
 
 export const getStatusUserTC = (paramsUserId: string): AppThunk => {
     return (dispatch: Dispatch) => {
-        profileAPI.getStatus(Number(paramsUserId)).then(data => {
+        let userId = Number(paramsUserId)
+        if (!userId) {
+            userId = 29613        }
+        profileAPI.getStatus(Number(userId)).then(data => {
             dispatch(setUserStatusAC(data))
         })
             .finally(() => {
@@ -148,7 +151,7 @@ export const updateStatusUserTC = (status: string): AppThunk => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status).then(resp => {
             if(resp.resultCode === 0){
-                dispatch(updateUserStatusAC(resp.data))
+                dispatch(updateUserStatusAC(status))
             }
         })
             .finally(() => {
