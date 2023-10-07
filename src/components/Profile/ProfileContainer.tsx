@@ -15,12 +15,15 @@ export class ProfileContainer extends React.Component<PropsType, any> {
         if (this.props.match.params.userId) {
             localStorage.setItem('userId', JSON.stringify(this.props.match.params.userId))
             this.props.getProfileUserTC(this.props.match.params.userId)
+            this.props.getStatusUserTC(this.props.match.params.userId)
         } else if (localStorageUserId) {
             this.props.getProfileUserTC(JSON.parse(localStorageUserId))
+            this.props.getStatusUserTC(JSON.parse(localStorageUserId))
         } else {
             this.props.getProfileUserTC(this.props.match.params.userId)
+            this.props.getStatusUserTC(this.props.match.params.userId)
         }
-        this.props.getStatusUserTC(this.props.match.params.userId)
+
     }
 
     render() {
