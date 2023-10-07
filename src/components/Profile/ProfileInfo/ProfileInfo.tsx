@@ -30,7 +30,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     <img  src={srcImage} alt=""/>
                 </div>
                 <div className={s.descriptionName}>{props.profile.fullName}</div>
-                <ProfileStatus status={props.status}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 <div>
                     <span className={s.descriptionInfo}>Обо мне:  </span>
                     <span className={s.descriptionfromProfile}>{props.profile.aboutMe}</span>
