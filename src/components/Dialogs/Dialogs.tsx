@@ -1,11 +1,10 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
-import {Redirect} from "react-router-dom";
 
-//------компонента Dialogs-------------
+//------компонент Dialogs-------------
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     const [error, setError] = useState<string>('')
@@ -23,11 +22,13 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     const addMessage = () => {
         props.dialogsPage.newMessageText.trim() ? props.addMessage() : setError("Your message is empty")
     }
+
     /*const newMyMessage = useRef<HTMLTextAreaElement>(null)
     const onMessageChange = () => {
         const text = newMyMessage.current as HTMLTextAreaElement
-        props.dispatch(updateNewMessageTextAC(text.value))
+        props.updateNewMessageText(text.value))
     }*/
+
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
         if (text.trim()) {
@@ -36,9 +37,6 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
         }
     }
 
-    // if (!props.isAuth) {
-    //     return <Redirect to={'/login'}/>
-    // }
     //------отрисовка JSX------
     return (
         <div className={s.dialogs}>

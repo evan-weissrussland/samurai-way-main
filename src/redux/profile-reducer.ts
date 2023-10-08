@@ -1,7 +1,10 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
-import {AppRootStateType, AppThunk} from "./redux-store";
+import {AppThunk} from "./redux-store";
 
+
+          //-----------блок типизации---------
+//типизация профиля с сервера
 export type ProfileType = {
     aboutMe: string
     userId: number
@@ -23,11 +26,13 @@ export type ProfileType = {
         large: string | null
     }
 }
+//типизация поста с сервера
 export type MyPostType = {
     id: number
     message: string
     likesCount: number
 }
+//типизация инициализациооного стэйта редусера. Это склейка, она в таком виде не приходит с сервера
 export type ProfilePageType = {
     posts: MyPostType[]
     newPostText: string
@@ -35,26 +40,19 @@ export type ProfilePageType = {
     status: string
 }
 
-//типизация actionCreator'а для запроса юзеров с сервера
+//типизация actionCreator'а для запроса профиля юзера
 export type ActionSetUserProfileACType = ReturnType<typeof setUserProfileAC>
-//типизация actionCreator'а для запроса юзеров с сервера
+//типизация actionCreator'а для запроса статуса юзера
 export type ActionSetUserStatusACType = ReturnType<typeof setUserStatusAC>
-//типизация actionCreator'а для запроса юзеров с сервера
+//типизация actionCreator'а для изменения статуса своего профиля
 export type ActionUpdateUserStatusACType = ReturnType<typeof updateUserStatusAC>
-
 //типизация actionCreator'а для по-символьного ввода данных в textarea поста
 export type ActionAddTextPostType = ReturnType<typeof updateNewPostTextAC>
 // НИЖЕ аналог типизации.
-/*type ActionAddTextPostType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newPostText: string
-}*/
-
+/*type ActionAddTextPostType = {type: 'UPDATE-NEW-POST-TEXT', newPostText: string}*/
 //типизация actionCreator'а для добавления поста
-export type ActionAddPostType = {
-    type: 'ADD-POST'
-}
-
+export type ActionAddPostType = { type: 'ADD-POST' }
+//общая типизация action'ов
 export type ProfileReducerActionType =
     | ActionSetUserProfileACType
     | ActionAddTextPostType
@@ -62,13 +60,16 @@ export type ProfileReducerActionType =
     | ActionSetUserStatusACType
     | ActionUpdateUserStatusACType
 
+               //----конец блока типизации------
+
+// переменные для свойства type в action'ах
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_USER_STATUS = 'SET-USER-STATUS'
 const UPDATE_USER_STATUS = 'UPDATE-USER-STATUS'
 
-
+//инициализационный стэйт редусера
 const initialStateType: ProfilePageType = {
     //------данные для MyPosts в папке Profile----------
     posts: [
@@ -80,6 +81,7 @@ const initialStateType: ProfilePageType = {
     status: ''
 }
 
+//редусер
 export const profileReducer = (state: ProfilePageType = initialStateType, action: ProfileReducerActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
@@ -101,23 +103,21 @@ export const profileReducer = (state: ProfilePageType = initialStateType, action
             return state
     }
 }
+
 //action-Creators
 export const addPostAC = (): ActionAddPostType => ({type: ADD_POST})
 
+//т.к. мы используем типизацию нижележащих ActionCreator'ов через ReturnType<typeof actionCreator>, то в функции после скобок с аргументами типизацию не ставим, но добавляем после функции инструкцию "as const"
+export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
+export const setUserStatusAC = (status: string) => ({type: SET_USER_STATUS, status} as const)
+export const updateUserStatusAC = (status: string) => ({type: UPDATE_USER_STATUS, status} as const)
+export const updateNewPostTextAC = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newPostText: text} as const)
+//Ниже аналог типизации экшн-креатора updateNewPostTextAC без ReturnType<typeof >
 /*export const updateNewPostTextAC = (text: string): ActionAddTextPostType => ({
     type: UPDATE_NEW_POST_TEXT,
     newPostText: text
 })*/
-//т.к. мы используем типизацию  ActionAddTextPostType через ReturnType<typeof updateNewPostTextAC>, то в функции после
-// скобок (text: string) типизацию не ставим, но добавляем после функции инструкцию "as const"
-export const updateNewPostTextAC = (text: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newPostText: text
-} as const)
 
-export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
-export const setUserStatusAC = (status: string) => ({type: SET_USER_STATUS, status} as const)
-export const updateUserStatusAC = (status: string) => ({type: UPDATE_USER_STATUS, status} as const)
 
 //thunk-Creators
 export const getProfileUserTC = (paramsUserId: string): AppThunk => {
@@ -138,7 +138,8 @@ export const getStatusUserTC = (paramsUserId: string): AppThunk => {
     return (dispatch: Dispatch) => {
         let userId = Number(paramsUserId)
         if (!userId) {
-            userId = 29613        }
+            userId = 29613
+        }
         profileAPI.getStatus(Number(userId)).then(data => {
             dispatch(setUserStatusAC(data))
         })
@@ -150,7 +151,7 @@ export const getStatusUserTC = (paramsUserId: string): AppThunk => {
 export const updateStatusUserTC = (status: string): AppThunk => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status).then(resp => {
-            if(resp.resultCode === 0){
+            if (resp.resultCode === 0) {
                 dispatch(updateUserStatusAC(status))
             }
         })

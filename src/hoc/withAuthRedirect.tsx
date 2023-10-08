@@ -11,6 +11,7 @@ const mapStateToPropsForRedirect = (state: AppRootStateType): MapStateToPropsFor
         isAuth: state.auth.isAuth
     }
 }
+//ХОК. ПРинимает компонент: Если Залогинены на сервере, то возвращает его, если не залогинены, то редиректит на страницу "логина"
 export function withAuthRedirect<T>(Component:ComponentType<T>) {
 
     const RedirectComponent = (props:MapStateToPropsForRedirectType) => {
@@ -25,3 +26,5 @@ export function withAuthRedirect<T>(Component:ComponentType<T>) {
 
     return ConnectedAuthRedirectComponent
 }
+
+//В данный хок приходят пропсы из connect'а и withRouter'а (если он используется) и возвращаются они же, но склеенные ещё и с isAuth. Для этой склейки и используется ConnectedAuthRedirectComponent. Можно было бы оставить isAuth в приходящей компоненте, но т.к. isAuth используется во всех приходящих компонентах, то его вынесли в данный ХОК.

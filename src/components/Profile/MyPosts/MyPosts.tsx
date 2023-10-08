@@ -15,8 +15,8 @@ export const MyPosts: React.FC<MypostType> = (props) => {
             <Post key={p.id} message={p.message} likesCount={p.likesCount}/>
         )
     })
-
     // -----------конец метода map----------------
+
     const newPostElement = useRef<HTMLTextAreaElement>(null)
     const onAddPost = () => {
         props.addPostAC()

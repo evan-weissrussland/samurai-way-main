@@ -2,11 +2,11 @@ import {Dispatch} from "redux";
 import {followUserAPI, usersAPI} from "../api/api";
 import {AppRootStateType, AppThunk} from "./redux-store";
 
+            //---блок типизации------
 type LocationType = {
     city: string
     country: string
 }
-
 export type UsersType = {
     id: number
     name: string
@@ -23,7 +23,6 @@ export type UsersPageType = {
     isFetching: boolean
     followingArray: number[]
 }
-
 
 //типизация actionCreator'а для блокировки кнопок follow/unfollow
 export type ActionToggleIsFollowingProgressACType = ReturnType<typeof toggleIsFollowingProgress>
@@ -55,6 +54,10 @@ export type UserReducerActiontype =
     | ActionSetTotalUsersCountACType
     | ActionToggleIsFetchingACType
 
+export type InitialStateType = typeof initialState
+     //---конец блока типизации------
+
+// переменные для свойства type в action'ах
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
@@ -63,13 +66,9 @@ const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
 
+//инициализационный стэйт для редусера
 export const initialState = {
-    //------данные для MyPosts в папке Profile----------
-    users: [/*
-        {id: 1, photoUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.LIaPJq7RCzBb9g8_EzYxggAAAA%26pid%3DApi&f=1&ipt=3c3eca1380cf9846c55c32023f3c6252578c60ecfd4bef4ac38837b2d599732c&ipo=images', followed: false, fullname: "Vitold", status: 'boss', location: {city: 'Minsk', country: 'Belarus'}},
-        {id: 2, photoUrl:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.LIaPJq7RCzBb9g8_EzYxggAAAA%26pid%3DApi&f=1&ipt=3c3eca1380cf9846c55c32023f3c6252578c60ecfd4bef4ac38837b2d599732c&ipo=images', followed: true, fullname: "Vasya", status: 'pre-boss', location: {city: 'Tourin', country: 'Belarus'}},
-        {id: 3, photoUrl:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.LIaPJq7RCzBb9g8_EzYxggAAAA%26pid%3DApi&f=1&ipt=3c3eca1380cf9846c55c32023f3c6252578c60ecfd4bef4ac38837b2d599732c&ipo=images', followed: false, fullname: "Zinaida", status: 'manager', location: {city: 'Gudowichi', country: 'Belarus'}},*/
-    ],
+    users: [],
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
@@ -77,8 +76,7 @@ export const initialState = {
     followingArray: []
 } as UsersPageType
 
-export type InitialStateType = typeof initialState
-
+//редусер
 export const usersReducer = (state: InitialStateType = initialState, action: UserReducerActiontype): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
@@ -104,22 +102,22 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
     }
 }
 // ACTION-cREATORS
-export const setFollowUser = (userId: number) => ({type: FOLLOW, userId}) as const
-export const setUnfollowUser = (userId: number) => ({type: UNFOLLOW, userId}) as const
-export const setUsers = (users: UsersType[]) => ({type: SET_USERS, users}) as const
-export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
+export const setFollowUser = (userId: number) => ({type: FOLLOW, userId} as const)
+export const setUnfollowUser = (userId: number) => ({type: UNFOLLOW, userId} as const)
+export const setUsers = (users: UsersType[]) => ({type: SET_USERS, users} as const)
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalUsersCount: number) => ({
     type: SET_TOTAL_USERS_COUNT,
     count: totalUsersCount
-}) as const
-export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}) as const
+} as const)
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
 export const toggleIsFollowingProgress = (userId: number, isToggleFollowFetching: boolean) => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     userId,
     isToggleFollowFetching
-}) as const
+} as const)
 
-// Thunks
+// Thunk Creator's
 export const getUsersTC = ():AppThunk => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         dispatch(toggleIsFetching(true))

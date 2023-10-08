@@ -16,7 +16,16 @@ import {Provider} from "react-redux";
         document.getElementById('root')
     );
 
+//BrowserRouter - обёртка для работы с роутами
+//Provider - обёртка react-redux'а для создания контекста, в который закидывает стор из redux'а. Нужна для вытягивания во вложенных компонентах данных из стора redux'а без пробрасывания этих данных через пропсы.
 
+
+
+
+
+
+
+// ниже код для организации стэйта без использования redux
 
 /*let rerenderEntireTree = (state: AppRootStateType) => {
     ReactDOM.render(

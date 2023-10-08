@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route} from "react-router-dom";
@@ -11,15 +11,11 @@ import {ProfileAPIContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
 import {LoginPage} from "./components/LoginPage/LoginPage";
 
-//импортируем из стэйта типизацию объекта state
-type PropsAppType = {
-}
 
-export const App: FC<PropsAppType> = (props) => {
-    //внешняя функция для передачи пропсов в компоненту Dialogs
+export const App = () => {
+//внешняя функция для передачи пропсов в компоненту DialogsContainer. Нужна для того, чтобы пробросить пропсы в компонент. Если пропсов много, то при проброске их в строке с Rout'ом синтаксис разрастётся, поэтому используются внешнюю переменную. Но с исползованием connect'а или useSelector'а необходимости пробрасывать пропсы нет.
     const DialogsComponent = () => <DialogsContainer/>
-    //внешняя функция для передачи пропсов в компоненту Profile
-    // const ProfileComponent = () => <Profile/>
+//внешняя функция для передачи пропсов в компоненту ProfileAPIContainer. Нужна для того, чтобы пробросить пропсы в компонент. Если пропсов много, то при проброске их в строке с Rout'ом синтаксис разрастётся, поэтому используются внешнюю переменную. Но с исползованием connect'а или useSelector'а необходимости пробрасывать пропсы нет.
     const ProfileComponent = () => <ProfileAPIContainer/>
     return (
         <div className={'app-wripper'}>

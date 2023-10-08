@@ -1,3 +1,5 @@
+//САМОПИСНЫЙ СТОР, АНАЛОГ РЕДАКСА. НЕ ИСПОЛЬЗУЕТСЯ
+
 import React from "react";
 // type MyPostsType = {
 //     id: number

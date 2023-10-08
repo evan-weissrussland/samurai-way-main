@@ -4,10 +4,9 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {Redirect} from "react-router-dom";
-import {ProfileContainer} from "../Profile/ProfileContainer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
+              //----блок типизации-----
 type MapStateToPropsType = {
     dialogsPage:InitialStateType
 }
@@ -17,9 +16,8 @@ type MapDispatchToPropsType = {
     addMessage:() => void
 }
 
-
-
 export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
+              //----конец блока типизации-----
 
 const mapStateToProps = (state:AppRootStateType):MapStateToPropsType => {
     return {
@@ -33,10 +31,15 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-
-
-
 // const AuthDialogsComponent = withAuthRedirect(Dialogs)
 // export const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(AuthDialogsComponent)
 
+
+// функция compose: позволяет записать все компоненты-обёртки в одну строку. Dialogs оборачивается в connect и далее передаётся в ХОК вместе с пропсами из connect'а.
 export const DialogsContainer = compose<React.ComponentType>(connect(mapStateToProps,mapDispatchToProps),withAuthRedirect)(Dialogs)
+
+
+
+
+//connect нужен для вытягивания из редакса стэйта и диспатча
+//withAuthRedirect - ХОК. Для исключения дублирования кода, т.к. во многих копонентах приложения будет одинаковая логика, написанная в ХОКе.

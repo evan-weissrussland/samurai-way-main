@@ -1,4 +1,8 @@
 import React from 'react';
+
+
+// НЕ ИСПОЛЬЗУЕТСЯ
+
 /*import ReactDOM from 'react-dom';
 import './index.css';
 import {App} from './App';
