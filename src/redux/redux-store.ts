@@ -5,6 +5,7 @@ import {sidebarReducer} from "./sidebar-reducer";
 import {UserReducerActiontype, usersReducer} from "./users-reducer";
 import {authReducer, SetUserDataActionType} from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
+import {reducer as formReducer} from 'redux-form'
 
 //создаём общий редусер redux'а
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     sidebar:sidebarReducer,
-    auth:authReducer
+    auth:authReducer,
+    form:formReducer
 })
 //создаём общий стэйт redux'а, а также подключаем widdleWare (для возможности диспатчить санки)
 export const store = createStore(rootReducer, applyMiddleware(thunk));
