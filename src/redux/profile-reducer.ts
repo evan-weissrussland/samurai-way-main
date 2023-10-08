@@ -26,7 +26,7 @@ export type ProfileType = {
         large: string | null
     }
 }
-//типизация поста с сервера
+//типизация поста
 export type MyPostType = {
     id: number
     message: string

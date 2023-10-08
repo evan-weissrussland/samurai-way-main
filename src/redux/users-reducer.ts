@@ -14,6 +14,7 @@ export type UsersType = {
     location: LocationType
     followed: boolean
     photos: { small: string }
+    uniqueUrlName: string
 }
 export type UsersPageType = {
     users: UsersType[]
