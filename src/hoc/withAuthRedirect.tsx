@@ -4,22 +4,28 @@ import {AppRootStateType} from "../redux/redux-store";
 import {connect} from "react-redux";
 
 type MapStateToPropsForRedirectType = {
-    isAuth: boolean
+    isAuth: boolean,
+    isInizialized: boolean
 }
 const mapStateToPropsForRedirect = (state: AppRootStateType): MapStateToPropsForRedirectType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        isInizialized: state.auth.isInizialized
     }
 }
-//ХОК. ПРинимает компонент: Если Залогинены на сервере, то возвращает его, если не залогинены, то редиректит на страницу "логина"
-export function withAuthRedirect<T>(Component:ComponentType<T>) {
 
-    const RedirectComponent = (props:MapStateToPropsForRedirectType) => {
-        let {isAuth, ...restProps} = props
-            if (!isAuth) {
-                return <Redirect to={'/login'}/>
-            }
-            return <Component {...restProps as T}/>
+//ХОК. ПРинимает компонент: Если Залогинены на сервере, то возвращает его, если не залогинены, то редиректит на страницу "логина"
+export function withAuthRedirect<T>(Component: ComponentType<T>) {
+
+    const RedirectComponent = (props: MapStateToPropsForRedirectType) => {
+        let {isAuth, isInizialized, ...restProps} = props
+        if (!isInizialized) {
+            return <> Loading...</>
+        }
+        if (!isAuth) {
+            return <Redirect to={'/login'}/>
+        }
+        return <Component {...restProps as T}/>
     }
 
     const ConnectedAuthRedirectComponent = connect(mapStateToPropsForRedirect)(RedirectComponent)

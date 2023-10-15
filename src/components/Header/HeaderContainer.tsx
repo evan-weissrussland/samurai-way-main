@@ -11,6 +11,7 @@ export class HeaderAPIContainer extends React.Component<any, any> {
     componentDidMount() {
          this.props.setUserDataTC()
     }
+
 //метод возвращающий jsx-разметку
     render() {
         return <Header isAuth={this.props.isAuth} login={this.props.login}/>
