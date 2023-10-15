@@ -10,24 +10,19 @@ type MessagesType = {
 export type DialogsPageType = {
     dialogs: DialogsItemType[]
     messages: MessagesType[]
-    newMessageText: string
 }
 
 //типизация actionCreator'а для добавления поста или сообщения
-export type ActionAddMessageType = { type: 'ADD-MESSAGE' }
-//типизация actionCreator'а для по-символьного ввода данных в textarea сообщения
-export type ActionAddTextMessageType = { type: 'UPDATE-NEW-MESSAGE-TEXT', newMessageText: string }
+export type ActionAddMessageType = { type: 'ADD-MESSAGE' , newDialogMessage:string}
 //общая типизация action'ов для редусера
 export type DialogsReducerActionType =
     | ActionAddMessageType
-    | ActionAddTextMessageType
 //типизация инициализационного стэйта редусера
 export type InitialStateType = typeof initialState
 //----- конец блока типизации-----------
 
 // переменные для свойства type в action'ах
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
 //инициализационный стэйт
 const initialState = {
@@ -45,8 +40,7 @@ const initialState = {
         {id: 1, message: 'Hi, Guys'},
         {id: 2, message: 'How are you?'},
         {id: 3, message: 'Go прокидывать props'}
-    ] as MessagesType[],
-    newMessageText: "",
+    ] as MessagesType[]
 }
 
 //редусер
@@ -55,19 +49,13 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: D
         case ADD_MESSAGE:
             const newMessage: MessagesType = {
                 id: state.messages.length + 1,
-                message: state.newMessageText
+                message: action.newDialogMessage
             }
-            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {...state, newMessageText: action.newMessageText}
+            return {...state, messages: [...state.messages, newMessage]}
         default:
             return state
     }
 }
 
 //action-Creator's
-export const addMessageAC = (): ActionAddMessageType => ({type: ADD_MESSAGE})
-export const updateNewMessageTextAC = (text: string): ActionAddTextMessageType => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newMessageText: text
-})
+export const addMessageAC = (newDialogMessage:string): ActionAddMessageType => ({type: ADD_MESSAGE,newDialogMessage:newDialogMessage})
