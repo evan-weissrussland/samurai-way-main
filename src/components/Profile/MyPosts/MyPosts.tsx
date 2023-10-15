@@ -2,6 +2,7 @@ import React, {useRef} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {MypostType} from "./MyPostsContainer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 //------------компонента MyPosts--------------
 
@@ -17,33 +18,46 @@ export const MyPosts: React.FC<MypostType> = (props) => {
     })
     // -----------конец метода map----------------
 
-    const newPostElement = useRef<HTMLTextAreaElement>(null)
-    const onAddPost = () => {
-        props.addPostAC()
+    // const newPostElement = useRef<HTMLTextAreaElement>(null)
+    // const onAddPost = () => {
+    //     props.addPostAC()
+    // }
+
+    const addPost = (formData: FormDataType) => {
+        props.addPostAC(formData.newPostBody)
     }
-    const onPostChange = () => {
-        const text = newPostElement.current as HTMLTextAreaElement
-        props.updateNewPostTextAC(text.value)
-    }
+
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
-            <div>
-                <div>
-                    <textarea
-                        placeholder={'Enter your post'}
-                        onChange={onPostChange}
-                        ref={newPostElement}
-                        value={profilePage.newPostText}
-                    />
-                </div>
-                <div>
-                    <button onClick={onAddPost}>Add post</button>
-                </div>
-            </div>
+            <AddPostReduxForm onSubmit={addPost}/>
             <div className={s.posts}>
                 {postsElements}
             </div>
         </div>
     );
 }
+
+export type FormDataType = {
+    newPostBody: string
+}
+export const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+    return <form onSubmit={props.handleSubmit}>
+        <div>
+            <Field
+                name={'newPostBody'}
+                component={'textarea'}
+                placeholder={'Enter your post'}
+            />
+        </div>
+        <div>
+            <button>Add post</button>
+        </div>
+    </form>
+
+
+}
+export const AddPostReduxForm = reduxForm<FormDataType>({
+    //для свойства form задаём уникальное имя, чтобы библиотека redux-form отличала формы этой компоненты от форм других компонет
+    form: 'postAddMessageForm'
+})(AddPostForm)
