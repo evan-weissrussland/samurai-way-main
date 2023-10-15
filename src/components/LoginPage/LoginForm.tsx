@@ -40,6 +40,6 @@ export const LoginReduxForm = reduxForm<FormDataType>({
 
 //Field - это обёртка из библиотеки redux-form для тегов формы: она обязательно должна принимать атрибут name (уникальный), component (определяет тип тега формы). Также можно дополнительно писать все атрибуты, присущие тегам HTML-форм, например, для инпута - это placeholder.
 
-//props.handleSubmit - это функция из библиотеки redux-form. Она приходит из обёртки LoginReduxForm и собирает данные из всех форм Field компонента при нажатии на кнопку button. На основании этих данных она создаёт объект, где ключи будут иметь такое же название, как и атрибуты "name" в Field'ах. У нас 3 Field'а, соответственно, будет 3 свойства: {login:'', password:'', rememberMe:true or false}
+//props.handleSubmit - это функция из библиотеки redux-form. Она приходит из обёртки LoginReduxForm и собирает данные из всех форм Field компонента при нажатии на кнопку button. На основании этих данных она создаёт объект, где ключи будут иметь такое же название, как и атрибуты "name" в Field'ах. У нас 3 Field'а, соответственно, будет 3 свойства: {login:'', password:'', rememberMe:true or false}. Именно этот объект мы и типизируем, как FormDataType
 
 //В родителе мы прокидываем сюда пропс onSubmit, но он не попадает в компонент LoginForm напрямую, он попадает в обёртку LoginReduxForm и вызывается из неё, передавая объект {login:'', password:'', rememberMe:true or false}, полученный из props.handleSubmit.
