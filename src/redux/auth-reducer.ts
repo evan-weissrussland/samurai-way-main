@@ -36,7 +36,7 @@ export type authReducerType = SetIsInitializedActionType | SetUserDataActionType
 export const authReducer = (state: InitialStateType = initialState, action: authReducerType): InitialStateType => {
     switch (action.type) {
         case SET_USER_DATE:
-            return {...state, ...action.authData, isAuth: true}
+            return {...state, ...action.payload, isAuth:action.isAuth}
         case SET_IS_INITIALIZED:
             return {...state, isInizialized: true}
         default:
@@ -45,8 +45,8 @@ export const authReducer = (state: InitialStateType = initialState, action: auth
 }
 
 //action-Creators
-export const setUserDataAC = (authData: AuthResponseType) => {
-    return {type: SET_USER_DATE, authData} as const
+export const setUserDataAC = (payload: AuthResponseType, isAuth:boolean) => {
+    return {type: SET_USER_DATE, payload, isAuth} as const
 }
 export const setIsInitializedAC = () => {
     return {type: SET_IS_INITIALIZED, isInizialized:true} as const
@@ -56,7 +56,7 @@ export const setUserDataTC = ():AppThunk => {
     return (dispatch) => {
         authAPI.authMe()
             .then(data => {
-            data.resultCode === 0 && dispatch(setUserDataAC(data.data))
+            data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
         })
             .finally(()=>{
                 dispatch(setIsInitializedAC())
@@ -70,6 +70,17 @@ export const loginTC = (email:string, password:string, rememberMe:boolean):AppTh
                if (data.resultCode === 0) {
                    dispatch(setUserDataTC())
                }
+            })
+            .finally(()=>{
+                dispatch(setIsInitializedAC())
+            })
+    }
+}
+export const logoutTC = ():AppThunk => {
+    return (dispatch) => {
+        authAPI.logout()
+            .then(data => {
+                data.resultCode === 0 && dispatch(setUserDataAC({id:null, email:null, login:null}, false))
             })
             .finally(()=>{
                 dispatch(setIsInitializedAC())

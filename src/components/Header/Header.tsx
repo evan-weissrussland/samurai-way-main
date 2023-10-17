@@ -2,10 +2,10 @@ import React, {FC} from "react";
 import image1 from '../../images/image1.svg'
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
-import {MapStateToPropsType} from "./HeaderContainer";
+import {OwnerType} from "./HeaderContainer";
 
 
-export const Header: FC<MapStateToPropsType> = (props) => {
+export const Header: FC<OwnerType> = (props) => {
     return (
         <header className={s.header}>
             <img src={image1} alt={''}/>
@@ -14,6 +14,7 @@ export const Header: FC<MapStateToPropsType> = (props) => {
                     <div>
                         <span>You Loged as: </span>
                         <span className={s.propsLogin}>{props.login}</span>
+                        <button onClick={props.logout}>logout</button>
                     </div> :
                     <NavLink activeClassName={s.navLinkLogin} to={`/login`}>Login</NavLink>}
             </div>

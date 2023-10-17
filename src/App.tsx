@@ -9,7 +9,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileAPIContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
-import {LoginPage} from "./components/LoginPage/LoginPage";
+import {LoginContainer} from "./components/LoginPage/LoginPage";
 
 
 export const App = () => {
@@ -28,7 +28,7 @@ export const App = () => {
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
-                <Route path={'/login'} render={() => <LoginPage/>}/>
+                <Route path={'/login'} render={() => <LoginContainer/>}/>
             </div>
         </div>
     );

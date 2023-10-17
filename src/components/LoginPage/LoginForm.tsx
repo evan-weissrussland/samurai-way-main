@@ -5,7 +5,7 @@ import {required} from "../../utils/validators/validators";
 
 //типизация данных, собираемых функцией handleSubmit. Каждое имя ключа взято из атрибута "name" каждого Field'а
 export type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
@@ -16,8 +16,8 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field
-                    name={'login'}
-                    placeholder={'Login'}
+                    name={'email'}
+                    placeholder={'email'}
                     component={Input}
                     validate={[required]}/>
             </div>
@@ -25,6 +25,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
                 <Field
                     name={'password'}
                     placeholder={'Password'}
+                    type={'password'}
                     component={Input}
                     validate={[required]}/>
             </div>
