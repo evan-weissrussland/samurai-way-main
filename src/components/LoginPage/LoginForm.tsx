@@ -1,5 +1,7 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Input} from "../common/FirmsControl/FormsControls";
+import {required} from "../../utils/validators/validators";
 
 //типизация данных, собираемых функцией handleSubmit. Каждое имя ключа взято из атрибута "name" каждого Field'а
 export type FormDataType = {
@@ -8,17 +10,19 @@ export type FormDataType = {
     rememberMe:boolean
 }
 
+
+
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name={'login'} placeholder={'Login'} component={'input'}/>
+                <Field name={'login'} placeholder={'Login'} component={Input} validate={[required]}/>
             </div>
             <div>
-                <Field name={'password'} placeholder={'Password'} component={'input'}/>
+                <Field name={'password'} placeholder={'Password'} component={Input} validate={[required]}/>
             </div>
             <div>
-                <Field name={'rememberMe'} type={"checkbox"} component={'input'}/> remember me
+                <Field name={'rememberMe'} type={"checkbox"} component={Input}/> remember me
             </div>
             <div>
                 <button>

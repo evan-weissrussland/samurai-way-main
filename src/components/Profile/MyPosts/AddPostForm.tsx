@@ -6,7 +6,7 @@ import {Textarea} from "../../common/FirmsControl/FormsControls";
 export type FormDataType = {
     newPostBody: string
 }
-const maxLength10 = maxLengthCreator(10)
+const maxLength = maxLengthCreator(10)
 export const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
@@ -14,7 +14,7 @@ export const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) =>
                 name={'newPostBody'}
                 component={Textarea}
                 placeholder={'Enter your post'}
-                validate={[required, maxLength10]}
+                validate={[required, maxLength]}
             />
         </div>
         <div>
