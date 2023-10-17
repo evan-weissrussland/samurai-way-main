@@ -2,7 +2,7 @@ import React from 'react';
 import s from './LoginPage.module.css'
 import {FormDataType, LoginReduxForm} from "./LoginForm";
 import {connect} from "react-redux";
-import {loginTC, logoutTC} from "../../redux/auth-reducer";
+import {loginTC} from "../../redux/auth-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
 
@@ -27,7 +27,6 @@ export const LoginPage = (props:MapDispatchToPropsType & MapStateToPropsForRedir
 };
 type MapDispatchToPropsType = {
     loginTC: (email:string, password:string, rememberMe:boolean) => void
-    logoutTC: () => void
 }
 type MapStateToPropsForRedirectType = {
     isAuth: boolean,

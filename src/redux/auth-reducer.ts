@@ -1,5 +1,6 @@
 import {authAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 //типизация ответа с сервера по запросу залогинен ли я на сервере
 export type AuthResponseType = {
@@ -69,6 +70,9 @@ export const loginTC = (email:string, password:string, rememberMe:boolean):AppTh
             .then(data => {
                if (data.resultCode === 0) {
                    dispatch(setUserDataTC())
+               } else {
+                const action = stopSubmit('login', {_error: 'Email or Password is wrong'})
+                dispatch(action)
                }
             })
             .finally(()=>{

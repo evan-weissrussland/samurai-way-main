@@ -2,6 +2,7 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/FirmsControl/FormsControls";
 import {required} from "../../utils/validators/validators";
+import s from '../common/FirmsControl/FormsControls.module.css'
 
 //типизация данных, собираемых функцией handleSubmit. Каждое имя ключа взято из атрибута "name" каждого Field'а
 export type FormDataType = {
@@ -36,6 +37,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
                     component={Input}/>
                 remember me
             </div>
+            {props.error && <div className={s.formSummaryError}>
+                {props.error}
+            </div>}
             <div>
                 <button>
                     login

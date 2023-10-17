@@ -6,6 +6,7 @@ import {UserReducerActiontype, usersReducer} from "./users-reducer";
 import {authReducer, authReducerType} from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
+import {FormAction} from "redux-form/lib/actions";
 
 //создаём общий редусер redux'а
 const rootReducer = combineReducers({
@@ -27,7 +28,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 // Определяем типизацию thunk
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, RootActionType>
 //общая типизация всех actionCreator'ов. Нужна для типизациии AppThunk
-export type RootActionType = DialogsReducerActionType | ProfileReducerActionType | UserReducerActiontype | authReducerType
+export type RootActionType = DialogsReducerActionType | ProfileReducerActionType | UserReducerActiontype | authReducerType | FormAction
                        //----- конец блока типизации---------
 
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
