@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
 
@@ -28,10 +27,13 @@ const SET_USER_DATE = 'SET-USER-DATE'
 const SET_IS_INITIALIZED = 'SET-IS-INITIALIZED'
 
 //типизация action Creatora
-export type SetUserDataActionType = ReturnType<typeof setUserDataAC>
+type SetUserDataActionType = ReturnType<typeof setUserDataAC>
+type SetIsInitializedActionType = ReturnType<typeof setIsInitializedAC>
+
+export type authReducerType = SetIsInitializedActionType | SetUserDataActionType
 
 //редусер
-export const authReducer = (state: InitialStateType = initialState, action: SetUserDataActionType): InitialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: authReducerType): InitialStateType => {
     switch (action.type) {
         case SET_USER_DATE:
             return {...state, ...action.authData, isAuth: true}
@@ -44,18 +46,31 @@ export const authReducer = (state: InitialStateType = initialState, action: SetU
 
 //action-Creators
 export const setUserDataAC = (authData: AuthResponseType) => {
-    return {type: SET_USER_DATE, authData}
+    return {type: SET_USER_DATE, authData} as const
 }
 export const setIsInitializedAC = () => {
-    return {type: SET_IS_INITIALIZED, isInizialized:true}
+    return {type: SET_IS_INITIALIZED, isInizialized:true} as const
 }
 //thunk Creators
 export const setUserDataTC = ():AppThunk => {
-    return (dispatch: Dispatch) => {
+    return (dispatch) => {
         authAPI.authMe()
             .then(data => {
             data.resultCode === 0 && dispatch(setUserDataAC(data.data))
         })
+            .finally(()=>{
+                dispatch(setIsInitializedAC())
+            })
+    }
+}
+export const loginTC = (email:string, password:string, rememberMe:boolean):AppThunk => {
+    return (dispatch) => {
+        authAPI.login(email, password, rememberMe)
+            .then(data => {
+               if (data.resultCode === 0) {
+                   dispatch(setUserDataTC())
+               }
+            })
             .finally(()=>{
                 dispatch(setIsInitializedAC())
             })

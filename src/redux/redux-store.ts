@@ -3,7 +3,7 @@ import {profileReducer, ProfileReducerActionType} from "./profile-reducer";
 import {dialogsReducer, DialogsReducerActionType} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {UserReducerActiontype, usersReducer} from "./users-reducer";
-import {authReducer, SetUserDataActionType} from "./auth-reducer";
+import {authReducer, authReducerType} from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 
@@ -27,7 +27,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 // Определяем типизацию thunk
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, RootActionType>
 //общая типизация всех actionCreator'ов. Нужна для типизациии AppThunk
-export type RootActionType = DialogsReducerActionType | ProfileReducerActionType | UserReducerActiontype | SetUserDataActionType
+export type RootActionType = DialogsReducerActionType | ProfileReducerActionType | UserReducerActiontype | authReducerType
                        //----- конец блока типизации---------
 
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
