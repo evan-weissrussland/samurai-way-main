@@ -71,7 +71,8 @@ export const loginTC = (email:string, password:string, rememberMe:boolean):AppTh
                if (data.resultCode === 0) {
                    dispatch(setUserDataTC())
                } else {
-                const action = stopSubmit('login', {_error: 'Email or Password is wrong'})
+                   const message = data.messages.length > 0 ? data.messages[0] : 'SOme error'
+                const action = stopSubmit('login', {_error: message})
                 dispatch(action)
                }
             })

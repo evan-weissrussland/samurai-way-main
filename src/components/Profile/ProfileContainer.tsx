@@ -62,6 +62,8 @@ type MapStateToPropsType = {
     profile:ProfileType | null
     status:string
     myProfileId:number | null
+    authorizedUserId: number | null
+    isAuth: boolean
 }
 
 //типизация санок connect'а
@@ -78,7 +80,9 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        myProfileId: state.auth.id
+        myProfileId: state.auth.id,
+        authorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 
