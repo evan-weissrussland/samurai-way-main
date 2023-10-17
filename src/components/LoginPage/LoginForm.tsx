@@ -7,22 +7,33 @@ import {required} from "../../utils/validators/validators";
 export type FormDataType = {
     login: string
     password: string
-    rememberMe:boolean
+    rememberMe: boolean
 }
-
 
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name={'login'} placeholder={'Login'} component={Input} validate={[required]}/>
+                <Field
+                    name={'login'}
+                    placeholder={'Login'}
+                    component={Input}
+                    validate={[required]}/>
             </div>
             <div>
-                <Field name={'password'} placeholder={'Password'} component={Input} validate={[required]}/>
+                <Field
+                    name={'password'}
+                    placeholder={'Password'}
+                    component={Input}
+                    validate={[required]}/>
             </div>
             <div>
-                <Field name={'rememberMe'} type={"checkbox"} component={Input}/> remember me
+                <Field
+                    name={'rememberMe'}
+                    type={"checkbox"}
+                    component={Input}/>
+                remember me
             </div>
             <div>
                 <button>
@@ -40,7 +51,7 @@ export const LoginReduxForm = reduxForm<FormDataType>({
 })(LoginForm)
 
 
-                    // -------описание-------
+// -------описание-------
 
 //Field - это обёртка из библиотеки redux-form для тегов формы: она обязательно должна принимать атрибут name (уникальный), component (определяет тип тега формы). Также можно дополнительно писать все атрибуты, присущие тегам HTML-форм, например, для инпута - это placeholder.
 
