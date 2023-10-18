@@ -9,23 +9,27 @@ import {compose} from "redux";
 
 //классовый компонент
 export class ProfileContainer extends React.Component<PropsType, any> {
+
 //метод аналог useEffect'a. Отрабатывает после первоначального рендера компонента
     componentDidMount() {
+        let userId = Number(this.props.match.params.userId)
 //внизу логика: после монтирования компонента идёт запрос на сервер на получение профиля юзера, а также запрос на получение статуса этого юзера. Также сохраняется в локал сторэйдж id юзера для того, чтобы после перезагрузки браузера подтянулся ранее открытый профиль
         const localStorageUserId = localStorage.getItem('userId')
-        if (this.props.match.params.userId) {
+        if (userId) {
 //если в URL есть id юзера, то сохраняем его в локал сторэйдж и делаем запрос на получение его профиля и статуса
-            localStorage.setItem('userId', JSON.stringify(this.props.match.params.userId))
-            this.props.getProfileUserTC(this.props.match.params.userId)
-            this.props.getStatusUserTC(this.props.match.params.userId)
+            localStorage.setItem('userId', JSON.stringify(userId))
+            this.props.getProfileUserTC(userId)
+            this.props.getStatusUserTC(userId)
         } else if (localStorageUserId) {
 //если в URL id юзера не было, но есть сохранённый в локал сторэйдж id юзера, то запрашиваем его профиль и статус
             this.props.getProfileUserTC(JSON.parse(localStorageUserId))
             this.props.getStatusUserTC(JSON.parse(localStorageUserId))
-        } else {
+        } else if (this.props.authorizedUserId){
 //если нет в URL id юзера и нет сохранённого id в локал сторэйдж, то в санку отправляем this.props.match.params.userId, который будет равен null. В санке будет проверка на null.
-            this.props.getProfileUserTC(this.props.match.params.userId)
-            this.props.getStatusUserTC(this.props.match.params.userId)
+            this.props.getProfileUserTC(this.props.authorizedUserId)
+            this.props.getStatusUserTC(this.props.authorizedUserId)
+        } else {
+            this.props.history.push('/login')
         }
     }
 
@@ -68,8 +72,8 @@ type MapStateToPropsType = {
 
 //типизация санок connect'а
 type MapDispatchToPropsType = {
-    getProfileUserTC: (paramsUserId:string) => void
-    getStatusUserTC: (userId:string) => void
+    getProfileUserTC: (paramsUserId:number) => void
+    getStatusUserTC: (userId:number) => void
     updateStatusUserTC: (status:string) => void
 }
 

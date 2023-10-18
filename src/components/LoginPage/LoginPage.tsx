@@ -29,13 +29,11 @@ type MapDispatchToPropsType = {
     loginTC: (email:string, password:string, rememberMe:boolean) => void
 }
 type MapStateToPropsForRedirectType = {
-    isAuth: boolean,
-    isInizialized: boolean
+    isAuth: boolean
 }
 const mapStateToPropsForRedirect = (state: AppRootStateType): MapStateToPropsForRedirectType => {
     return {
-        isAuth: state.auth.isAuth,
-        isInizialized: state.auth.isInizialized
+        isAuth: state.auth.isAuth
     }
 }
 export const LoginContainer = connect(mapStateToPropsForRedirect, {loginTC})(LoginPage)

@@ -1,16 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
-import {logoutTC, setUserDataTC} from "../../redux/auth-reducer";
+import {logoutTC} from "../../redux/auth-reducer";
 import {Header} from "./Header";
 import {AppRootStateType} from "../../redux/redux-store";
 import {compose} from "redux";
 
 //классовый компонент
 export class HeaderAPIContainer extends React.Component<any, any> {
-//метод аналог useEffect'a. Отрабатывает после первоначального рендера компонента
-    componentDidMount() {
-        this.props.setUserDataTC()
-    }
 
 //метод возвращающий jsx-разметку
     render() {
@@ -36,5 +32,5 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 }
 
 export const HeaderContainer = compose<React.ComponentType>(connect(mapStateToProps, {
-    setUserDataTC, logoutTC
+    logoutTC
 }))(HeaderAPIContainer)

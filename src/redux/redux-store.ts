@@ -7,6 +7,7 @@ import {authReducer, authReducerType} from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import {FormAction} from "redux-form/lib/actions";
+import {appReducer} from "./app-reducer";
 
 //создаём общий редусер redux'а
 const rootReducer = combineReducers({
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     usersPage: usersReducer,
     sidebar:sidebarReducer,
     auth:authReducer,
-    form:formReducer
+    form:formReducer,
+    app:appReducer
 })
 //создаём общий стэйт redux'а, а также подключаем widdleWare (для возможности диспатчить санки)
 export const store = createStore(rootReducer, applyMiddleware(thunk));

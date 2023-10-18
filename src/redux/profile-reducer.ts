@@ -103,13 +103,9 @@ export const updateUserStatusAC = (status: string) => ({type: UPDATE_USER_STATUS
 
 
 //thunk-Creators
-export const getProfileUserTC = (paramsUserId: string): AppThunk => {
+export const getProfileUserTC = (paramsUserId: number): AppThunk => {
     return (dispatch: Dispatch) => {
-        let userId = Number(paramsUserId)
-        if (!userId) {
-            userId = 29613
-        }
-        profileAPI.getProfileUser(userId).then(data => {
+        profileAPI.getProfileUser(paramsUserId).then(data => {
             dispatch(setUserProfileAC(data))
         })
             .finally(() => {
@@ -117,13 +113,9 @@ export const getProfileUserTC = (paramsUserId: string): AppThunk => {
     }
 }
 
-export const getStatusUserTC = (paramsUserId: string): AppThunk => {
+export const getStatusUserTC = (paramsUserId: number): AppThunk => {
     return (dispatch: Dispatch) => {
-        let userId = Number(paramsUserId)
-        if (!userId) {
-            userId = 29613
-        }
-        profileAPI.getStatus(Number(userId)).then(data => {
+        profileAPI.getStatus(Number(paramsUserId)).then(data => {
             dispatch(setUserStatusAC(data))
         })
             .finally(() => {

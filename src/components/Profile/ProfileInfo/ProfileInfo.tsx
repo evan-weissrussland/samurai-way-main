@@ -16,8 +16,8 @@ export const ProfileInfo = (props: OwnPropsType) => {
 //функция для возврата на мой профиль. Делаем запрос на сервер за моим профилем и подтягиваем мой статус
     const onClickHandler = () => {
         if (props.myProfileId) {
-            props.getProfileUserTC(props.myProfileId.toString())
-            props.getStatusUserTC(props.myProfileId.toString())
+            props.getProfileUserTC(props.myProfileId)
+            props.getStatusUserTC(props.myProfileId)
         }
     }
 

@@ -53,15 +53,24 @@ export const setIsInitializedAC = () => {
     return {type: SET_IS_INITIALIZED, isInizialized:true} as const
 }
 //thunk Creators
-export const setUserDataTC = ():AppThunk => {
-    return (dispatch) => {
-        authAPI.authMe()
-            .then(data => {
+export const setAuthUserDataTC = ():AppThunk => {
+    // return (dispatch) => {
+    //    authAPI.authMe()
+    //         .then(data => {
+    //         data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
+    //     })
+    //         .finally(()=>{
+    //             dispatch(setIsInitializedAC())
+    //         })
+    // }
+
+    return async (dispatch) => {
+        try {
+            const data = await authAPI.authMe()
             data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
-        })
-            .finally(()=>{
-                dispatch(setIsInitializedAC())
-            })
+        } finally {
+            dispatch(setIsInitializedAC())
+        }
     }
 }
 export const loginTC = (email:string, password:string, rememberMe:boolean):AppThunk => {
@@ -69,7 +78,7 @@ export const loginTC = (email:string, password:string, rememberMe:boolean):AppTh
         authAPI.login(email, password, rememberMe)
             .then(data => {
                if (data.resultCode === 0) {
-                   dispatch(setUserDataTC())
+                   dispatch(setAuthUserDataTC())
                } else {
                    const message = data.messages.length > 0 ? data.messages[0] : 'SOme error'
                 const action = stopSubmit('login', {_error: message})
