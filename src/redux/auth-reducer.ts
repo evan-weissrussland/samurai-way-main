@@ -1,6 +1,7 @@
 import {authAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
 import {stopSubmit} from "redux-form";
+import {initializedSuccessAC} from "./app-reducer";
 
 //типизация ответа с сервера по запросу залогинен ли я на сервере
 export type AuthResponseType = {
@@ -9,12 +10,12 @@ export type AuthResponseType = {
     login: string | null
 }
 //склейка типизации AuthResponseType с добавлением свойства isAuth, т.к. это свойство не приходит с сервера, но должно использоваться в нашем коде. AuthType используется , как типизация инициализационного стэйта
-export type AuthType = AuthResponseType & { isAuth: boolean, isInizialized:boolean }
+export type AuthType = AuthResponseType & { isAuth: boolean, isInizialized: boolean }
 
 // инициализационный стэйт
 export const initialState = {
     id: null,
-    email:null,
+    email: null,
     login: null,
     isAuth: false,
     isInizialized: false
@@ -37,7 +38,7 @@ export type authReducerType = SetIsInitializedActionType | SetUserDataActionType
 export const authReducer = (state: InitialStateType = initialState, action: authReducerType): InitialStateType => {
     switch (action.type) {
         case SET_USER_DATE:
-            return {...state, ...action.payload, isAuth:action.isAuth}
+            return {...state, ...action.payload, isAuth: action.isAuth}
         case SET_IS_INITIALIZED:
             return {...state, isInizialized: true}
         default:
@@ -46,57 +47,48 @@ export const authReducer = (state: InitialStateType = initialState, action: auth
 }
 
 //action-Creators
-export const setUserDataAC = (payload: AuthResponseType, isAuth:boolean) => {
+export const setUserDataAC = (payload: AuthResponseType, isAuth: boolean) => {
     return {type: SET_USER_DATE, payload, isAuth} as const
 }
 export const setIsInitializedAC = () => {
-    return {type: SET_IS_INITIALIZED, isInizialized:true} as const
+    return {type: SET_IS_INITIALIZED, isInizialized: true} as const
 }
 //thunk Creators
-export const setAuthUserDataTC = ():AppThunk => {
-    // return (dispatch) => {
-    //    authAPI.authMe()
-    //         .then(data => {
-    //         data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
-    //     })
-    //         .finally(()=>{
-    //             dispatch(setIsInitializedAC())
-    //         })
-    // }
-
+export const setAuthUserDataTC = (): AppThunk => {
     return async (dispatch) => {
-        try {
-            const data = await authAPI.authMe()
-            data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
-        } finally {
-            dispatch(setIsInitializedAC())
-        }
-    }
-}
-export const loginTC = (email:string, password:string, rememberMe:boolean):AppThunk => {
-    return (dispatch) => {
-        authAPI.login(email, password, rememberMe)
+       return authAPI.authMe()
             .then(data => {
-               if (data.resultCode === 0) {
-                   dispatch(setAuthUserDataTC())
-               } else {
-                   const message = data.messages.length > 0 ? data.messages[0] : 'SOme error'
-                const action = stopSubmit('login', {_error: message})
-                dispatch(action)
-               }
+                data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
             })
-            .finally(()=>{
+            .finally(() => {
                 dispatch(setIsInitializedAC())
             })
     }
 }
-export const logoutTC = ():AppThunk => {
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
+    return (dispatch) => {
+        authAPI.login(email, password, rememberMe)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setAuthUserDataTC())
+                } else {
+                    const message = data.messages.length > 0 ? data.messages[0] : 'SOme error'
+                    const action = stopSubmit('login', {_error: message})
+                    dispatch(action)
+                }
+            })
+            .finally(() => {
+                dispatch(setIsInitializedAC())
+            })
+    }
+}
+export const logoutTC = (): AppThunk => {
     return (dispatch) => {
         authAPI.logout()
             .then(data => {
-                data.resultCode === 0 && dispatch(setUserDataAC({id:null, email:null, login:null}, false))
+                data.resultCode === 0 && dispatch(setUserDataAC({id: null, email: null, login: null}, false))
             })
-            .finally(()=>{
+            .finally(() => {
                 dispatch(setIsInitializedAC())
             })
     }

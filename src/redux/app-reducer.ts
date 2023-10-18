@@ -1,8 +1,5 @@
-import {authAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
-import {stopSubmit} from "redux-form";
 import {setAuthUserDataTC} from "./auth-reducer";
-import {Dispatch} from "redux";
 
 
 // инициализационный стэйт
@@ -36,14 +33,11 @@ export const initializedSuccessAC = () => {
     return {type: INITIALIZED_SUCCESS, isInizialized: true} as const
 }
 //thunk Creators
-
-
 export const initializeAppTC = (): AppThunk => {
-    return (dispatch: any) => {
+    return (dispatch) => {
         const promise = dispatch(setAuthUserDataTC())
-        promise.then(() => {
-            dispatch(initializedSuccessAC())
-        })
+        console.log(promise)
+        // dispatch(initializedSuccessAC())
+        promise.then(() => dispatch(initializedSuccessAC()))
     }
 }
-

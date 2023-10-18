@@ -28,6 +28,7 @@ type StoreType = typeof store
 //типизация общего стэйта redux'а
 export type AppRootStateType = ReturnType<typeof rootReducer>
 // Определяем типизацию thunk
+export type AppDispatch = typeof store.dispatch
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, RootActionType>
 //общая типизация всех actionCreator'ов. Нужна для типизациии AppThunk
 export type RootActionType = DialogsReducerActionType | ProfileReducerActionType | UserReducerActiontype | authReducerType | FormAction
