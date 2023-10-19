@@ -3,15 +3,23 @@ import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {
     InitialStateType,
-    getUsersTC,
+    requestUsersTC,
     onFollowUserTC,
-    onUnfollowUserTC, onPageChangedTC
+    onUnfollowUserTC, onPageChangedTC, UsersType
 } from "../../redux/users-reducer";
 import {UsersPresentation} from "./UsersPresentation";
 import s from "./Users.module.css";
 import {Preloader} from "../common/Preloader/Preloader";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {
+    getCurrentPage,
+    getFollowingArray,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 export class UsersAPIContainer extends React.Component<any, any> {
 
@@ -39,7 +47,7 @@ export class UsersAPIContainer extends React.Component<any, any> {
                     : <UsersPresentation
                         onPageChanged={this.onPageChanged}
                         currentPage={this.props.currentPage}
-                        users={this.props.usersPage.users}
+                        users={this.props.users}
                         totalUsersCount={this.props.totalUsersCount}
                         pageSize={this.props.pageSize}
                         onFollowUser={this.onFollowUser}
@@ -51,14 +59,6 @@ export class UsersAPIContainer extends React.Component<any, any> {
     }
 }
 
-type MapStateToPropsType = {
-    usersPage: InitialStateType
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingArray: number[]
-}
 
 /*type MapDispatchToPropsType = {
     setFollowUser: (userId: number) => void
@@ -68,19 +68,6 @@ type MapStateToPropsType = {
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
 }*/
-
-// export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
-
-const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
-    return {
-        usersPage: state.usersPage,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingArray: state.usersPage.followingArray
-    }
-}
 
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 //     return {
@@ -93,6 +80,30 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 //     }
 // }
 
+// export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+type MapStateToPropsType = {
+    users: UsersType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingArray: number[]
+}
+
+const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
+    return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingArray: getFollowingArray(state)
+    }
+}
+
+
+
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
 
 // export const UsersContainer = connect(mapStateToProps, {
@@ -103,7 +114,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 // })(UsersAPIContainer)
 
 export const UsersContainer = compose<React.ComponentType>(connect(mapStateToProps, {
-    getUsersTC,
+    getUsersTC: requestUsersTC,
     onFollowUserTC,
     onUnfollowUserTC,
     onPageChangedTC
