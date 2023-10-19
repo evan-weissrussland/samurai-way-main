@@ -1,7 +1,6 @@
 import {authAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
 import {stopSubmit} from "redux-form";
-import {initializedSuccessAC} from "./app-reducer";
 
 //типизация ответа с сервера по запросу залогинен ли я на сервере
 export type AuthResponseType = {
@@ -54,8 +53,8 @@ export const setIsInitializedAC = () => {
     return {type: SET_IS_INITIALIZED, isInizialized: true} as const
 }
 //thunk Creators
-export const setAuthUserDataTC = (): AppThunk => {
-    return async (dispatch) => {
+export const setAuthUserDataTC = (): AppThunk<Promise<void>> => {
+    return (dispatch) => {
        return authAPI.authMe()
             .then(data => {
                 data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))

@@ -35,9 +35,7 @@ export const initializedSuccessAC = () => {
 //thunk Creators
 export const initializeAppTC = (): AppThunk => {
     return (dispatch) => {
-        const promise = dispatch(setAuthUserDataTC())
-        console.log(promise)
-        // dispatch(initializedSuccessAC())
-        promise.then(() => dispatch(initializedSuccessAC()))
+        const resp = dispatch(setAuthUserDataTC())
+        resp.then(() => dispatch(initializedSuccessAC()))
     }
 }
