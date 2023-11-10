@@ -6,6 +6,7 @@ import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
 import {NavLink} from "react-router-dom";
 import {OwnPropsType} from "../ProfileContainer";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 
 export const ProfileInfo = (props: OwnPropsType) => {
@@ -41,7 +42,7 @@ export const ProfileInfo = (props: OwnPropsType) => {
                 <div className={s.descriptionName}>
                     {props.profile.fullName}
                 </div>
-                <ProfileStatus myProfileId={props.myProfileId}
+                <ProfileStatusWithHooks myProfileId={props.myProfileId}
                                userProfileId={props.profile.userId}
                                status={props.status}
                                updateStatus={props.updateStatusUserTC}/>
