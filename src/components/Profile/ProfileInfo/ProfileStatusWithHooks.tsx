@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 
 //--------блок типизации----------
 //типизация пропсов
@@ -19,22 +19,31 @@ type StateType = {
 
 export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
     const [isEditMode, setIsEditMode] = useState<boolean>(false)
-    const [localStatus, setLocalStatus] = useState<string>(props.status)
+    const [localStatus, setLocalStatus] = useState<string>('props.status')
 
-    const activateEditModeHandler = () => {props.myProfileId === props.userProfileId && setIsEditMode(true)}
+    useEffect( () => {
+        setLocalStatus(props.status)
+    }, [props.status])
+
+    const activateEditModeHandler = () => {
+        props.myProfileId === props.userProfileId && setIsEditMode(true)
+    }
+
     const onChangeValueLocalHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setLocalStatus(e.currentTarget.value)
     }
+
     const setStatusHandler = () => {
         props.updateStatus(localStatus)
         setIsEditMode(false)
     }
+
     return (
         <div>
             {
                 !isEditMode ?
             <div>
-                <span onDoubleClick={activateEditModeHandler}>{props.status || 'no status'}</span>
+                <span onDoubleClick={activateEditModeHandler}>{localStatus || 'no status'}</span>
             </div>
                 :
                 <div>
