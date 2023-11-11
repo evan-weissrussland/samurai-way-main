@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import s from "./ProfileInfo.module.css";
 import image2 from "../../../images/image2.jpg";
 import emptyAva from "../../../images/emptyAccount.jpg";
