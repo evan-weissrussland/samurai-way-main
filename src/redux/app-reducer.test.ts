@@ -1,5 +1,3 @@
-
-import {addMessageAC, DialogsPageType, dialogsReducer} from "./dialogs-reducer";
 import {appReducer, initializedSuccessAC} from "./app-reducer";
 
 test('correct app-reducer inizialized app', () => {
