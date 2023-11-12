@@ -1,4 +1,3 @@
-import {appReducer, initializedSuccessAC} from "./app-reducer";
 import {authReducer, AuthType, setIsInitializedAC, setUserDataAC} from "./auth-reducer";
 
 test('correct auth-reducer inizialized', () => {

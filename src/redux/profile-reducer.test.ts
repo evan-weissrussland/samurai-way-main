@@ -1,11 +1,4 @@
-import {
-    addPostAC,
-    ProfilePageType,
-    profileReducer,
-    ProfileType,
-    setUserProfileAC,
-    updateUserStatusAC
-} from "./profile-reducer";
+import {addPostAC, ProfilePageType, profileReducer, setUserProfileAC, updateUserStatusAC} from "./profile-reducer";
 
 test('correct profile-reducer add post', () => {
     const profilePage: ProfilePageType = {
