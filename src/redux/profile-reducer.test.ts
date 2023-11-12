@@ -19,7 +19,7 @@ test('correct profile-reducer add post', () => {
     expect(endState.posts[2].id).toBe(2);
 });
 
-test('correct profile-reducer add new post text', () => {
+test('correct profile-reducer add new profile status', () => {
     const profilePage: ProfilePageType = {
         //------данные для MyPosts в папке Profile----------
         posts: [
