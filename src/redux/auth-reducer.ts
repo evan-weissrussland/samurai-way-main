@@ -58,9 +58,8 @@ export const setAuthUserDataTC = (): AppThunk<Promise<void>> => {
         try {
             const data = await authAPI.authMe()
             data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
-            return data
+            // return data
         } catch (e) {
-
         } finally {
             dispatch(setIsInitializedAC())
         }
