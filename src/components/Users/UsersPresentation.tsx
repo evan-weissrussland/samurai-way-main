@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import {UsersType} from "../../redux/users-reducer";
 import defaultAvaUser from "../../images/avauser.jpg";
 import {NavLink} from "react-router-dom";
+import {Paginator} from "../common/Paginator/Paginator";
 
 
 type UsersPresentationType = {
@@ -11,28 +12,27 @@ type UsersPresentationType = {
     users: UsersType[]
     totalUsersCount: number
     pageSize: number
-    onFollowUser: (userId:number)=>void
-    onUnfollowUser: (userId:number)=>void
+    onFollowUser: (userId: number) => void
+    onUnfollowUser: (userId: number) => void
     followingArray: number[]
 }
 
-export const UsersPresentation: FC<UsersPresentationType> = (props) => {
-    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    const pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
+export const UsersPresentation: FC<UsersPresentationType> = (
+    {
+        onPageChanged,
+        currentPage,
+        users,
+        totalUsersCount,
+        pageSize,
+        onFollowUser,
+        onUnfollowUser,
+        followingArray,
+    }) => {
 
     return <div>
-        <div className={s.waipperSpans}>
-            {pages.map((p, i) =>
-                <span
-                    key={i}
-                    onClick={() => props.onPageChanged(p)}
-                    className={p === props.currentPage ? s.selectedPage : ''}>{p}
-                </span>)}
-        </div>
-        {props.users.map((u: UsersType) => {
+        <Paginator onPageChanged={onPageChanged} currentPage={currentPage}
+                   totalUsersCount={totalUsersCount} pageSize={pageSize}/>
+        {users.map((u: UsersType) => {
             return <div key={u.id} className={s.usersContainer}>
             <span>
                 <div>
@@ -42,8 +42,10 @@ export const UsersPresentation: FC<UsersPresentationType> = (props) => {
                 </div>
                 <div>
                     {u.followed
-                        ? <button disabled={props.followingArray.some(id => id === u.id)} onClick={() => props.onUnfollowUser(u.id)}>unfollow</button>
-                        : <button disabled={props.followingArray.some(id => id === u.id)} onClick={() => props.onFollowUser(u.id)}>follow</button>}
+                        ? <button disabled={followingArray.some(id => id === u.id)}
+                                  onClick={() => onUnfollowUser(u.id)}>unfollow</button>
+                        : <button disabled={followingArray.some(id => id === u.id)}
+                                  onClick={() => onFollowUser(u.id)}>follow</button>}
                 </div>
             </span>
                 <span>

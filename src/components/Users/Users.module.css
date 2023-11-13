@@ -4,10 +4,7 @@
 .img {
     width: 50px;
 }
-.selectedPage {
-    font-size: 2em;
-    font-weight: bold;
-}
+
 .loader {
     display: flex;
     justify-content: center;
@@ -20,10 +17,4 @@
 .UsersAPIContainer {
     /*border: 2px solid red;*/
     height: 100%;
-}
-.waipperSpans {
-    display: flex;
-    /*border: 2px solid red;*/
-    align-items: center;
-    flex-wrap: wrap;
 }
