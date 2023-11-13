@@ -24,8 +24,8 @@ export const initialState = {
 export type InitialStateType = typeof initialState
 
 //переменная для свойства type action'а
-const SET_USER_DATE = 'SET-USER-DATE'
-const SET_IS_INITIALIZED = 'SET-IS-INITIALIZED'
+const SET_USER_DATE = 'AUTH/SET-USER-DATE'
+const SET_IS_INITIALIZED = 'AUTH/SET-IS-INITIALIZED'
 
 //типизация action Creatora
 type SetUserDataActionType = ReturnType<typeof setUserDataAC>
