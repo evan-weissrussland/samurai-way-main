@@ -165,10 +165,15 @@ export const onFollowUserTC = (userId: number): AppThunk => {
 }
 
 export const onUnfollowUserTC = (userId: number): AppThunk => {
-    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
-        dispatch(toggleIsFollowingProgress(userId, true))
-        followUserAPI.onUnfollowUser(userId).then(data => {
+    return async (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        try {
+            dispatch(toggleIsFollowingProgress(userId, true))
+            const data = await followUserAPI.onUnfollowUser(userId)
             !data.resultCode && dispatch(setUnfollowUser(userId))
-        }).finally(() => dispatch(toggleIsFollowingProgress(userId, false)))
+        } catch (e) {
+
+        } finally {
+            dispatch(toggleIsFollowingProgress(userId, false))
+        }
     }
 }
