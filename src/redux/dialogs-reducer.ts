@@ -13,7 +13,7 @@ export type DialogsPageType = {
 }
 
 //типизация actionCreator'а для добавления поста или сообщения
-export type ActionAddMessageType = { type: 'ADD-MESSAGE' , newDialogMessage:string}
+export type ActionAddMessageType = { type: 'DIALOGS/ADD-MESSAGE' , newDialogMessage:string}
 //общая типизация action'ов для редусера
 export type DialogsReducerActionType =
     | ActionAddMessageType
@@ -22,7 +22,7 @@ export type InitialStateType = typeof initialState
 //----- конец блока типизации-----------
 
 // переменные для свойства type в action'ах
-const ADD_MESSAGE = 'ADD-MESSAGE'
+const ADD_MESSAGE = 'DIALOGS/ADD-MESSAGE'
 
 //инициализационный стэйт
 const initialState = {
