@@ -36,6 +36,8 @@ export const initializedSuccessAC = () => {
 export const initializeAppTC = (): AppThunk => {
     return (dispatch) => {
         const resp = dispatch(setAuthUserDataTC())
-        resp.then(() => dispatch(initializedSuccessAC()))
+        resp.then(() => {
+            dispatch(initializedSuccessAC())
+        })
     }
 }
