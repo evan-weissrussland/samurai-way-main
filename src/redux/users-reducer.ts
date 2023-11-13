@@ -24,26 +24,31 @@ export type UsersPageType = {
     isFetching: boolean
     followingArray: number[]
 }
+//типизация actionCreator'а для функции followUnfollowFlow
+type setFollowUserType = typeof setFollowUser
 
-//типизация actionCreator'а для блокировки кнопок follow/unfollow
+//типизация actionCreator'а для функции followUnfollowFlow
+type setUnfollowUserType = typeof setUnfollowUser
+
+//типизация action'а для блокировки кнопок follow/unfollow
 export type ActionToggleIsFollowingProgressACType = ReturnType<typeof toggleIsFollowingProgress>
 
-//типизация actionCreator'а для изменения статуса user'а на follow
+//типизация action'а для изменения статуса user'а на follow
 export type ActionFollowUserType = ReturnType<typeof setFollowUser>
 
-//типизация actionCreator'а для изменения статуса user'а на unfollow
+//типизация action'а для изменения статуса user'а на unfollow
 export type ActionUnfollowUserType = ReturnType<typeof setUnfollowUser>
 
-//типизация actionCreator'а для Добавления user'ов с сервера
+//типизация action'а для Добавления user'ов с сервера
 export type ActionSetUsersType = ReturnType<typeof setUsers>
 
-//типизация actionCreator'а для Добавления текущей страницы пользователей с сервера
+//типизация action'а для Добавления текущей страницы пользователей с сервера
 export type ActionSetCurrentPageType = ReturnType<typeof setCurrentPage>
 
-//типизация actionCreator'а для изменения общего количества юзеров с сервера
+//типизация action'а для изменения общего количества юзеров с сервера
 export type ActionSetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
 
-//типизация actionCreator'а для изменения условия отображения preloaderGif
+//типизация action'а для изменения условия отображения preloaderGif
 export type ActionToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 
 export type UserReducerActiontype =
@@ -118,6 +123,7 @@ export const toggleIsFollowingProgress = (userId: number, isToggleFollowFetching
     isToggleFollowFetching
 } as const)
 
+
 // Thunk Creator's
 export const requestUsersTC = (): AppThunk => {
     return async (dispatch: Dispatch, getState: () => AppRootStateType) => {
@@ -150,30 +156,29 @@ export const onPageChangedTC = (pageNumber: number): AppThunk => {
     }
 }
 
-export const onFollowUserTC = (userId: number): AppThunk => {
-    return async (dispatch: Dispatch, getState: () => AppRootStateType) => {
-        try {
-            dispatch(toggleIsFollowingProgress(userId, true))
-            const data = await followUserAPI.onFollowUser(userId)
-            !data.resultCode && dispatch(setFollowUser(userId))
-        } catch (e) {
 
-        } finally {
-            dispatch(toggleIsFollowingProgress(userId, false))
-        }
+const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: (userId: number) => Promise<any>, actionCreator: setFollowUserType | setUnfollowUserType) => {
+    try {
+        dispatch(toggleIsFollowingProgress(userId, true))
+        const data = await apiMethod(userId)
+        !data.resultCode && dispatch(actionCreator(userId))
+    } catch (e) {
+
+    } finally {
+        dispatch(toggleIsFollowingProgress(userId, false))
     }
 }
 
+
+export const onFollowUserTC = (userId: number): AppThunk => {
+    return async (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        followUnfollowFlow(dispatch, userId, followUserAPI.onFollowUser.bind(userId), setFollowUser)
+    }
+}
+
+
 export const onUnfollowUserTC = (userId: number): AppThunk => {
     return async (dispatch: Dispatch, getState: () => AppRootStateType) => {
-        try {
-            dispatch(toggleIsFollowingProgress(userId, true))
-            const data = await followUserAPI.onUnfollowUser(userId)
-            !data.resultCode && dispatch(setUnfollowUser(userId))
-        } catch (e) {
-
-        } finally {
-            dispatch(toggleIsFollowingProgress(userId, false))
-        }
+        followUnfollowFlow(dispatch, userId, followUserAPI.onUnfollowUser.bind(userId), setUnfollowUser)
     }
 }

@@ -1,12 +1,7 @@
 import React from 'react';
 import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {
-    InitialStateType,
-    requestUsersTC,
-    onFollowUserTC,
-    onUnfollowUserTC, onPageChangedTC, UsersType
-} from "../../redux/users-reducer";
+import {onFollowUserTC, onPageChangedTC, onUnfollowUserTC, requestUsersTC, UsersType} from "../../redux/users-reducer";
 import {UsersPresentation} from "./UsersPresentation";
 import s from "./Users.module.css";
 import {Preloader} from "../common/Preloader/Preloader";
