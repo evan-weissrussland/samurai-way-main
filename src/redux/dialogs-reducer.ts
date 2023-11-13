@@ -12,7 +12,7 @@ export type DialogsPageType = {
     messages: MessagesType[]
 }
 
-//типизация actionCreator'а для добавления поста или сообщения
+//типизация action'а для добавления поста или сообщения
 export type ActionAddMessageType = { type: 'DIALOGS/ADD-MESSAGE' , newDialogMessage:string}
 //общая типизация action'ов для редусера
 export type DialogsReducerActionType =

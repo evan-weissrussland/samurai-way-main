@@ -27,7 +27,7 @@ export type InitialStateType = typeof initialState
 const SET_USER_DATE = 'AUTH/SET-USER-DATE'
 const SET_IS_INITIALIZED = 'AUTH/SET-IS-INITIALIZED'
 
-//типизация action Creatora
+//типизация action'ов
 type SetUserDataActionType = ReturnType<typeof setUserDataAC>
 type SetIsInitializedActionType = ReturnType<typeof setIsInitializedAC>
 

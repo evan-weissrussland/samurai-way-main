@@ -13,7 +13,7 @@ export type InitialStateType = typeof initialState
 //переменная для свойства type action'а
 const INITIALIZED_SUCCESS = 'APP/INITIALIZED-SUCCESS'
 
-//типизация action Creatora
+//типизация action'а
 type InitializedSuccesActionType = ReturnType<typeof initializedSuccessAC>
 
 export type appReducerType = InitializedSuccesActionType

@@ -39,11 +39,11 @@ export type ProfilePageType = {
     status: string
 }
 
-//типизация actionCreator'а для запроса профиля юзера
+//типизация action'а для запроса профиля юзера
 export type ActionSetUserProfileACType = ReturnType<typeof setUserProfileAC>
-//типизация actionCreator'а для запроса статуса юзера
+//типизация action'а для запроса статуса юзера
 export type ActionSetUserStatusACType = ReturnType<typeof setUserStatusAC>
-//типизация actionCreator'а для изменения статуса своего профиля
+//типизация action'а для изменения статуса своего профиля
 export type ActionUpdateUserStatusACType = ReturnType<typeof updateUserStatusAC>
 export type ActionAddPostType = { type: 'PROFILE/ADD-POST', newPostText: string }
 //общая типизация action'ов
