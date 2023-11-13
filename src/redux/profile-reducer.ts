@@ -3,7 +3,7 @@ import {profileAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
 
 
-          //-----------блок типизации---------
+//-----------блок типизации---------
 //типизация профиля с сервера
 export type ProfileType = {
     aboutMe: string
@@ -45,7 +45,7 @@ export type ActionSetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export type ActionSetUserStatusACType = ReturnType<typeof setUserStatusAC>
 //типизация actionCreator'а для изменения статуса своего профиля
 export type ActionUpdateUserStatusACType = ReturnType<typeof updateUserStatusAC>
-export type ActionAddPostType = { type: 'PROFILE/ADD-POST', newPostText:string }
+export type ActionAddPostType = { type: 'PROFILE/ADD-POST', newPostText: string }
 //общая типизация action'ов
 export type ProfileReducerActionType =
     | ActionSetUserProfileACType
@@ -53,7 +53,7 @@ export type ProfileReducerActionType =
     | ActionSetUserStatusACType
     | ActionUpdateUserStatusACType
 
-               //----конец блока типизации------
+//----конец блока типизации------
 
 // переменные для свойства type в action'ах
 const ADD_POST = 'PROFILE/ADD-POST'
@@ -94,7 +94,7 @@ export const profileReducer = (state: ProfilePageType = initialStateType, action
 }
 
 //action-Creators
-export const addPostAC = (newPostText:string): ActionAddPostType => ({type: ADD_POST,newPostText})
+export const addPostAC = (newPostText: string): ActionAddPostType => ({type: ADD_POST, newPostText})
 
 //т.к. мы используем типизацию нижележащих ActionCreator'ов через ReturnType<typeof actionCreator>, то в функции после скобок с аргументами типизацию не ставим, но добавляем после функции инструкцию "as const"
 export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
@@ -104,33 +104,35 @@ export const updateUserStatusAC = (status: string) => ({type: UPDATE_USER_STATUS
 
 //thunk-Creators
 export const getProfileUserTC = (paramsUserId: number): AppThunk => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getProfileUser(paramsUserId).then(data => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const data = await profileAPI.getProfileUser(paramsUserId)
             dispatch(setUserProfileAC(data))
-        })
-            .finally(() => {
-            })
+        } catch (e) {
+
+        }
     }
 }
 
 export const getStatusUserTC = (paramsUserId: number): AppThunk => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getStatus(Number(paramsUserId)).then(data => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const data = await profileAPI.getStatus(Number(paramsUserId))
             dispatch(setUserStatusAC(data))
-        })
-            .finally(() => {
-            })
+        } catch (e) {
+        }
     }
 }
 
 export const updateStatusUserTC = (status: string): AppThunk => {
-    return (dispatch: Dispatch) => {
-        profileAPI.updateStatus(status).then(resp => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const resp = await profileAPI.updateStatus(status)
             if (resp.resultCode === 0) {
                 dispatch(updateUserStatusAC(status))
             }
-        })
-            .finally(() => {
-            })
+        } catch (e) {
+
+        }
     }
 }
