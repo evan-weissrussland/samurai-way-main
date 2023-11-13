@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {followUserAPI, usersAPI} from "../api/api";
 import {AppRootStateType, AppThunk} from "./redux-store";
+import {updateObjectInArray} from "../utils/object-helpers";
 
 //---блок типизации------
 type LocationType = {
@@ -16,6 +17,7 @@ export type UsersType = {
     photos: { small: string }
     uniqueUrlName: string
 }
+
 export type UsersPageType = {
     users: UsersType[]
     pageSize: number
@@ -86,9 +88,11 @@ export const initialState = {
 export const usersReducer = (state: InitialStateType = initialState, action: UserReducerActiontype): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
-            return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)}
+            // return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)}
+            return {...state, users: updateObjectInArray(state.users, action.userId, 'id', {followed:true})}
         case UNFOLLOW:
-            return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)}
+            // return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)}
+            return {...state, users: updateObjectInArray(state.users, action.userId, 'id', {followed:false})}
         case SET_USERS:
             // return {...state, users: [...state.users, ...action.users]} //этот код добавляет новых пользователей после запроса на сервак в конец массива, не очищая страницу с предыдущими пользователями
             return {...state, users: [...action.users]}
