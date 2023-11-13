@@ -54,41 +54,46 @@ export const setIsInitializedAC = () => {
 }
 //thunk Creators
 export const setAuthUserDataTC = (): AppThunk<Promise<void>> => {
-    return (dispatch) => {
-       return authAPI.authMe()
-            .then(data => {
-                data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
-            })
-            .finally(() => {
-                dispatch(setIsInitializedAC())
-            })
+    return async (dispatch) => {
+        try {
+            const data = await authAPI.authMe()
+            data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
+            return data
+        } catch (e) {
+
+        } finally {
+            dispatch(setIsInitializedAC())
+        }
     }
 }
+
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
-    return (dispatch) => {
-        authAPI.login(email, password, rememberMe)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setAuthUserDataTC())
-                } else {
-                    const message = data.messages.length > 0 ? data.messages[0] : 'SOme error'
-                    const action = stopSubmit('login', {_error: message})
-                    dispatch(action)
-                }
-            })
-            .finally(() => {
-                dispatch(setIsInitializedAC())
-            })
+    return async (dispatch) => {
+        try {
+            const data = await authAPI.login(email, password, rememberMe)
+            if (data.resultCode === 0) {
+                dispatch(setAuthUserDataTC())
+            } else {
+                const message = data.messages.length > 0 ? data.messages[0] : 'SOme error'
+                const action = stopSubmit('login', {_error: message})
+                dispatch(action)
+            }
+        } catch (e) {
+
+        } finally {
+            dispatch(setIsInitializedAC())
+        }
     }
 }
 export const logoutTC = (): AppThunk => {
-    return (dispatch) => {
-        authAPI.logout()
-            .then(data => {
-                data.resultCode === 0 && dispatch(setUserDataAC({id: null, email: null, login: null}, false))
-            })
-            .finally(() => {
-                dispatch(setIsInitializedAC())
-            })
+    return async (dispatch) => {
+        try {
+            const data = await authAPI.logout()
+            data.resultCode === 0 && dispatch(setUserDataAC({id: null, email: null, login: null}, false))
+        } catch (e) {
+
+        } finally {
+            dispatch(setIsInitializedAC())
+        }
     }
 }
