@@ -45,7 +45,7 @@ export type ActionSetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export type ActionSetUserStatusACType = ReturnType<typeof setUserStatusAC>
 //типизация actionCreator'а для изменения статуса своего профиля
 export type ActionUpdateUserStatusACType = ReturnType<typeof updateUserStatusAC>
-export type ActionAddPostType = { type: 'ADD-POST', newPostText:string }
+export type ActionAddPostType = { type: 'PROFILE/ADD-POST', newPostText:string }
 //общая типизация action'ов
 export type ProfileReducerActionType =
     | ActionSetUserProfileACType
@@ -56,10 +56,10 @@ export type ProfileReducerActionType =
                //----конец блока типизации------
 
 // переменные для свойства type в action'ах
-const ADD_POST = 'ADD-POST'
-const SET_USER_PROFILE = 'SET-USER-PROFILE'
-const SET_USER_STATUS = 'SET-USER-STATUS'
-const UPDATE_USER_STATUS = 'UPDATE-USER-STATUS'
+const ADD_POST = 'PROFILE/ADD-POST'
+const SET_USER_PROFILE = 'PROFILE/SET-USER-PROFILE'
+const SET_USER_STATUS = 'PROFILE/SET-USER-STATUS'
+const UPDATE_USER_STATUS = 'PROFILE/UPDATE-USER-STATUS'
 
 //инициализационный стэйт редусера
 const initialStateType: ProfilePageType = {
