@@ -30,10 +30,12 @@ export const followUserAPI = {
 //объект с методом для проверки залогиненности на сервере
 export const authAPI = {
     authMe() {
-        return instance.get(`/auth/me`).then(response =>
-            response.data)
+        return instance.get(`/auth/me`).then(response => {
+            return response.data
+        })
+
     },
-    login(email:string, password:string, rememberMe:boolean) {
+    login(email: string, password: string, rememberMe: boolean) {
         return instance.post(`/auth/login`, {email, password, rememberMe}).then(response =>
             response.data)
     },
