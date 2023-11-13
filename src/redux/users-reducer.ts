@@ -59,13 +59,13 @@ export type InitialStateType = typeof initialState
      //---конец блока типизации------
 
 // переменные для свойства type в action'ах
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET-USERS'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
+const FOLLOW = 'USERS/FOLLOW'
+const UNFOLLOW = 'USERS/UNFOLLOW'
+const SET_USERS = 'USERS/SET-USERS'
+const SET_CURRENT_PAGE = 'USERS/SET-CURRENT-PAGE'
+const SET_TOTAL_USERS_COUNT = 'USERS/SET-TOTAL-USERS-COUNT'
+const TOGGLE_IS_FETCHING = 'USERS/TOGGLE-IS-FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'USERS/TOGGLE-IS-FOLLOWING-PROGRESS'
 
 //инициализационный стэйт для редусера
 export const initialState = {
