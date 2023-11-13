@@ -11,15 +11,15 @@ export const initialState = {
 export type InitialStateType = typeof initialState
 
 //переменная для свойства type action'а
-const INITIALIZED_SUCCESS = 'INITIALIZED-SUCCESS'
+const INITIALIZED_SUCCESS = 'APP/INITIALIZED-SUCCESS'
 
 //типизация action Creatora
 type InitializedSuccesActionType = ReturnType<typeof initializedSuccessAC>
 
-export type authReducerType = InitializedSuccesActionType
+export type appReducerType = InitializedSuccesActionType
 
 //редусер
-export const appReducer = (state: InitialStateType = initialState, action: authReducerType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: appReducerType): InitialStateType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {...state, isInizialized: true}
