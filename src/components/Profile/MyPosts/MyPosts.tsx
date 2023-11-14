@@ -1,12 +1,12 @@
 import React from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {MypostType} from "./MyPostsContainer";
+import {MypostProps} from "./MyPostsContainer";
 import {AddPostReduxForm, FormDataType} from "./AddPostForm";
 
 //------------компонента MyPosts--------------
 
-export const MyPosts: React.FC<MypostType> = (props) => {
+export const MyPosts: React.FC<MypostProps> = (props) => {
     const {profilePage} = props
 
     //------------метод map--------------

@@ -12,7 +12,8 @@ export class ProfileContainer extends React.Component<PropsType, any> {
 
 //метод аналог useEffect'a. Отрабатывает после первоначального рендера компонента
     componentDidMount() {
-        let userId = Number(this.props.match.params.userId)
+        const {match, authorizedUserId, history} = this.props
+        let userId = Number(match.params.userId)
 //внизу логика: после монтирования компонента идёт запрос на сервер на получение профиля юзера, а также запрос на получение статуса этого юзера. Также сохраняется в локал сторэйдж id юзера для того, чтобы после перезагрузки браузера подтянулся ранее открытый профиль
         const localStorageUserId = localStorage.getItem('userId')
         if (userId) {
@@ -24,27 +25,28 @@ export class ProfileContainer extends React.Component<PropsType, any> {
 //если в URL id юзера не было, но есть сохранённый в локал сторэйдж id юзера, то запрашиваем его профиль и статус
             this.props.getProfileUserTC(JSON.parse(localStorageUserId))
             this.props.getStatusUserTC(JSON.parse(localStorageUserId))
-        } else if (this.props.authorizedUserId){
+        } else if (authorizedUserId){
 //если нет в URL id юзера и нет сохранённого id в локал сторэйдж, то в санку отправляем this.props.match.params.userId, который будет равен null. В санке будет проверка на null.
-            this.props.getProfileUserTC(this.props.authorizedUserId)
-            this.props.getStatusUserTC(this.props.authorizedUserId)
+            this.props.getProfileUserTC(authorizedUserId)
+            this.props.getStatusUserTC(authorizedUserId)
         } else {
-            this.props.history.push('/login')
+           history.push('/login')
         }
     }
 
 //метод отрабатывает при перерендере коипонента
     componentDidUpdate() {
-if (this.props.myProfileId && this.props.match.params.userId === this.props.myProfileId.toString()) {
-    localStorage.setItem('userId', JSON.stringify(this.props.match.params.userId))
+        const {myProfileId, match} = this.props
+if (myProfileId && match.params.userId === myProfileId.toString()) {
+    localStorage.setItem('userId', JSON.stringify(match.params.userId))
         }
     }
 
 //метод возвращающий jsx-разметку
     render() {
-        console.log('ProfileContainer')
+        const {profile} = this.props
         return (
-            <Profile {...this.props} profile={this.props.profile}/>
+            <Profile {...this.props} profile={profile}/>
         );
     }
 }

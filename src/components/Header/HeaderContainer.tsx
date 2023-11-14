@@ -22,7 +22,7 @@ type MapDispatchToPropsType = {
     logout: () => void
 }
 
-export type OwnerType = MapStateToPropsType & MapDispatchToPropsType
+export type OwnerProps = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {

@@ -3,25 +3,25 @@ import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
-import {AddMessageReduxForm, FormDataType} from "./AddMessageForm";
+import {AddMessageReduxForm, FormDataProps} from "./AddMessageForm";
 
 //------компонент Dialogs-------------
 
-export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+export const Dialogs: React.FC<DialogsPropsType> = ({dialogsPage, addMessage}) => {
     //------методы map-------------
-    const dialogsElements = props.dialogsPage.dialogs.map((d) => {
+    const dialogsElements = dialogsPage.dialogs.map((d) => {
         return (
             <DialogItem key={d.id} id={d.id} name={d.name}/>
         )
     })
-    const mesagesElements = props.dialogsPage.messages.map(m => {
+    const mesagesElements = dialogsPage.messages.map(m => {
         return (
             <Message key={m.id} message={m.message} id={m.id}/>
         )
     })
 
-    const addMessage = (formData: FormDataType) => {
-        props.addMessage(formData.newMessageBody)
+    const addMessageHandler = (formData: FormDataProps) => {
+        addMessage(formData.newMessageBody)
     }
 
     //------отрисовка JSX------
@@ -34,7 +34,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                 <div className={s.messages}>
                     {mesagesElements}
                 </div>
-                <AddMessageReduxForm onSubmit={addMessage}/>
+                <AddMessageReduxForm onSubmit={addMessageHandler}/>
             </div>
         </div>
     );

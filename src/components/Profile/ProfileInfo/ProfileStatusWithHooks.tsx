@@ -2,7 +2,7 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 
 //--------блок типизации----------
 //типизация пропсов
-type ProfileStatusPropsType = {
+type ProfileStatusProps = {
     status: string
     updateStatus: (status: string) => void
     myProfileId: number | null
@@ -17,16 +17,16 @@ type StateType = {
 //---конец блока типизации---------
 
 
-export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
+export const ProfileStatusWithHooks = ({status,userProfileId, myProfileId, updateStatus}: ProfileStatusProps) => {
     const [isEditMode, setIsEditMode] = useState<boolean>(false)
     const [localStatus, setLocalStatus] = useState<string>('props.status')
 
     useEffect( () => {
-        setLocalStatus(props.status)
-    }, [props.status])
+        setLocalStatus(status)
+    }, [status])
 
     const activateEditModeHandler = () => {
-        props.myProfileId === props.userProfileId && setIsEditMode(true)
+        myProfileId === userProfileId && setIsEditMode(true)
     }
 
     const onChangeValueLocalHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
     }
 
     const setStatusHandler = () => {
-        props.updateStatus(localStatus)
+        updateStatus(localStatus)
         setIsEditMode(false)
     }
 

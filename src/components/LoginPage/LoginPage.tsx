@@ -8,12 +8,11 @@ import {Redirect} from "react-router-dom";
 
 
 
-export const LoginPage = (props:MapDispatchToPropsType & MapStateToPropsForRedirectType) => {
+export const LoginPage = ({loginTC, isAuth}:MapDispatchToPropsType & MapStateToPropsForRedirectProps) => {
     const onSubmit = (formData:FormDataType) => {
-        console.log(formData)
-        props.loginTC(formData.email, formData.password, formData.rememberMe)
+        loginTC(formData.email, formData.password, formData.rememberMe)
     }
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={'/profile'}/>
     }
     return (
@@ -28,10 +27,10 @@ export const LoginPage = (props:MapDispatchToPropsType & MapStateToPropsForRedir
 type MapDispatchToPropsType = {
     loginTC: (email:string, password:string, rememberMe:boolean) => void
 }
-type MapStateToPropsForRedirectType = {
+type MapStateToPropsForRedirectProps = {
     isAuth: boolean
 }
-const mapStateToPropsForRedirect = (state: AppRootStateType): MapStateToPropsForRedirectType => {
+const mapStateToPropsForRedirect = (state: AppRootStateType): MapStateToPropsForRedirectProps => {
     return {
         isAuth: state.auth.isAuth
     }

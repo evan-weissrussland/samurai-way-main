@@ -7,8 +7,8 @@ export type FormDataType = {
     newPostBody: string
 }
 const maxLength = maxLengthCreator(10)
-export const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-    return <form onSubmit={props.handleSubmit}>
+export const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
+    return <form onSubmit={handleSubmit}>
         <div>
             <Field
                 name={'newPostBody'}

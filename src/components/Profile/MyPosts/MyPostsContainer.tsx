@@ -14,7 +14,7 @@ type MapDispatchToPropsType = {
     addPostAC:(newPostText:string) => void
 }
 
-export type MypostType = MapStateToPropsType & MapDispatchToPropsType
+export type MypostProps = MapStateToPropsType & MapDispatchToPropsType
              //---конец блока типизации----
 
 const mapStateToProps = (state: AppRootStateType):MapStateToPropsType => {
