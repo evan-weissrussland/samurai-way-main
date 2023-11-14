@@ -9,21 +9,20 @@ import {OwnPropsType} from "../ProfileContainer";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 
-export const ProfileInfo = (props: OwnPropsType) => {
-    console.log('ProfileInfo')
-    if (!props.profile) {
+export const ProfileInfo = ({profile, myProfileId, getProfileUserTC, getStatusUserTC, status, updateStatusUserTC}: OwnPropsType) => {
+    if (!profile) {
         return <Preloader/>
     }
 //функция для возврата на мой профиль. Делаем запрос на сервер за моим профилем и подтягиваем мой статус
     const onClickHandler = () => {
-        if (props.myProfileId) {
-            props.getProfileUserTC(props.myProfileId)
-            props.getStatusUserTC(props.myProfileId)
+        if (myProfileId) {
+            getProfileUserTC(myProfileId)
+            getStatusUserTC(myProfileId)
         }
     }
 
-    const srcImage = props.profile.photos.small ?? emptyAva
-    const LookingJob = props.profile.lookingForAJob ? 'да' : 'нет'
+    const srcImage = profile.photos.small ?? emptyAva
+    const LookingJob = profile.lookingForAJob ? 'да' : 'нет'
 
     return (
         <div>
@@ -32,7 +31,7 @@ export const ProfileInfo = (props: OwnPropsType) => {
             </div>
             <div className={s.descriptionBlock}>
                 <button onClick={onClickHandler} className={s.myProfButton}>
-                    <NavLink to={`/profile/${props.myProfileId}`}>
+                    <NavLink to={`/profile/${myProfileId}`}>
                         Get to my profile
                     </NavLink>
                 </button>
@@ -40,18 +39,18 @@ export const ProfileInfo = (props: OwnPropsType) => {
                     <img src={srcImage} alt=""/>
                 </div>
                 <div className={s.descriptionName}>
-                    {props.profile.fullName}
+                    {profile.fullName}
                 </div>
-                <ProfileStatusWithHooks myProfileId={props.myProfileId}
-                               userProfileId={props.profile.userId}
-                               status={props.status}
-                               updateStatus={props.updateStatusUserTC}/>
+                <ProfileStatusWithHooks myProfileId={myProfileId}
+                               userProfileId={profile.userId}
+                               status={status}
+                               updateStatus={updateStatusUserTC}/>
                 <div>
                     <span className={s.descriptionInfo}>
                         Обо мне:
                     </span>
                     <span className={s.descriptionfromProfile}>
-                        {props.profile.aboutMe}
+                        {profile.aboutMe}
                     </span>
                 </div>
                 <div>
@@ -61,7 +60,7 @@ export const ProfileInfo = (props: OwnPropsType) => {
                 <div>
                     <span className={s.descriptionInfo}>Стек технологий: </span>
                     <span className={s.descriptionfromProfile}>
-                        {props.profile.lookingForAJobDescription}
+                        {profile.lookingForAJobDescription}
                     </span>
                 </div>
             </div>
