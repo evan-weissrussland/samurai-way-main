@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import {UsersType} from "../../redux/users-reducer";
 import {Paginator} from "../common/Paginator/Paginator";
 import {User} from "./User/User";
@@ -26,10 +26,9 @@ export const UsersPresentation: FC<UsersPresentationType> = (
         onUnfollowUser,
         followingArray,
     }) => {
-
     return <div>
         <Paginator onPageChanged={onPageChanged} currentPage={currentPage}
-                   totalUsersCount={totalUsersCount} pageSize={pageSize}/>
+                   totalItemsCount={totalUsersCount} pageSize={pageSize}/>
         {users.map((u: UsersType) => {
             return <User key={u.id}
                          user={u}
@@ -37,5 +36,6 @@ export const UsersPresentation: FC<UsersPresentationType> = (
                          onUnfollowUser={onUnfollowUser}
                          followingArray={followingArray}/>
         })}
+
     </div>
 }

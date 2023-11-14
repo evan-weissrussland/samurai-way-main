@@ -10,13 +10,12 @@ import {FormAction} from "redux-form/lib/actions";
 import {appReducer} from "./app-reducer";
 
 //------снизу код для работы Redux DevTools-----------
-/*declare global {
+declare global {
     interface Window {
         __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
     }
-}*/
+}
 //--------------------------------
-
 
 //создаём общий редусер redux'а
 const rootReducer = combineReducers({
@@ -29,19 +28,18 @@ const rootReducer = combineReducers({
     app:appReducer
 })
 //создаём общий стэйт redux'а, а также подключаем widdleWare (для возможности диспатчить санки)
-export const store = createStore(
+/*export const store = createStore(
     rootReducer,
     applyMiddleware(thunk)
-);
+);*/
 
 //------снизу код для работы Redux DevTools-----------
-/*const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(
     rootReducer,
     composeEnhancers(applyMiddleware(thunk))
-);*/
+);
 //---------------------------------
-
 
                       //-----блок типизации---------
 //типизация стора redux'а

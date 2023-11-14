@@ -5,7 +5,6 @@ import {OwnPropsType} from "./ProfileContainer";
 
 
 export const Profile: React.FC<OwnPropsType> = (props) => {
-    console.log('Profile')
     return (
         <div>
             <ProfileInfo {...props} />
