@@ -34,9 +34,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 
 
 // функция compose: позволяет записать все компоненты-обёртки в одну строку. Dialogs оборачивается в connect и далее передаётся в ХОК вместе с пропсами из connect'а.
-export const DialogsContainer = compose<React.ComponentType>(connect(mapStateToProps,mapDispatchToProps),withAuthRedirect)(Dialogs)
+const DialogsContainer = compose<React.ComponentType>(connect(mapStateToProps,mapDispatchToProps),withAuthRedirect)(Dialogs)
 
-
+export default DialogsContainer
 
 
 //connect нужен для вытягивания из редакса стэйта и диспатча

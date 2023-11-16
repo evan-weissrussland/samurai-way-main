@@ -98,8 +98,8 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
      // export const ProfileAPIContainer = withAuthRedirect(connect(mapStateToProps, {getProfileUserTC})(WithUrlDataContainerComponent))
 
 // функция compose: позволяет записать все компоненты-обёртки в одну строку. ProfileContainer оборачивается в withRouter, поверх этого в connect и далее передаётся в ХОК вместе с пропсами из connect'а и withRouter'а.
-export const ProfileAPIContainer = compose<React.ComponentType>(connect(mapStateToProps,{getProfileUserTC,getStatusUserTC,updateStatusUserTC}),withRouter,withAuthRedirect)(ProfileContainer)
-
+const ProfileAPIContainer = compose<React.ComponentType>(connect(mapStateToProps,{getProfileUserTC,getStatusUserTC,updateStatusUserTC}),withRouter,withAuthRedirect)(ProfileContainer)
+export default ProfileAPIContainer
 
 //connect нужен для вытягивания из редакса стэйта и диспатча
 //withRouter нужен для вытягивания данных из URL и передачи их в нужный компонент в виде пропсов
