@@ -11,10 +11,9 @@ type Props = {
 
 export const Paginator: FC<Props> = ({totalItemsCount, pageSize, onPageChanged, currentPage, portionSize = 10}) => {
     const [portionNumber, setPortionNumber] = useState(1)
-
     const pagesCount = Math.ceil(totalItemsCount / pageSize)
 
-    const pages = []
+    const pages:number[] = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
@@ -23,19 +22,24 @@ export const Paginator: FC<Props> = ({totalItemsCount, pageSize, onPageChanged, 
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
 
-
-
     useEffect(() =>{
-        const pagesPortion = []
-        for (let i = 1; i <= 3; i++) {
+        /**
+         * @pagesPortion массив пустых массивов. Количество вложенных массивов равно количеству порций страниц portionCount. Далее пустые массивы будем заполнять числами сквозной нумерации
+         */
+        const pagesPortion:number[][] = []
+        for (let i = 1; i <= portionCount; i++) {
             pagesPortion.push([])
         }
+        /**
+         * @count для каждой итерации внутри нижележащего цикла for count будет меняться от нуля до значения порции страниц portionSize, после чего будет осуществлён переход к новому значению "p" массива pagesPortion;
+         */
         let count = 0
+        /**
+         * @g нужно для запоминания последнего сквозного числа в предыдущей порции страниц, чтобы первое вложенное число в текущей порции страниц было следующим по порядку от последнего числа предыдущей порции, а не сбрасывалось в 0
+         */
         let g = 0
-        pagesPortion.forEach((p,j) => {
-
-            for (let i = g+1; i <= 30; i++) {
-                // @ts-ignore
+        pagesPortion.map((p,j) => {
+            for (let i = g+1; i <= pagesCount; i++) {
                 p.push(i)
                 count++
                 if (count === portionSize) {
@@ -45,8 +49,9 @@ export const Paginator: FC<Props> = ({totalItemsCount, pageSize, onPageChanged, 
                 }
             }
         })
+        //пробегаемся по числам каждого вложенного в pagesPortion массива с числами и ищем тот, внутри которого будет число, равное текущей странице. Индекс этого массива и есть текущая порция выбранной страницы юзеров.
         pagesPortion.forEach((p,j) => {
-            p.forEach((f) => f === currentPage && setPortionNumber(j+1))
+            p.forEach(f => f === currentPage && setPortionNumber(j+1))
         })
 
     },[currentPage])

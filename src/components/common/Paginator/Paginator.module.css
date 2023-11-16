@@ -10,6 +10,11 @@
     border: 1px solid yellow;
     color: white;
     font-weight: bold;
+    cursor: pointer;
+}
+.pageNumber:hover {
+    box-shadow: 0 0 5px 5px yellow;
+    color: hotpink;
 }
 
 .pageNumber.selectedPage {
@@ -17,4 +22,8 @@
     font-weight: bold;
     color: orange;
     padding: 2px 5px;
+    cursor: default;
+}
+.pageNumber.selectedPage:hover {
+    box-shadow: none;
 }
