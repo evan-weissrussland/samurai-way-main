@@ -1,15 +1,23 @@
-import React, {useState} from "react";
+import React, {ChangeEvent} from "react";
 import s from "./ProfileInfo.module.css";
 import image2 from "../../../images/image2.jpg";
 import emptyAva from "../../../images/emptyAccount.jpg";
 import {Preloader} from "../../common/Preloader/Preloader";
-import {ProfileStatus} from "./ProfileStatus";
 import {NavLink} from "react-router-dom";
 import {OwnPropsType} from "../ProfileContainer";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 
-export const ProfileInfo = ({profile, myProfileId, getProfileUserTC, getStatusUserTC, status, updateStatusUserTC}: OwnPropsType) => {
+export const ProfileInfo = ({
+                                profile,
+                                myProfileId,
+                                getProfileUserTC,
+                                getStatusUserTC,
+                                status,
+                                updateStatusUserTC,
+                                isOwner,
+                                savePhotoTC,
+                            }: OwnPropsType) => {
     if (!profile) {
         return <Preloader/>
     }
@@ -24,6 +32,10 @@ export const ProfileInfo = ({profile, myProfileId, getProfileUserTC, getStatusUs
     const srcImage = profile.photos.small ?? emptyAva
     const LookingJob = profile.lookingForAJob ? 'да' : 'нет'
 
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        e.target.files && savePhotoTC(e.target.files[0])
+    }
+
     return (
         <div>
             <div>
@@ -37,14 +49,15 @@ export const ProfileInfo = ({profile, myProfileId, getProfileUserTC, getStatusUs
                 </button>
                 <div className={s.profileAva}>
                     <img src={srcImage} alt=""/>
+                    {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
                 </div>
                 <div className={s.descriptionName}>
                     {profile.fullName}
                 </div>
                 <ProfileStatusWithHooks myProfileId={myProfileId}
-                               userProfileId={profile.userId}
-                               status={status}
-                               updateStatus={updateStatusUserTC}/>
+                                        userProfileId={profile.userId}
+                                        status={status}
+                                        updateStatus={updateStatusUserTC}/>
                 <div>
                     <span className={s.descriptionInfo}>
                         Обо мне:

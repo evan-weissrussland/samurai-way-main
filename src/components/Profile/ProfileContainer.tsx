@@ -2,7 +2,13 @@ import React from "react";
 import {connect} from "react-redux";
 import {Profile} from "./Profile";
 import {AppRootStateType} from "../../redux/redux-store";
-import {getProfileUserTC, getStatusUserTC, ProfileType, updateStatusUserTC} from "../../redux/profile-reducer";
+import {
+    getProfileUserTC,
+    getStatusUserTC,
+    ProfileType,
+    savePhotoTC,
+    updateStatusUserTC
+} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -46,7 +52,7 @@ if (myProfileId && match.params.userId === myProfileId.toString()) {
     render() {
         const {profile} = this.props
         return (
-            <Profile {...this.props} profile={profile}/>
+            <Profile {...this.props} isOwner={!this.props.match.params.userId} profile={profile}/>
         );
     }
 }
@@ -60,8 +66,14 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 type PathParamsType = {
     userId: string
 }
+
+// типизация пропса isOwner
+type IsOwnerType = {
+    isOwner: boolean
+}
+
 //склейка типов пропсов connect'а (пропсы и санки)
-export type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
+export type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType & IsOwnerType
 
 //типизация стэйта connect'а
 type MapStateToPropsType = {
@@ -77,6 +89,7 @@ type MapDispatchToPropsType = {
     getProfileUserTC: (paramsUserId:number) => void
     getStatusUserTC: (userId:number) => void
     updateStatusUserTC: (status:string) => void
+    savePhotoTC: (image:File) => void
 }
 
 //------ конец блока типизации-----------
@@ -98,7 +111,7 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
      // export const ProfileAPIContainer = withAuthRedirect(connect(mapStateToProps, {getProfileUserTC})(WithUrlDataContainerComponent))
 
 // функция compose: позволяет записать все компоненты-обёртки в одну строку. ProfileContainer оборачивается в withRouter, поверх этого в connect и далее передаётся в ХОК вместе с пропсами из connect'а и withRouter'а.
-const ProfileAPIContainer = compose<React.ComponentType>(connect(mapStateToProps,{getProfileUserTC,getStatusUserTC,updateStatusUserTC}),withRouter,withAuthRedirect)(ProfileContainer)
+const ProfileAPIContainer = compose<React.ComponentType>(connect(mapStateToProps,{getProfileUserTC,getStatusUserTC,updateStatusUserTC, savePhotoTC}),withRouter,withAuthRedirect)(ProfileContainer)
 export default ProfileAPIContainer
 
 //connect нужен для вытягивания из редакса стэйта и диспатча

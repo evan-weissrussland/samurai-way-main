@@ -45,6 +45,7 @@ export type ActionSetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export type ActionSetUserStatusACType = ReturnType<typeof setUserStatusAC>
 //типизация action'а для изменения статуса своего профиля
 export type ActionUpdateUserStatusACType = ReturnType<typeof updateUserStatusAC>
+export type ActionSavePhotoACType = ReturnType<typeof savePhotoAC>
 export type ActionAddPostType = { type: 'PROFILE/ADD-POST', newPostText: string }
 //общая типизация action'ов
 export type ProfileReducerActionType =
@@ -52,6 +53,7 @@ export type ProfileReducerActionType =
     | ActionAddPostType
     | ActionSetUserStatusACType
     | ActionUpdateUserStatusACType
+    | ActionSavePhotoACType
 
 //----конец блока типизации------
 
@@ -60,6 +62,7 @@ const ADD_POST = 'PROFILE/ADD-POST'
 const SET_USER_PROFILE = 'PROFILE/SET-USER-PROFILE'
 const SET_USER_STATUS = 'PROFILE/SET-USER-STATUS'
 const UPDATE_USER_STATUS = 'PROFILE/UPDATE-USER-STATUS'
+const UPDATE_PHOTO = 'PROFILE/UPDATE-PHOTO'
 
 //инициализационный стэйт редусера
 const initialStateType: ProfilePageType = {
@@ -88,6 +91,8 @@ export const profileReducer = (state: ProfilePageType = initialStateType, action
             return {...state, status: action.status}
         case UPDATE_USER_STATUS:
             return {...state, status: action.status}
+        case UPDATE_PHOTO:
+            return {...state, profile: {...state.profile, photos: action.photo}}
         default:
             return state
     }
@@ -100,6 +105,8 @@ export const addPostAC = (newPostText: string): ActionAddPostType => ({type: ADD
 export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 export const setUserStatusAC = (status: string) => ({type: SET_USER_STATUS, status} as const)
 export const updateUserStatusAC = (status: string) => ({type: UPDATE_USER_STATUS, status} as const)
+export const savePhotoAC = (photo: { small: string | null
+    large: string | null }) => ({type: UPDATE_PHOTO, photo} as const)
 
 
 //thunk-Creators
@@ -130,6 +137,19 @@ export const updateStatusUserTC = (status: string): AppThunk => {
             const resp = await profileAPI.updateStatus(status)
             if (resp.resultCode === 0) {
                 dispatch(updateUserStatusAC(status))
+            }
+        } catch (e) {
+
+        }
+    }
+}
+
+export const savePhotoTC = (image: File): AppThunk => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const resp = await profileAPI.savePhoto(image)
+            if (resp.resultCode === 0) {
+                dispatch(savePhotoAC(resp.data.photos))
             }
         } catch (e) {
 
