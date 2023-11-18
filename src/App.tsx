@@ -52,9 +52,7 @@ export class AppContainer extends React.Component<any, any> {
                     {/*<Route path={'/'} render={() => <Redirect to={'/profile'}/>}/>*/}
                     <Route path={'/dialogs'} render={DialogsComponent}/>
                     <Route path={'/profile/:userId?'} render={ProfileComponent}/>
-                    <Route path={'/users'} render={() => <Suspense fallback={<Preloader/>}>
-                        <UsersContainer/>
-                    </Suspense>}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>} />
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>

@@ -92,8 +92,9 @@ export const profileReducer = (state: ProfilePageType = initialStateType, action
         case UPDATE_USER_STATUS:
             return {...state, status: action.status}
         case UPDATE_PHOTO:
-            if( state.profile ) {return {...state, profile: {...state.profile, photos: action.photo}}}
-            return state
+            // if( state.profile ) {return {...state, profile: {...state.profile, photos: action.photo}}}
+            // return state
+            return {...state, profile: {...state.profile, photos: action.photo} as ProfileType}
         default:
             return state
     }

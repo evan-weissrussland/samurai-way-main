@@ -36,24 +36,21 @@ export class UsersAPIContainer extends React.Component<any, any> {
 
     render() {
         return <div className={s.UsersAPIContainer}>
-            {
-                this.props.isFetching
-                    ? <Preloader/>
-                    : <UsersPresentation
-                        onPageChanged={this.onPageChanged}
-                        currentPage={this.props.currentPage}
-                        users={this.props.users}
-                        totalUsersCount={this.props.totalUsersCount}
-                        pageSize={this.props.pageSize}
-                        onFollowUser={this.onFollowUser}
-                        onUnfollowUser={this.onUnfollowUser}
-                        followingArray={this.props.followingArray}
-                    />
-            }
+            <div className={this.props.isFetching ? s.showPreloader : s.hidePreloader}><Preloader/></div>
+            <UsersPresentation
+                onPageChanged={this.onPageChanged}
+                currentPage={this.props.currentPage}
+                users={this.props.users}
+                totalUsersCount={this.props.totalUsersCount}
+                pageSize={this.props.pageSize}
+                onFollowUser={this.onFollowUser}
+                onUnfollowUser={this.onUnfollowUser}
+                followingArray={this.props.followingArray}
+            />
+
         </div>
     }
 }
-
 
 /*type MapDispatchToPropsType = {
     setFollowUser: (userId: number) => void
@@ -98,7 +95,6 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 }
 
 
-
 // export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
 
 // export const UsersContainer = connect(mapStateToProps, {
@@ -113,4 +109,4 @@ export const UsersContainer = compose<React.ComponentType>(connect(mapStateToPro
     onFollowUserTC,
     onUnfollowUserTC,
     onPageChangedTC
-}),withAuthRedirect)(UsersAPIContainer)
+}), withAuthRedirect)(UsersAPIContainer)
