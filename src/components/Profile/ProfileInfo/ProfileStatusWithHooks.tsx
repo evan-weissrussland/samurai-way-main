@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-
+import s from "./ProfileInfo.module.css";
 //--------блок типизации----------
 //типизация пропсов
 type ProfileStatusProps = {
@@ -43,6 +43,7 @@ export const ProfileStatusWithHooks = ({status,userProfileId, myProfileId, updat
             {
                 !isEditMode ?
             <div>
+                <span className={s.descriptionInfo}>Статус:</span>
                 <span onDoubleClick={activateEditModeHandler}>{localStatus || 'no status'}</span>
             </div>
                 :
