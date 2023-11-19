@@ -1,9 +1,13 @@
 import axios from "axios";
+import {ProfileDataFormType} from "../components/Profile/ProfileInfo/ProfileDataForm";
 
 // переменная для сокращения синтаксиса запросов в методах API'шек. withCredentials=true определяет, нужно ли к каждому запросу на сервер цеплять куку
 const instance = axios.create({
     withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0'
+    baseURL: 'https://social-network.samuraijs.com/api/1.0',
+    headers: {
+        'API-KEY': 'f9318a30-84c2-4b25-906d-b24a19d648d5'
+    }
 })
 
 //объект с методом для запроса юзеров с сервера. Используется пагинация через Query-параметры
@@ -69,5 +73,10 @@ export const profileAPI = {
         }).then(response =>
             response.data)
     },
+    updateProfile(profile: ProfileDataFormType) {
+        return instance.put(`/profile`, profile).then(response =>
+            response.data)
+    },
 
 }
+
