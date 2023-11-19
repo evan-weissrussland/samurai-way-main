@@ -19,6 +19,7 @@ export const ProfileInfo = ({
                                 updateStatusUserTC,
                                 isOwner,
                                 savePhotoTC,
+                                updateProfileUserTC
                             }: OwnPropsType) => {
 
     const [editMode, setEditMode] = useState(false)
@@ -46,8 +47,10 @@ export const ProfileInfo = ({
 
 
     const onSubmit = (formData:ProfileDataFormType) => {
-        // loginTC(formData.aboutMe, formData.lookingForAJob, formData.lookingForAJobDescription)
-        setEditMode(false)
+        const resp = updateProfileUserTC(formData)
+        resp.then(() => {
+            setEditMode(false)
+        })
     }
 
     return (
@@ -72,7 +75,7 @@ export const ProfileInfo = ({
                                         userProfileId={profile.userId}
                                         status={status}
                                         updateStatus={updateStatusUserTC}/>
-                {editMode ? <ProfileDataReduxForm onSubmit={onSubmit}/> :
+                {editMode ? <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit} profile={profile}/> :
                     <ProfileData isOwner={isOwner} profile={profile} setEditMode={setEditMode}/>}
             </div>
         </div>
@@ -105,7 +108,9 @@ const ProfileData = ({
                         {profile.lookingForAJobDescription}
                     </span>
         </div>
-        <div>Contacts: {
+        <div>
+            <span className={s.descriptionInfo}>Contacts:</span>
+            {
             Object.keys(profile.contacts).map(key => {
                 return <Contact key={key} contactTitle={key}
                                 contactValue={profile.contacts[key as keyof typeof profile.contacts]}/>
@@ -116,7 +121,7 @@ const ProfileData = ({
 }
 
 export const Contact: FC<{ contactTitle: string, contactValue: string }> = ({contactTitle, contactValue}) => {
-    return <div>
+    return <div className={s.contact}>
         <b>{contactTitle}</b>: {contactValue}
     </div>
 }
