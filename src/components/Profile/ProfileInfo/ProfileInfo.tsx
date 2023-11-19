@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, FC} from "react";
 import s from "./ProfileInfo.module.css";
 import image2 from "../../../images/image2.jpg";
 import emptyAva from "../../../images/emptyAccount.jpg";
@@ -76,7 +76,19 @@ export const ProfileInfo = ({
                         {profile.lookingForAJobDescription}
                     </span>
                 </div>
+                <div>Contacts: {
+                    Object.keys(profile.contacts).map(key => {
+                        return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof typeof profile.contacts]}/>
+                    })
+                }
+                </div>
             </div>
         </div>
     )
+}
+
+const Contact: FC<{ contactTitle: string, contactValue: string }> = ({contactTitle, contactValue}) => {
+    return <div>
+        <b>{contactTitle}</b>: {contactValue}
+    </div>
 }
