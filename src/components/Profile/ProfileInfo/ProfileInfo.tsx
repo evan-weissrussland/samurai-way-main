@@ -7,6 +7,7 @@ import {NavLink} from "react-router-dom";
 import {OwnPropsType} from "../ProfileContainer";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 import {ProfileType} from "../../../redux/profile-reducer";
+import {ProfileDataFormType, ProfileDataReduxForm} from "./ProfileDataForm";
 
 
 export const ProfileInfo = ({
@@ -43,6 +44,12 @@ export const ProfileInfo = ({
         e.target.files && savePhotoTC(e.target.files[0])
     }
 
+
+    const onSubmit = (formData:ProfileDataFormType) => {
+        // loginTC(formData.aboutMe, formData.lookingForAJob, formData.lookingForAJobDescription)
+        setEditMode(false)
+    }
+
     return (
         <div>
             <div>
@@ -65,50 +72,50 @@ export const ProfileInfo = ({
                                         userProfileId={profile.userId}
                                         status={status}
                                         updateStatus={updateStatusUserTC}/>
-                {editMode ? <ProfileDataForm profile={profile}/> : <ProfileData isOwner={isOwner} profile={profile} goToEditMode={setEditMode}/>}
+                {editMode ? <ProfileDataReduxForm onSubmit={onSubmit}/> :
+                    <ProfileData isOwner={isOwner} profile={profile} setEditMode={setEditMode}/>}
             </div>
         </div>
     )
 }
 
-const ProfileData = ({profile, isOwner, goToEditMode}: {profile:ProfileType, isOwner:boolean, goToEditMode: (val:boolean) => void}) => {
+const ProfileData = ({
+                         profile,
+                         isOwner,
+                         setEditMode
+                     }: { profile: ProfileType, isOwner: boolean, setEditMode: (val: boolean) => void }) => {
     const LookingJob = profile.lookingForAJob ? 'да' : 'нет'
-return <div>
-    {isOwner && <button onClick={() => goToEditMode(true)}>Edit Profile</button>}
-    <div>
+    return <div>
+        {isOwner && <button onClick={() => setEditMode(true)}>Edit Profile</button>}
+        <div>
                     <span className={s.descriptionInfo}>
                         Обо мне:
                     </span>
-        <span className={s.descriptionfromProfile}>
+            <span className={s.descriptionfromProfile}>
                         {profile.aboutMe}
                     </span>
-    </div>
-    <div>
-        <span className={s.descriptionInfo}>В поиске работы:</span>
-        <span className={s.descriptionfromProfile}>{LookingJob}</span>
-    </div>
-    <div>
-        <span className={s.descriptionInfo}>Стек технологий: </span>
-        <span className={s.descriptionfromProfile}>
+        </div>
+        <div>
+            <span className={s.descriptionInfo}>В поиске работы:</span>
+            <span className={s.descriptionfromProfile}>{LookingJob}</span>
+        </div>
+        <div>
+            <span className={s.descriptionInfo}>Стек технологий: </span>
+            <span className={s.descriptionfromProfile}>
                         {profile.lookingForAJobDescription}
                     </span>
+        </div>
+        <div>Contacts: {
+            Object.keys(profile.contacts).map(key => {
+                return <Contact key={key} contactTitle={key}
+                                contactValue={profile.contacts[key as keyof typeof profile.contacts]}/>
+            })
+        }
+        </div>
     </div>
-    <div>Contacts: {
-        Object.keys(profile.contacts).map(key => {
-            return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof typeof profile.contacts]}/>
-        })
-    }
-    </div>
-</div>
 }
 
-const ProfileDataForm = ({profile}: {profile:ProfileType}) => {
-    return <form>
-FORM
-    </form>
-}
-
-const Contact: FC<{ contactTitle: string, contactValue: string }> = ({contactTitle, contactValue}) => {
+export const Contact: FC<{ contactTitle: string, contactValue: string }> = ({contactTitle, contactValue}) => {
     return <div>
         <b>{contactTitle}</b>: {contactValue}
     </div>
