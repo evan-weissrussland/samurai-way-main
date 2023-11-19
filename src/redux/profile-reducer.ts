@@ -1,6 +1,8 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
-import {AppThunk} from "./redux-store";
+import {AppRootStateType, AppThunk} from "./redux-store";
+import {ProfileDataFormType} from "../components/Profile/ProfileInfo/ProfileDataForm";
+import {stopSubmit} from "redux-form";
 
 
 //-----------блок типизации---------
@@ -107,8 +109,10 @@ export const addPostAC = (newPostText: string): ActionAddPostType => ({type: ADD
 export const setUserProfileAC = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 export const setUserStatusAC = (status: string) => ({type: SET_USER_STATUS, status} as const)
 export const updateUserStatusAC = (status: string) => ({type: UPDATE_USER_STATUS, status} as const)
-export const savePhotoAC = (photo: { small: string | null
-    large: string | null }) => ({type: UPDATE_PHOTO, photo} as const)
+export const savePhotoAC = (photo: {
+    small: string | null
+    large: string | null
+}) => ({type: UPDATE_PHOTO, photo} as const)
 
 
 //thunk-Creators
@@ -152,6 +156,24 @@ export const savePhotoTC = (image: File): AppThunk => {
             const resp = await profileAPI.savePhoto(image)
             if (resp.resultCode === 0) {
                 dispatch(savePhotoAC(resp.data.photos))
+            }
+        } catch (e) {
+
+        }
+    }
+}
+
+export const updateProfileUserTC = (profile: ProfileDataFormType): AppThunk => {
+    return async (dispatch, getState: () => AppRootStateType) => {
+        try {
+            const resp = await profileAPI.updateProfile(profile)
+            if (resp.resultCode === 0) {
+                dispatch(getProfileUserTC(getState().auth.id as number))
+            } else {
+                const action = stopSubmit('edit-profile', {_error: resp.messages[0]})
+                debugger
+                dispatch(action)
+                return Promise.reject(resp.messages[0])
             }
         } catch (e) {
 
