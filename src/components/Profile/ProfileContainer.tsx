@@ -32,7 +32,7 @@ export class ProfileContainer extends React.Component<PropsType, any> {
             this.props.getProfileUserTC(JSON.parse(localStorageUserId))
             this.props.getStatusUserTC(JSON.parse(localStorageUserId))
         } else if (authorizedUserId){
-//если нет в URL id юзера и нет сохранённого id в локал сторэйдж, то в санку отправляем this.props.match.params.userId, который будет равен null. В санке будет проверка на null.
+//если нет в URL id юзера и нет сохранённого id в локал сторэйдж, то в санку отправляем id своего профиля
             this.props.getProfileUserTC(authorizedUserId)
             this.props.getStatusUserTC(authorizedUserId)
         } else {
@@ -52,7 +52,8 @@ if (myProfileId && match.params.userId === myProfileId.toString()) {
     render() {
         const {profile} = this.props
         return (
-            <Profile {...this.props} isOwner={!this.props.match.params.userId} profile={profile}/>
+            // <Profile {...this.props} isOwner={!this.props.match.params.userId} profile={profile}/>
+            <Profile {...this.props} isOwner={+this.props.match.params.userId === this.props.myProfileId || this.props.profile?.userId === this.props.myProfileId } profile={profile}/>
         );
     }
 }
