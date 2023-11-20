@@ -170,8 +170,13 @@ export const updateProfileUserTC = (profile: ProfileDataFormType): AppThunk => {
             if (resp.resultCode === 0) {
                 dispatch(getProfileUserTC(getState().auth.id as number))
             } else {
-                const action = stopSubmit('edit-profile', {_error: resp.messages[0]})
                 debugger
+                const indexOfStr = resp.messages[0].indexOf('->')
+                const indexOfBracies = resp.messages[0].indexOf(')')
+
+                const field =  resp.messages[0].slice(indexOfStr+2, indexOfBracies).toLowerCase()
+                // const action = stopSubmit('edit-profile', {_error: resp.messages[0]}) // - это для передачи ссобщения ошибки в общее свойство "error" библиотеки redux-form
+                const action = stopSubmit('edit-profile', {'contacts':{[field]: resp.messages[0]}}) // это для передачи сообщения ошибки под конкретный инпут формы, в котором была ошибка
                 dispatch(action)
                 return Promise.reject(resp.messages[0])
             }
