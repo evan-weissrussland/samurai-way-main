@@ -74,6 +74,12 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
                 dispatch(setAuthUserDataTC())
             } else {
                 const message = data.messages.length > 0 ? data.messages[0] : 'SOme error'
+                /**
+                 * @action - объект экшн, сформированный функцией stopSubmit из библиотеки redux-form.
+                 * type = 'login'
+                 * payload = {_error: message}
+                 * _error - это свойство передаёт сообщение ошибки свойству "error" из пропсов библиотеки redux-form в компоненте LoginForm.
+                 */
                 const action = stopSubmit('login', {_error: message})
                 dispatch(action)
             }
