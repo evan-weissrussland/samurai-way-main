@@ -54,7 +54,6 @@ if (myProfileId && match.params.userId === myProfileId.toString()) {
     render() {
         const {profile} = this.props
         return (
-            // <Profile {...this.props} isOwner={!this.props.match.params.userId} profile={profile}/>
             <Profile {...this.props} isOwner={+this.props.match.params.userId === this.props.myProfileId || this.props.profile?.userId === this.props.myProfileId } profile={profile}/>
         );
     }
