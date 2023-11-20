@@ -10,7 +10,11 @@ export type ProfileDataFormType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
 }
-const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType, ProfileType>> = ({handleSubmit, error, profile}: any) => {
+
+export type ProfileDataFormProps = {
+    profile: ProfileType
+}
+const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType, ProfileDataFormProps> & ProfileDataFormProps> = ({handleSubmit, error, profile}) => {
     return <form onSubmit={handleSubmit}>
         <button>Save</button>
         {error && <div className={s.formSummaryError}>
@@ -45,8 +49,10 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType, ProfileTy
     </form>
 }
 
-export const ProfileDataReduxForm = reduxForm<ProfileDataFormType, ProfileType>({
+export const ProfileDataReduxForm = reduxForm<ProfileDataFormType, ProfileDataFormProps>({
     //для свойства form задаём уникальное имя, чтобы библиотека redux-form отличала формы этой компоненты от форм других компонет
     form: 'edit-profile'
 })(ProfileDataForm)
+
+
 
