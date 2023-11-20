@@ -8,9 +8,9 @@ import {Redirect} from "react-router-dom";
 
 
 
-export const LoginPage = ({loginTC, isAuth}:MapDispatchToPropsType & MapStateToPropsForRedirectProps) => {
+export const LoginPage = ({loginTC, isAuth, captchaUrl}:MapDispatchToPropsType & MapStateToPropsForRedirectProps) => {
     const onSubmit = (formData:FormDataType) => {
-        loginTC(formData.email, formData.password, formData.rememberMe)
+        loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if (isAuth) {
         return <Redirect to={'/profile'}/>
@@ -20,19 +20,21 @@ export const LoginPage = ({loginTC, isAuth}:MapDispatchToPropsType & MapStateToP
             <div className={s.loginPageContainer}>
                 LoginPage
             </div>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
         </div>
     );
 };
 type MapDispatchToPropsType = {
-    loginTC: (email:string, password:string, rememberMe:boolean) => void
+    loginTC: (email:string, password:string, rememberMe:boolean, captcha: null | string) => void
 }
 type MapStateToPropsForRedirectProps = {
     isAuth: boolean
+    captchaUrl: null | string
 }
 const mapStateToPropsForRedirect = (state: AppRootStateType): MapStateToPropsForRedirectProps => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 export const LoginContainer = connect(mapStateToPropsForRedirect, {loginTC})(LoginPage)

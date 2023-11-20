@@ -76,10 +76,10 @@ export const setAuthUserDataTC = (): AppThunk<Promise<void>> => {
     }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: null | string): AppThunk => {
     return async (dispatch) => {
         try {
-            const data = await authAPI.login(email, password, rememberMe)
+            const data = await authAPI.login(email, password, rememberMe, captcha)
             if (data.resultCode === 0) {
                 dispatch(setAuthUserDataTC())
             } else {

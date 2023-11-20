@@ -9,10 +9,13 @@ export type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string
+}
+export type Props = {
+    captchaUrl: null | string
 }
 
-
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({handleSubmit, error, captchaUrl}) => {
     return (
         <form onSubmit={handleSubmit}>
 
@@ -46,6 +49,10 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
                     component={Input}/>
                 remember me
             </div>*/}
+            {captchaUrl && <img src={captchaUrl} alt=""/>}
+            {
+                captchaUrl && createField('captcha', 'captcha', [required], Input)
+            }
             {error && <div className={s.formSummaryError}>
                 {error}
             </div>}
@@ -59,7 +66,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
 }
 
 //создаём компонент-обёртку LoginReduxForm для компонента LoginForm. Обёртка будет обрабатывать данные из формы в компоненте LoginForm.
-export const LoginReduxForm = reduxForm<FormDataType>({
+export const LoginReduxForm = reduxForm<FormDataType, Props>({
     //для свойства form задаём уникальное имя, чтобы библиотека redux-form отличала формы этой компоненты от форм других компонет
     form: 'login'
 })(LoginForm)
