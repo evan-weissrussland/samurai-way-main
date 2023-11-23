@@ -22,10 +22,17 @@ const ProfileAPIContainer = lazy(() => import("./components/Profile/ProfileConta
 );
 
 export class AppContainer extends React.Component<any, any> {
+    catchAllUnhandledErrors = (reason:any, promis:Promise<any>) => {
+        alert('Some error occured')
+    }
     //метод аналог useEffect'a. Отрабатывает после первоначального рендера компонента
     componentDidMount() {
         this.props.initializeAppTC()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors as EventListenerOrEventListenerObject)
     }
+componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors as EventListenerOrEventListenerObject)
+}
 
     render() {
         if (!this.props.isInizialized) {
