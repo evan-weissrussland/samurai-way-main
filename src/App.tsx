@@ -1,7 +1,7 @@
 import React, {lazy, Suspense} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
-import {Route, withRouter} from "react-router-dom";
+import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
@@ -49,7 +49,8 @@ export class AppContainer extends React.Component<any, any> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={'app-wripper-content'}>
-                    {/*<Route path={'/'} render={() => <Redirect to={'/profile'}/>}/>*/}
+                    <Switch>
+                    <Route path={'/'} render={() => <Redirect to={'/profile'}/>}/>
                     <Route path={'/dialogs'} render={DialogsComponent}/>
                     <Route path={'/profile/:userId?'} render={ProfileComponent}/>
                     <Route path={'/users'} render={() => <UsersContainer/>} />
@@ -57,6 +58,8 @@ export class AppContainer extends React.Component<any, any> {
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
                     <Route path={'/login'} render={() => <LoginContainer/>}/>
+                    <Route path={'*'} render={() => <div>404 Not found</div>}/>
+                    </Switch>
                 </div>
             </div>
         );
