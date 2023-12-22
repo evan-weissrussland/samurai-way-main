@@ -14,12 +14,13 @@ export type FormDataType = {
 export type Props = {
     captchaUrl: null | string
 }
+export type LoginFormValuesTypeKeys = Extract<keyof FormDataType, string>
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({handleSubmit, error, captchaUrl}) => {
     return (
         <form onSubmit={handleSubmit}>
 
-            {createField('Email', 'email', [required], Input)}
+            {createField<LoginFormValuesTypeKeys>('Email', 'email', [required], Input)}
 
             {/*<div>
                 <Field
@@ -29,7 +30,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({ha
                     validate={[required]}/>
             </div>*/}
 
-            {createField('Password', 'password', [required], Input, {type: 'password'})}
+            {createField<LoginFormValuesTypeKeys>('Password', 'password', [required], Input, {type: 'password'})}
 
             {/*<div>
                 <Field
@@ -40,7 +41,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({ha
                     validate={[required]}/>
             </div>*/}
 
-            {createField(undefined, 'rememberMe', undefined, Input, {type: 'checkbox'}, 'remember me')}
+            {createField<LoginFormValuesTypeKeys>(undefined, 'rememberMe', undefined, Input, {type: 'checkbox'}, 'remember me')}
 
             {/*<div>
                 <Field
@@ -51,7 +52,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({ha
             </div>*/}
             {captchaUrl && <img src={captchaUrl} alt=""/>}
             {
-                captchaUrl && createField('captcha', 'captcha', [required], Input)
+                captchaUrl && createField<LoginFormValuesTypeKeys>('captcha', 'captcha', [required], Input)
             }
             {error && <div className={s.formSummaryError}>
                 {error}
