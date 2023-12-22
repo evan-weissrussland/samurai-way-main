@@ -51,6 +51,9 @@ export type AppDispatch = typeof store.dispatch
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, RootActionType>
 //общая типизация всех actionCreator'ов. Нужна для типизациии AppThunk
 export type RootActionType = DialogsReducerActionType | ProfileReducerActionType | UserReducerActiontype | authReducerType | FormAction
+type PropertiesTypes<T> = T extends {[key:string]: infer U} ? U : never
+export type InferActionsTypes<T extends {[key:string]: (...args:any[])=>any}> = ReturnType<PropertiesTypes<T>>
+
                        //----- конец блока типизации---------
 
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
