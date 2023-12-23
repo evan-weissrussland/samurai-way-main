@@ -45,3 +45,4 @@ export function createField<FormKeysType extends string>(placeholder: string =''
     )
 }
 
+export type GetStringKeys<T> = Extract<keyof T, string>

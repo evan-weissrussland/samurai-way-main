@@ -1,15 +1,14 @@
 import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import s from "./Dialogs.module.css";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
-import {createField, Input, Textarea} from "../common/FirmsControl/FormsControls";
-import {FormDataType, LoginFormValuesTypeKeys} from "../LoginPage/LoginForm";
+import {createField, GetStringKeys, Textarea} from "../common/FirmsControl/FormsControls";
 
 export type FormDataProps = {
     newMessageBody: string
 }
 type Props = {}
-export type NewMessageFormValuesKeysType = Extract<keyof FormDataProps, string>
+export type NewMessageFormValuesKeysType = GetStringKeys<FormDataProps>
 
 const maxLength = maxLengthCreator(10)
 

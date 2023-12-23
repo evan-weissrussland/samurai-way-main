@@ -1,11 +1,11 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {createField, Input} from "../common/FirmsControl/FormsControls";
+import {createField, GetStringKeys, Input} from "../common/FirmsControl/FormsControls";
 import {required} from "../../utils/validators/validators";
 import s from '../common/FirmsControl/FormsControls.module.css'
 
 //типизация данных, собираемых функцией handleSubmit. Каждое имя ключа взято из атрибута "name" каждого Field'а
-export type FormDataType = {
+export type LoginFormDataType = {
     email: string
     password: string
     rememberMe: boolean
@@ -14,9 +14,9 @@ export type FormDataType = {
 export type Props = {
     captchaUrl: null | string
 }
-export type LoginFormValuesTypeKeys = Extract<keyof FormDataType, string>
+export type LoginFormValuesTypeKeys = GetStringKeys<LoginFormDataType>
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({handleSubmit, error, captchaUrl}) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, Props> & Props> = ({handleSubmit, error, captchaUrl}) => {
     return (
         <form onSubmit={handleSubmit}>
 
@@ -67,7 +67,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({ha
 }
 
 //создаём компонент-обёртку LoginReduxForm для компонента LoginForm. Обёртка будет обрабатывать данные из формы в компоненте LoginForm.
-export const LoginReduxForm = reduxForm<FormDataType, Props>({
+export const LoginReduxForm = reduxForm<LoginFormDataType, Props>({
     //для свойства form задаём уникальное имя, чтобы библиотека redux-form отличала формы этой компоненты от форм других компонет
     form: 'login'
 })(LoginForm)

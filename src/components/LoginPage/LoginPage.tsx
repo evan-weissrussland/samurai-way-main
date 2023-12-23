@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './LoginPage.module.css'
-import {FormDataType, LoginReduxForm} from "./LoginForm";
+import {LoginFormDataType, LoginReduxForm} from "./LoginForm";
 import {connect} from "react-redux";
 import {loginTC} from "../../redux/auth-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
@@ -9,7 +9,7 @@ import {Redirect} from "react-router-dom";
 
 
 export const LoginPage = ({loginTC, isAuth, captchaUrl}:MapDispatchToPropsType & MapStateToPropsForRedirectProps) => {
-    const onSubmit = (formData:FormDataType) => {
+    const onSubmit = (formData:LoginFormDataType) => {
         loginTC(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if (isAuth) {

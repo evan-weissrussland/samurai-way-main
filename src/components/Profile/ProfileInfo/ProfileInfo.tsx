@@ -49,7 +49,6 @@ export const ProfileInfo = ({
     const onSubmit = (formData:ProfileDataFormType) => {
         const resp = updateProfileUserTC(formData)
         resp.then(() => {
-            debugger
             setEditMode(false)
         })
     }
