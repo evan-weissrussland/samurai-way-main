@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
-import {followUserAPI, usersAPI} from "../api/api";
 import {AppRootStateType, AppThunk, InferActionsTypes} from "./redux-store";
 import {updateObjectInArray} from "../utils/object-helpers";
+import {usersAPI} from "../api/users-api";
 
 //---блок типизации------
 type LocationType = {
@@ -142,13 +142,13 @@ const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod:
 
 export const onFollowUserTC = (userId: number): AppThunk => {
     return async (dispatch: Dispatch, getState: () => AppRootStateType) => {
-        followUnfollowFlow(dispatch, userId, followUserAPI.onFollowUser.bind(userId), actions.setFollowUser)
+        followUnfollowFlow(dispatch, userId, usersAPI.onFollowUser.bind(userId), actions.setFollowUser)
     }
 }
 
 
 export const onUnfollowUserTC = (userId: number): AppThunk => {
     return async (dispatch: Dispatch, getState: () => AppRootStateType) => {
-        followUnfollowFlow(dispatch, userId, followUserAPI.onUnfollowUser.bind(userId), actions.setUnfollowUser)
+        followUnfollowFlow(dispatch, userId, usersAPI.onUnfollowUser.bind(userId), actions.setUnfollowUser)
     }
 }
