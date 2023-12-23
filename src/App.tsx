@@ -56,7 +56,7 @@ componentWillUnmount() {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={'app-wripper-content'}>
-                    <Switch>
+                    {/*<Switch>*/}
                     <Route path={'/'} render={() => <Redirect to={'/profile'}/>}/>
                     <Route path={'/dialogs'} render={DialogsComponent}/>
                     <Route path={'/profile/:userId?'} render={ProfileComponent}/>
@@ -66,7 +66,7 @@ componentWillUnmount() {
                     <Route path={'/settings'} render={() => <Settings/>}/>
                     <Route path={'/login'} render={() => <LoginContainer/>}/>
                     <Route path={'*'} render={() => <div>404 Not found</div>}/>
-                    </Switch>
+                    {/*</Switch>*/}
                 </div>
             </div>
         );
