@@ -1,8 +1,9 @@
 import {Dispatch} from "redux";
-import {profileAPI} from "../api/api";
 import {AppRootStateType, AppThunk} from "./redux-store";
 import {ProfileDataFormType} from "../components/Profile/ProfileInfo/ProfileDataForm";
 import {stopSubmit} from "redux-form";
+import {profileAPI} from "../api/profile-api";
+import {ResultCodeEnum} from "../api/api";
 
 
 //-----------блок типизации---------
@@ -141,7 +142,7 @@ export const updateStatusUserTC = (status: string): AppThunk => {
     return async (dispatch: Dispatch) => {
         try {
             const resp = await profileAPI.updateStatus(status)
-            if (resp.resultCode === 0) {
+            if (resp.resultCode === ResultCodeEnum.Success) {
                 dispatch(updateUserStatusAC(status))
             }
         } catch (e) {
@@ -154,7 +155,7 @@ export const savePhotoTC = (image: File): AppThunk => {
     return async (dispatch: Dispatch) => {
         try {
             const resp = await profileAPI.savePhoto(image)
-            if (resp.resultCode === 0) {
+            if (resp.resultCode === ResultCodeEnum.Success) {
                 dispatch(savePhotoAC(resp.data.photos))
             }
         } catch (e) {
@@ -167,7 +168,7 @@ export const updateProfileUserTC = (profile: ProfileDataFormType): AppThunk => {
     return async (dispatch, getState: () => AppRootStateType) => {
         try {
             const resp = await profileAPI.updateProfile(profile)
-            if (resp.resultCode === 0) {
+            if (resp.resultCode === ResultCodeEnum.Success) {
                 dispatch(getProfileUserTC(getState().auth.id as number))
             } else {
                 debugger
