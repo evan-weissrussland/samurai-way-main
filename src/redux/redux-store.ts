@@ -51,8 +51,8 @@ export type AppDispatch = typeof store.dispatch
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, RootActionType>
 //общая типизация всех actionCreator'ов. Нужна для типизациии AppThunk
 export type RootActionType = DialogsReducerActionType | ProfileReducerActionType | UserReducerActiontype | authReducerType | FormAction
-type PropertiesTypes<T> = T extends {[key:string]: infer U} ? U : never
-export type InferActionsTypes<T extends {[key:string]: (...args:any[])=>any}> = ReturnType<PropertiesTypes<T>>
+//обощённая типизация объектов actions, внутри которых сидят экшн-креаторы
+export type InferActionsTypes<T> = T extends {[key:string]: (...args:any[]) => infer U} ? U : never
 
                        //----- конец блока типизации---------
 
