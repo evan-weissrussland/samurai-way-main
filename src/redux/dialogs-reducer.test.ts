@@ -1,5 +1,5 @@
 
-import {addMessageAC, DialogsPageType, dialogsReducer} from "./dialogs-reducer";
+import {actionsDialogs, DialogsPageType, dialogsReducer} from "./dialogs-reducer";
 
 test('correct dialogs-reducer add message', () => {
     const  dialogsPage:DialogsPageType = {
@@ -20,7 +20,7 @@ test('correct dialogs-reducer add message', () => {
         ]
     }
 
-    const endState = dialogsReducer(dialogsPage, addMessageAC('d'))
+    const endState = dialogsReducer(dialogsPage, actionsDialogs.addMessageAC('d'))
 
     expect(endState.dialogs.length).toBe(6);
     expect(endState.messages.length).toBe(4);
