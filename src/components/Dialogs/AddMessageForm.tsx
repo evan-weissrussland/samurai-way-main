@@ -8,12 +8,12 @@ import {FormDataType, LoginFormValuesTypeKeys} from "../LoginPage/LoginForm";
 export type FormDataProps = {
     newMessageBody: string
 }
-
+type Props = {}
 export type NewMessageFormValuesKeysType = Extract<keyof FormDataProps, string>
 
 const maxLength = maxLengthCreator(10)
 
-export const AddMessageForm: React.FC<InjectedFormProps<FormDataProps>> = ({handleSubmit}) => {
+export const AddMessageForm: React.FC<InjectedFormProps<FormDataProps, Props> & Props> = ({handleSubmit}) => {
     return <div className={s.textAreaAndButton}>
         <form onSubmit={handleSubmit}>
             <div>
@@ -25,7 +25,7 @@ export const AddMessageForm: React.FC<InjectedFormProps<FormDataProps>> = ({hand
         </form>
     </div>
 }
-export const AddMessageReduxForm = reduxForm<FormDataProps>({
+export const AddMessageReduxForm = reduxForm<FormDataProps, Props>({
     //для свойства form задаём уникальное имя, чтобы библиотека redux-form отличала формы этой компоненты от форм других компонет
     form: 'dialogAddMessageForm'
 })(AddMessageForm)

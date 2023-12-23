@@ -1,7 +1,7 @@
 import React, {lazy, Suspense} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
-import {Redirect, Route, Switch, withRouter} from "react-router-dom";
+import {Redirect, Route, RouteComponentProps, Switch, withRouter} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Settings} from "./components/Settings/Settings";
@@ -15,13 +15,15 @@ import {compose} from "redux";
 import {initializeAppTC} from "./redux/app-reducer";
 import {AppRootStateType} from "./redux/redux-store";
 import {Preloader} from "./components/common/Preloader/Preloader";
+import {OwnPropsType} from "./components/Profile/ProfileContainer";
+import {ProfileDataFormType} from "./components/Profile/ProfileInfo/ProfileDataForm";
 
 const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsContainer")
 );
 const ProfileAPIContainer = lazy(() => import("./components/Profile/ProfileContainer")
 );
 
-export class AppContainer extends React.Component<any, any> {
+export class AppContainer extends React.Component<PropsType, any> {
     catchAllUnhandledErrors = (reason:any, promis:Promise<any>) => {
         alert('Some error occured')
     }
@@ -71,6 +73,12 @@ componentWillUnmount() {
             </div>
         );
     }
+}
+
+type PropsType = RouteComponentProps<{}> & OwnProps
+type OwnProps = MapStateToPropsType & MapDispatchToPropsType
+type MapDispatchToPropsType = {
+    initializeAppTC: () => void
 }
 
 type MapStateToPropsType = {

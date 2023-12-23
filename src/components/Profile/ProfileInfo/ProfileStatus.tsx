@@ -16,10 +16,10 @@ type StateType = {
 }
 //---конец блока типизации---------
 
-//классовый компонент. Наследуется от React.Component
-export class ProfileStatus extends React.Component<ProfileStatusPropsType, any> {
+//классовый компонент. Наследуется от React.Component.  React.Component<X,Y>, где Х - это типизация пропсов, а Y - это типизация локального стэйта "state". Вместо Y можно писать "any", а типизировать "state"  напрямую
+export class ProfileStatus extends React.Component<ProfileStatusPropsType, StateType> {
 //классовый локальный стэйт. Аналог useState
-    state: StateType = {
+    state = {
         editMode: false,
         status: this.props.status ?? 'no status'
     }
