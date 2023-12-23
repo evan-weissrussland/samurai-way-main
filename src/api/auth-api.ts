@@ -1,33 +1,26 @@
 //объект с методом для проверки залогиненности на сервере
-import {instance, ResultCodeEnum, ResultCodeForCaptcha} from "./api";
+import {instance, APIResponseType, ResultCodeEnum, ResultCodeForCaptchaEnum} from "./api";
 
-type MeResponseType = {
-    data: {
+
+type MeResponseDataType = {
         id: number
         email:string
         login:string
-    }
-    resultCode: ResultCodeEnum;
-    messages: string[]
 }
 
-type LoginResponseType = {
-    data: {
+type LoginResponseDataType = {
         userId: number
-    }
-    resultCode: ResultCodeEnum | ResultCodeForCaptcha
-    messages: string[]
 }
 
 export const authAPI = {
     authMe() {
-        return instance.get<MeResponseType>(`/auth/me`).then(response => {
+        return instance.get<APIResponseType<MeResponseDataType>>(`/auth/me`).then(response => {
             return response.data
         })
 
     },
     login(email: string, password: string, rememberMe: boolean, captcha: null | string) {
-        return instance.post<LoginResponseType>(`/auth/login`, {email, password, rememberMe, captcha}).then(response =>
+        return instance.post<APIResponseType<LoginResponseDataType, ResultCodeEnum | ResultCodeForCaptchaEnum>>(`/auth/login`, {email, password, rememberMe, captcha}).then(response =>
             response.data)
     },
     logout() {
