@@ -1,17 +1,18 @@
-import {addPostAC, ProfilePageType, profileReducer, setUserProfileAC, updateUserStatusAC} from "./profile-reducer";
+import {actionsReducer, ProfilePageType, profileReducer} from "./profile-reducer";
 
+const profilePage: ProfilePageType = {
+    //------данные для MyPosts в папке Profile----------
+    posts: [
+        {id: 1, message: "Hi, how are you?", likesCount: 6},
+        {id: 2, message: "It's my first post", likesCount: 3}
+    ],
+    profile: null,
+    status: ''
+}
 test('correct profile-reducer add post', () => {
-    const profilePage: ProfilePageType = {
-        //------данные для MyPosts в папке Profile----------
-        posts: [
-            {id: 1, message: "Hi, how are you?", likesCount: 6},
-            {id: 2, message: "It's my first post", likesCount: 3}
-        ],
-        profile: null,
-        status:''
-    }
 
-    const endState = profileReducer(profilePage, addPostAC(';'))
+
+    const endState = profileReducer(profilePage, actionsReducer.addPostAC(';'))
 
     expect(endState.posts.length).toBe(3);
     expect(endState.posts[0].id).toBe(3);
@@ -20,17 +21,9 @@ test('correct profile-reducer add post', () => {
 });
 
 test('correct profile-reducer add new profile status', () => {
-    const profilePage: ProfilePageType = {
-        //------данные для MyPosts в папке Profile----------
-        posts: [
-            {id: 1, message: "Hi, how are you?", likesCount: 6},
-            {id: 2, message: "It's my first post", likesCount: 3}
-        ],
-        profile: null,
-        status:''
-    }
+
     const text = 'Vetal'
-    const endState = profileReducer(profilePage, updateUserStatusAC(text))
+    const endState = profileReducer(profilePage, actionsReducer.updateUserStatusAC(text))
 
     expect(endState.status).toBe('Vetal');
 });
@@ -59,17 +52,9 @@ test('correct profile-reducer add new profile', () => {
             large: null
         }
     }
-    const profilePage: ProfilePageType = {
-        //------данные для MyPosts в папке Profile----------
-        posts: [
-            {id: 1, message: "Hi, how are you?", likesCount: 6},
-            {id: 2, message: "It's my first post", likesCount: 3}
-        ],
-        profile: null,
-        status:''
-    }
 
-    const endState = profileReducer(profilePage, setUserProfileAC(Profile))
+
+    const endState = profileReducer(profilePage, actionsReducer.setUserProfileAC(Profile))
 
     expect(endState.profile?.userId).toBe(123);
     expect(endState.profile?.fullName).toBe('Aparysh');
