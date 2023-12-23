@@ -1,4 +1,4 @@
-import {authReducer, AuthType, setIsInitializedAC, setUserDataAC} from "./auth-reducer";
+import {actionsAuth, authReducer, AuthType} from "./auth-reducer";
 
 test('correct auth-reducer inizialized', () => {
     const initialState = {
@@ -8,7 +8,7 @@ test('correct auth-reducer inizialized', () => {
         isAuth: false,
         isInizialized: false
     } as AuthType
-    const endState = authReducer(initialState, setIsInitializedAC())
+    const endState = authReducer(initialState, actionsAuth.setIsInitializedAC())
     expect(endState.isInizialized).toBe(true);
 });
 
@@ -26,7 +26,7 @@ test('correct auth-reducer set User Data', () => {
         email: 'qwerty',
         login: 'Pepa'
     }
-    const endState = authReducer(initialState, setUserDataAC(authResponse, true))
+    const endState = authReducer(initialState, actionsAuth.setUserDataAC(authResponse, true))
     expect(endState.isAuth).toBe(true);
     expect(endState.email).toBe('qwerty');
     expect(endState.login).toBe('Pepa');
