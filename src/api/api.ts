@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UsersType} from "../redux/users-reducer";
 
 // переменная для сокращения синтаксиса запросов в методах API'шек. withCredentials=true определяет, нужно ли к каждому запросу на сервер цеплять куку
 export const instance = axios.create({
@@ -13,6 +14,19 @@ export enum ResultCodeEnum {
     Success = 0,
     Error = 1
 }
-export enum ResultCodeForCaptcha {
+export enum ResultCodeForCaptchaEnum {
     CaptchaIsRequired = 10
+}
+
+export type GetItemsType = {
+    items: UsersType[]
+    totalCount:number
+    error:string | null
+}
+
+export type APIResponseType<D = {}, RC = ResultCodeEnum> = {
+    data: D
+    messages: string[]
+    fieldsError: []
+    resultCode: RC;
 }
