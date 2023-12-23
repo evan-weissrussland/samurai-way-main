@@ -2,7 +2,7 @@ import React from 'react';
 import s from "../../Users/Users.module.css";
 import preloaderGif from "../../../images/Spinner-2.gif";
 
-export const Preloader = () => {
+export const Preloader:React.FC = () => {
     return (
         <div className={s.loader}> <img  src={preloaderGif} alt="loader"/></div>
     );

@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 import {OwnerProps} from "./HeaderContainer";
 
 
-export const Header: FC<OwnerProps> = ({isAuth, logout, login}) => {
+export const Header: FC<OwnerProps> = ({isAuth, logoutTC, login}) => {
     return (
         <header className={s.header}>
             <img src={image1} alt={''}/>
@@ -14,7 +14,7 @@ export const Header: FC<OwnerProps> = ({isAuth, logout, login}) => {
                     <div>
                         <span>You Loged as: </span>
                         <span className={s.propsLogin}>{login}</span>
-                        <button onClick={logout}>logout</button>
+                        <button onClick={logoutTC}>logout</button>
                     </div> :
                     <NavLink activeClassName={s.navLinkLogin} to={`/login`}>Login</NavLink>}
             </div>

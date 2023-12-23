@@ -7,11 +7,11 @@ import {AddPostReduxForm, FormDataType} from "./AddPostForm";
 //------------компонента MyPosts--------------
 
 export const MyPosts: React.FC<MypostProps> = (props) => {
-    const {profilePage} = props
+    const {posts} = props
 
     //------------метод map--------------
 
-    const postsElements = profilePage.posts.map(p => {
+    const postsElements = posts.map(p => {
         return (
             <Post key={p.id} message={p.message} likesCount={p.likesCount}/>
         )

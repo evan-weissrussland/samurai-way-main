@@ -6,11 +6,11 @@ import {AppRootStateType} from "../../redux/redux-store";
 import {compose} from "redux";
 
 //классовый компонент
-export class HeaderAPIContainer extends React.Component<any, any> {
+export class HeaderAPIContainer extends React.Component<OwnerProps, any> {
 
 //метод возвращающий jsx-разметку
     render() {
-        return <Header logout={this.props.logoutTC} isAuth={this.props.isAuth} login={this.props.login}/>
+        return <Header logoutTC={this.props.logoutTC} isAuth={this.props.isAuth} login={this.props.login}/>
     }
 }
 
@@ -19,7 +19,7 @@ type MapStateToPropsType = {
     login: string | null
 }
 type MapDispatchToPropsType = {
-    logout: () => void
+    logoutTC: () => void
 }
 
 export type OwnerProps = MapStateToPropsType & MapDispatchToPropsType

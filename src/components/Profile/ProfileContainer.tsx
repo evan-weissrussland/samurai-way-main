@@ -33,20 +33,20 @@ export class ProfileContainer extends React.Component<PropsType, any> {
 //если в URL id юзера не было, но есть сохранённый в локал сторэйдж id юзера, то запрашиваем его профиль и статус
             this.props.getProfileUserTC(JSON.parse(localStorageUserId))
             this.props.getStatusUserTC(JSON.parse(localStorageUserId))
-        } else if (authorizedUserId){
+        } else if (authorizedUserId) {
 //если нет в URL id юзера и нет сохранённого id в локал сторэйдж, то в санку отправляем id своего профиля
             this.props.getProfileUserTC(authorizedUserId)
             this.props.getStatusUserTC(authorizedUserId)
         } else {
-           history.push('/login')
+            history.push('/login')
         }
     }
 
 //метод отрабатывает при перерендере коипонента
-    componentDidUpdate() {
+    componentDidUpdate(preV:PropsType, prevSt:PropsType) {
         const {myProfileId, match} = this.props
-if (myProfileId && match.params.userId === myProfileId.toString()) {
-    localStorage.setItem('userId', JSON.stringify(match.params.userId))
+        if (myProfileId && match.params.userId === myProfileId.toString()) {
+            localStorage.setItem('userId', JSON.stringify(match.params.userId))
         }
     }
 
@@ -54,7 +54,9 @@ if (myProfileId && match.params.userId === myProfileId.toString()) {
     render() {
         const {profile} = this.props
         return (
-            <Profile {...this.props} isOwner={+this.props.match.params.userId === this.props.myProfileId || this.props.profile?.userId === this.props.myProfileId } profile={profile}/>
+            <Profile {...this.props}
+                     isOwner={+this.props.match.params.userId === this.props.myProfileId || this.props.profile?.userId === this.props.myProfileId}
+                     profile={profile}/>
         );
     }
 }
@@ -79,19 +81,19 @@ export type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType & IsOwne
 
 //типизация стэйта connect'а
 type MapStateToPropsType = {
-    profile:ProfileType | null
-    status:string
-    myProfileId:number | null
+    profile: ProfileType | null
+    status: string
+    myProfileId: number | null
     authorizedUserId: number | null
     isAuth: boolean
 }
 
 //типизация санок connect'а
 type MapDispatchToPropsType = {
-    getProfileUserTC: (paramsUserId:number) => void
-    getStatusUserTC: (userId:number) => void
-    updateStatusUserTC: (status:string) => void
-    savePhotoTC: (image:File) => void
+    getProfileUserTC: (paramsUserId: number) => void
+    getStatusUserTC: (userId: number) => void
+    updateStatusUserTC: (status: string) => void
+    savePhotoTC: (image: File) => void
     updateProfileUserTC: (profile: ProfileDataFormType) => Promise<void>
 
 }
@@ -110,12 +112,18 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 }
 
 // оборачиваем компонент в withRouter для вытягивания значения из URL
-     // const WithUrlDataContainerComponent = withRouter(ProfileContainer)
+// const WithUrlDataContainerComponent = withRouter(ProfileContainer)
 // здесь ХОК: передаём компонент, он возвращает изменённый компонент. Нужен ХОК для исключения дублирования кода
-     // export const ProfileAPIContainer = withAuthRedirect(connect(mapStateToProps, {getProfileUserTC})(WithUrlDataContainerComponent))
+// export const ProfileAPIContainer = withAuthRedirect(connect(mapStateToProps, {getProfileUserTC})(WithUrlDataContainerComponent))
 
 // функция compose: позволяет записать все компоненты-обёртки в одну строку. ProfileContainer оборачивается в withRouter, поверх этого в connect и далее передаётся в ХОК вместе с пропсами из connect'а и withRouter'а.
-const ProfileAPIContainer = compose<React.ComponentType>(connect(mapStateToProps,{getProfileUserTC,getStatusUserTC,updateStatusUserTC, savePhotoTC, updateProfileUserTC}),withRouter,withAuthRedirect)(ProfileContainer)
+const ProfileAPIContainer = compose<React.ComponentType>(connect(mapStateToProps, {
+    getProfileUserTC,
+    getStatusUserTC,
+    updateStatusUserTC,
+    savePhotoTC,
+    updateProfileUserTC
+}), withRouter, withAuthRedirect)(ProfileContainer)
 export default ProfileAPIContainer
 
 //connect нужен для вытягивания из редакса стэйта и диспатча

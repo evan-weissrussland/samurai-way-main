@@ -1,8 +1,9 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
-import {createField, Input, Textarea} from "../../common/FirmsControl/FormsControls";
+import {createField, GetStringKeys, Input, Textarea} from "../../common/FirmsControl/FormsControls";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {ProfileType} from "../../../redux/profile-reducer";
+import {FormDataType} from "../MyPosts/AddPostForm";
 
 //типизация данных, собираемых функцией handleSubmit. Каждое имя ключа взято из атрибута "name" каждого Field'а
 export type ProfileDataFormType = {
@@ -14,6 +15,9 @@ export type ProfileDataFormType = {
 export type ProfileDataFormProps = {
     profile: ProfileType
 }
+
+export type ProfileDataFormValuesTypeKeys = GetStringKeys<ProfileDataFormType>
+
 const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType, ProfileDataFormProps> & ProfileDataFormProps> = ({handleSubmit, error, profile}) => {
     return <form onSubmit={handleSubmit}>
         <button>Save</button>
@@ -23,19 +27,19 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType, ProfileDa
         <div>
             <span className={s.descriptionInfo}>Обо мне:</span>
             <span className={s.descriptionfromProfile}>
-                {createField('AboutMe', 'aboutMe', [], Input)}
+                {createField<ProfileDataFormValuesTypeKeys>('AboutMe', 'aboutMe', [], Input)}
             </span>
         </div>
         <div>
             <span className={s.descriptionInfo}>В поиске работы:</span>
             <span className={s.descriptionfromProfile}>
-                {createField(undefined, 'lookingForAJob', undefined, Input, {type: 'checkbox'})}
+                {createField<ProfileDataFormValuesTypeKeys>(undefined, 'lookingForAJob', undefined, Input, {type: 'checkbox'})}
             </span>
         </div>
         <div>
             <span className={s.descriptionInfo}>Стек технологий: </span>
             <span className={s.descriptionfromProfile}>
-                {createField('JobDescription', 'lookingForAJobDescription', [], Textarea)}
+                {createField<ProfileDataFormValuesTypeKeys>('JobDescription', 'lookingForAJobDescription', [], Textarea)}
             </span>
         </div>
         <div>Contacts: {

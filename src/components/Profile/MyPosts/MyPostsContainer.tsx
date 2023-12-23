@@ -1,5 +1,5 @@
 import React from "react";
-import {actionsReducer, ProfilePageType} from "../../../redux/profile-reducer";
+import {actionsReducer, MyPostType, ProfilePageType} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../../redux/redux-store";
@@ -7,7 +7,7 @@ import {Dispatch} from "redux";
 
            //---блок типизации----
 type MapStateToPropsType = {
-    profilePage:ProfilePageType
+    posts:MyPostType[]
 }
 
 type MapDispatchToPropsType = {
@@ -19,7 +19,7 @@ export type MypostProps = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppRootStateType):MapStateToPropsType => {
     return {
-        profilePage: state.profilePage
+        posts: state.profilePage.posts
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
