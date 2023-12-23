@@ -1,17 +1,9 @@
-import {AppThunk} from "./redux-store";
+import {AppThunk, InferActionsTypes} from "./redux-store";
 import {stopSubmit} from "redux-form";
 import {authAPI} from "../api/auth-api";
 import {securityAPI} from "../api/security-api";
-import {ResultCodeEnum, ResultCodeForCaptcha} from "../api/api";
-
-//типизация ответа с сервера по запросу залогинен ли я на сервере
-export type AuthResponseType = {
-    id: number | null
-    email: string | null
-    login: string | null
-}
-//склейка типизации AuthResponseType с добавлением свойства isAuth, т.к. это свойство не приходит с сервера, но должно использоваться в нашем коде. AuthType используется , как типизация инициализационного стэйта
-export type AuthType = AuthResponseType & { isAuth: boolean, isInizialized: boolean, captchaUrl: string | null }
+import {ResultCodeEnum, ResultCodeForCaptchaEnum} from "../api/api";
+import {actionsUsers} from "./users-reducer";
 
 // инициализационный стэйт
 export const initialState = {
@@ -23,29 +15,14 @@ export const initialState = {
     captchaUrl: null
 } as AuthType
 
-//типизация инициализационного стэйта для редусера
-export type InitialStateType = typeof initialState
-
-//переменная для свойства type action'а
-const SET_USER_DATE = 'AUTH/SET-USER-DATE'
-const SET_IS_INITIALIZED = 'AUTH/SET-IS-INITIALIZED'
-const GET_CAPTCHA_URL_SUCCESS = 'AUTH/GET-CAPTCHA-URL-SUCCESS'
-
-//типизация action'ов
-type SetUserDataActionType = ReturnType<typeof setUserDataAC>
-type SetIsInitializedActionType = ReturnType<typeof setIsInitializedAC>
-type GetCaptchaUrlSuccessActionType = ReturnType<typeof getCaptchaUrlSuccessAC>
-
-export type authReducerType = SetIsInitializedActionType | SetUserDataActionType | GetCaptchaUrlSuccessActionType
-
 //редусер
 export const authReducer = (state: InitialStateType = initialState, action: authReducerType): InitialStateType => {
     switch (action.type) {
-        case SET_USER_DATE:
+        case "AUTH/SET_USER_DATE":
             return {...state, ...action.payload, isAuth: action.isAuth}
-        case SET_IS_INITIALIZED:
+        case "AUTH/SET_IS_INITIALIZED":
             return {...state, isInizialized: true}
-        case GET_CAPTCHA_URL_SUCCESS:
+        case "AUTH/GET_CAPTCHA_URL_SUCCESS":
             return {...state, captchaUrl: action.payload.captchaUrl}
         default:
             return state
@@ -53,27 +30,28 @@ export const authReducer = (state: InitialStateType = initialState, action: auth
 }
 
 //action-Creators
-export const setUserDataAC = (payload: AuthResponseType, isAuth: boolean) => {
-    return {type: SET_USER_DATE, payload, isAuth} as const
+export const actionsAuth = {
+     setUserDataAC: (payload: AuthResponseType, isAuth: boolean) => {
+        return {type: 'AUTH/SET_USER_DATE', payload, isAuth} as const
+    },
+     setIsInitializedAC: () => {
+        return {type: 'AUTH/SET_IS_INITIALIZED', isInizialized: true} as const
+    },
+     getCaptchaUrlSuccessAC: (captchaUrl: string) => {
+        return {type: 'AUTH/GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}} as const
+    }
 }
-export const setIsInitializedAC = () => {
-    return {type: SET_IS_INITIALIZED, isInizialized: true} as const
-}
-export const getCaptchaUrlSuccessAC = (captchaUrl: string) => {
-    return {type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}} as const
-}
-
 
 //thunk Creators
 export const setAuthUserDataTC = (): AppThunk<Promise<void>> => {
     return async (dispatch) => {
         try {
             const data = await authAPI.authMe()
-            data.resultCode === ResultCodeEnum.Success && dispatch(setUserDataAC(data.data, true))
+            data.resultCode === ResultCodeEnum.Success && dispatch(actionsAuth.setUserDataAC(data.data, true))
             // return data
         } catch (e) {
         } finally {
-            dispatch(setIsInitializedAC())
+            dispatch(actionsAuth.setIsInitializedAC())
         }
     }
 }
@@ -85,7 +63,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
             if (data.resultCode === ResultCodeEnum.Success) {
                 dispatch(setAuthUserDataTC())
             } else {
-                if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
+                if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
                     dispatch(getCaptchaUrl())
                 }
                 const message = data.messages.length > 0 ? data.messages[0] : 'SOme error'
@@ -101,7 +79,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
         } catch (e) {
 
         } finally {
-            dispatch(setIsInitializedAC())
+            dispatch(actionsAuth.setIsInitializedAC())
         }
     }
 }
@@ -110,7 +88,7 @@ export const getCaptchaUrl = (): AppThunk => {
     return async (dispatch) => {
         try {
             const data = await securityAPI.getCaptchaUrl()
-            dispatch(getCaptchaUrlSuccessAC(data.url))
+            dispatch(actionsAuth.getCaptchaUrlSuccessAC(data.url))
         } catch (e) {
         }
     }
@@ -120,11 +98,26 @@ export const logoutTC = (): AppThunk => {
     return async (dispatch) => {
         try {
             const data = await authAPI.logout()
-            data.resultCode === ResultCodeEnum.Success && dispatch(setUserDataAC({id: null, email: null, login: null}, false))
+            data.resultCode === ResultCodeEnum.Success && dispatch(actionsAuth.setUserDataAC({id: null, email: null, login: null}, false))
         } catch (e) {
 
         } finally {
-            dispatch(setIsInitializedAC())
+            dispatch(actionsAuth.setIsInitializedAC())
         }
     }
 }
+
+//типизация ответа с сервера по запросу залогинен ли я на сервере
+export type AuthResponseType = {
+    id: number | null
+    email: string | null
+    login: string | null
+}
+//склейка типизации AuthResponseType с добавлением свойства isAuth, т.к. это свойство не приходит с сервера, но должно использоваться в нашем коде. AuthType используется , как типизация инициализационного стэйта
+export type AuthType = AuthResponseType & { isAuth: boolean, isInizialized: boolean, captchaUrl: string | null }
+
+//типизация инициализационного стэйта для редусера
+export type InitialStateType = typeof initialState
+
+//типизация action'ов
+export type authReducerType = InferActionsTypes<typeof actionsAuth>
