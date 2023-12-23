@@ -1,4 +1,4 @@
-import {AppThunk} from "./redux-store";
+import {AppThunk, InferActionsTypes} from "./redux-store";
 import {setAuthUserDataTC} from "./auth-reducer";
 
 
@@ -7,21 +7,10 @@ export const initialState = {
     isInizialized: false
 }
 
-//типизация инициализационного стэйта для редусера
-export type InitialStateType = typeof initialState
-
-//переменная для свойства type action'а
-const INITIALIZED_SUCCESS = 'APP/INITIALIZED-SUCCESS'
-
-//типизация action'а
-type InitializedSuccesActionType = ReturnType<typeof initializedSuccessAC>
-
-export type appReducerType = InitializedSuccesActionType
-
 //редусер
 export const appReducer = (state: InitialStateType = initialState, action: appReducerType): InitialStateType => {
     switch (action.type) {
-        case INITIALIZED_SUCCESS:
+        case "APP/INITIALIZED_SUCCESS":
             return {...state, isInizialized: true}
         default:
             return state
@@ -29,15 +18,25 @@ export const appReducer = (state: InitialStateType = initialState, action: appRe
 }
 
 //action-Creators
-export const initializedSuccessAC = () => {
-    return {type: INITIALIZED_SUCCESS, isInizialized: true} as const
+export const actionsApp = {
+    initializedSuccessAC: () => {
+        return {type: 'APP/INITIALIZED_SUCCESS'} as const
+    }
 }
 //thunk Creators
 export const initializeAppTC = (): AppThunk => {
     return (dispatch) => {
         const resp = dispatch(setAuthUserDataTC())
         resp.then(() => {
-            dispatch(initializedSuccessAC())
+            dispatch(actionsApp.initializedSuccessAC())
         })
     }
 }
+
+
+
+//типизация инициализационного стэйта для редусера
+export type InitialStateType = typeof initialState
+
+//типизация action'а
+export type appReducerType = InferActionsTypes<typeof actionsApp>
