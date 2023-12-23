@@ -1,6 +1,8 @@
-import {authAPI, securityAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
 import {stopSubmit} from "redux-form";
+import {authAPI} from "../api/auth-api";
+import {securityAPI} from "../api/security-api";
+import {ResultCodeEnum, ResultCodeForCaptcha} from "../api/api";
 
 //типизация ответа с сервера по запросу залогинен ли я на сервере
 export type AuthResponseType = {
@@ -67,7 +69,7 @@ export const setAuthUserDataTC = (): AppThunk<Promise<void>> => {
     return async (dispatch) => {
         try {
             const data = await authAPI.authMe()
-            data.resultCode === 0 && dispatch(setUserDataAC(data.data, true))
+            data.resultCode === ResultCodeEnum.Success && dispatch(setUserDataAC(data.data, true))
             // return data
         } catch (e) {
         } finally {
@@ -80,10 +82,10 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
     return async (dispatch) => {
         try {
             const data = await authAPI.login(email, password, rememberMe, captcha)
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodeEnum.Success) {
                 dispatch(setAuthUserDataTC())
             } else {
-                if (data.resultCode === 10) {
+                if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
                     dispatch(getCaptchaUrl())
                 }
                 const message = data.messages.length > 0 ? data.messages[0] : 'SOme error'
@@ -118,7 +120,7 @@ export const logoutTC = (): AppThunk => {
     return async (dispatch) => {
         try {
             const data = await authAPI.logout()
-            data.resultCode === 0 && dispatch(setUserDataAC({id: null, email: null, login: null}, false))
+            data.resultCode === ResultCodeEnum.Success && dispatch(setUserDataAC({id: null, email: null, login: null}, false))
         } catch (e) {
 
         } finally {
