@@ -1,13 +1,40 @@
-
+* {
+    box-sizing: border-box;
+}
 .formControl.error input, .formControl.error textarea {
     border: 2px solid red;
+    box-shadow: 0 0 20px red;
 }
 
 .formControl.error span {
     color: red
 }
 
-.formSummaryError {
-    border: 2px solid red;
-    padding: 5px;
+.divField, .divFieldForCheckbox {
+    display: inline-flex;
+    /*border: 3px solid black;*/
+    margin-bottom: 20px;
+    align-items: center;
+}
+.divField {
+    height: 90px;
+    align-items: flex-start;
+}
+
+.input {
+    outline: none;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    padding: 10px 5px;
+    font-size: 30px;
+}
+
+.checkbox {
+}
+
+.label {
+    font-size: 30px;
+    /*border: 2px solid red;*/
+    margin-left: 10px;
+    cursor: pointer;
 }

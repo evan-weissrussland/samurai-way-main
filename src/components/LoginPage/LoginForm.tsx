@@ -1,8 +1,8 @@
 import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, GetStringKeys, Input} from "../common/FirmsControl/FormsControls";
 import {required} from "../../utils/validators/validators";
-import s from '../common/FirmsControl/FormsControls.module.css'
+import s from './LoginPage.module.css'
 
 //типизация данных, собираемых функцией handleSubmit. Каждое имя ключа взято из атрибута "name" каждого Field'а
 export type LoginFormDataType = {
@@ -18,7 +18,7 @@ export type LoginFormValuesTypeKeys = GetStringKeys<LoginFormDataType>
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, Props> & Props> = ({handleSubmit, error, captchaUrl}) => {
     return (
-        <form onSubmit={handleSubmit}>
+        <form className={s.form} onSubmit={handleSubmit}>
 
             {createField<LoginFormValuesTypeKeys>('Email', 'email', [required], Input)}
 
@@ -50,7 +50,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, Props> & Props> =
                     component={Input}/>
                 remember me
             </div>*/}
-            {captchaUrl && <img src={captchaUrl} alt=""/>}
+            {captchaUrl && <img className={s.imgCaptcha} src={captchaUrl} alt=""/>}
             {
                 captchaUrl && createField<LoginFormValuesTypeKeys>('captcha', 'captcha', [required], Input)
             }
@@ -58,7 +58,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, Props> & Props> =
                 {error}
             </div>}
             <div>
-                <button>
+                <button className={s.button}>
                     login
                 </button>
             </div>

@@ -31,16 +31,23 @@ const FormControl: React.FC<WrappedFieldProps> = (
 
 
 export function createField<FormKeysType extends string>(placeholder: string ='', name: FormKeysType, validators: FieldValidatorType[] = [], component: React.ComponentType<WrappedFieldProps>, type?: { type: string }, text:string = '') {
+    const styleField = type?.type === 'checkbox' ? s.checkbox : s.input
+    const styleDivField = type?.type === 'checkbox' ? s.divFieldForCheckbox : s.divField
     return (
-        <div>
+        <div className={styleDivField}>
             <Field
+                autoComplete={'off'}
+                className={styleField}
+                id={name+'1'}
+                pristine={true}
                 name={name}
                 placeholder={placeholder}
                 component={component}
                 validate={validators}
                 {...type}
             />
-            {text}
+            {type?.type === 'checkbox' && <label className={s.label} htmlFor={name+'1'}>{text}</label>}
+
         </div>
     )
 }
